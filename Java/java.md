@@ -19,25 +19,26 @@
     2. 使用 String 类的 concat() 方法。
 * 使用 + 进行连接，不仅可以连接字符串，也可以连接其他类型。但是要求进行连接时至少有一个参与连接的内容是字符串类型。
      ```java
-     public class Test {
-        public static void main(String[] args){
-            String s0 = new String("Hello ");
-            String s1 = "World" + "!";  //+号连接字符串
-            //s1 = 1;     //错误: 不兼容的类型: int无法转换为String
-            String s2 = "World" + "!"+1;//但是连接部分中如果有字符串，
-                        //就可以将int类型的自动转换成String并进行连接
-            String s3 = s0.concat(s1);  //concat()方法连接
-            //s2.concat(1);    //.concat()方法中的参数只能String类型
-            System.out.println(s1);
-            System.out.println(s2);
-            System.out.println(s3);
+    public class Test {
+    public static void main(String[] args){
+        String s0 = new String("Hello ");
+        String s1 = "World" + "!";  //+号连接字符串
+        //s1 = 1;     //错误: 不兼容的类型: int无法转换为String
+        String s2 = "World" + "!"+1;//但是连接部分中如果有字符串，
+                    //就可以将int类型的自动转换成String并进行连接
+        String s3 = s0.concat(s1);  //concat()方法连接
+        //s2.concat(1);    //.concat()方法中的参数只能String类型
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
         }
     }
-    /*执行结果：
-    World!
-    World!1
-    Hello World!
-    */
+        /*执行结果：
+        World!
+        World!1
+        Hello World!
+        */  
+    
      ```  
  * charAt() 方法的作用是按照索引值（规定字符串中第一个字符的索引值是 0，第二个字符的索引值是 1，依次类推），获得字符串中的指定字符。
  * 有关String常用提取方法：
@@ -53,9 +54,11 @@
          System.out.println("从位置3开始到结束的字符串"+s.substring(3));    //提取从位置索引开始到结束的字符串
          System.out.println("从位置3开始到6之间的字符串"+s.substring(3,6)); //提取 beginindex 和 endindex 之间的字符串部分
          //在字符串中，第一个字符的索引为 0，子字符串包含 beginindex 的字符，但不包含 endindex 的字符。
-    }
-}
-     ```
+            }
+        }  
+    
+    ```
+     
 * 两种自增自减运算：
     1. 前缀自增自减法 (++i,--i): 先进行自增或者自减运算，再进行表达式运算。
     2. 后缀自增自减法 (i++,i--): 先进行表达式运算，再进行自增或者自减运算
@@ -77,17 +80,18 @@
         //按位右移，左操作数按位右移右操作数指定的位数
         System.out.println("a >>> 2 = " + (a >>> 2));
         //按位右移补零，左操作数的值按右操作数指定的位数右移，移动得到的空位以零填充
-    }
-}
-    /*结果：
-    a & b = 12
-    a | b = 61
-    a ^ b = 49
-    ~a = -61
-    a << 2 = 240
-    a >> 2 = 15
-    a >>> 2 = 15
-    */
+            }
+        }
+        /*结果：
+        a & b = 12
+        a | b = 61
+        a ^ b = 49
+        ~a = -61
+        a << 2 = 240
+        a >> 2 = 15
+        a >>> 2 = 15
+        */  
+    
     ```
 * ^	异或操作符,如果两个操作数逻辑相同，则结果为假，否则为真
 * java中`return;`还可以用做在循环中跳出程序
@@ -134,7 +138,7 @@
 * 通常抛出异常后，还需要将异常捕获。使用 try 和 catch 语句块来捕获异常，有时候还会用到 finally。
 对于上述三个关键词所构成的语句块，try 语句块是必不可少的，catch 和 finally 语句块可以根据情况选择其一或者全选。你可以把可能发生错误或出现问题的语句放到 try 语句块中，将异常发生后要执行的语句放到 catch 语句块中，而 finally 语句块里面放置的语句，不管异常是否发生，它们都会被执行。
 你可能想说，那我把所有有关的代码都放到 try 语句块中不就妥当了吗？可是你需要知道，捕获异常对于系统而言，其开销非常大，所以应尽量减少该语句块中放置的语句。
-    ```
+    ```java
     public class CatchException {
     public static void main(String[] args) {
         try {
@@ -159,19 +163,20 @@
         } finally {
             // 下面定义了一个finally语句块
             System.out.println("I am finally block.");
+            }
         }
     }
-}
-/*执行结果：
-I am try block.
-I am catch block.
-java.lang.ClassNotFoundException:
-        at java.lang.Class.forName0(Native Method)
-        at java.lang.Class.forName(Class.java:264)
-        at CatchException.main(CatchException.java:8)
-Goodbye! Catch block.
-I am finally block.
-*/
+    /*执行结果：
+    I am try block.
+    I am catch block.
+    java.lang.ClassNotFoundException:
+            at java.lang.Class.forName0(Native Method)
+            at java.lang.Class.forName(Class.java:264)
+            at CatchException.main(CatchException.java:8)
+    Goodbye! Catch block.
+    I am finally block.
+    */  
+
     ```
     
-* 
+*************** 

@@ -1,7 +1,7 @@
 ### 在GitHub上快速找到需要找到的东西也是一项技能！
 
 感谢[知乎的回答](https://zhuanlan.zhihu.com/p/112895187)给我的启发
-![image](https://w.wallhaven.cc/full/ym/wallhaven-ymlrdl.jpg)
+![image](https://w.wallhaven.cc/full/gj/wallhaven-gjy7je.jpg)
 下面是我根据教程总结的几个搜索方法吧：
 
 以搜索spider为例

@@ -3,7 +3,7 @@
 * @Author: PeakofMountains
 * @Version: 1.1
 * @Date: 2020-5-19
-* @Description: Auto play piano game in 4399
+* @Description: Auto play piano game. 本程序以4399中的别再踩白块了游戏作为例子
 ##############################################################################'''
 import pyautogui    # 实现自动点击
 import time         # 实现延时

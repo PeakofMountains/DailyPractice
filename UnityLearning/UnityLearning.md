@@ -29,5 +29,16 @@
 * 视图的两种模式：ISO——正交视角(平面感觉)，Persp——透视观察模式——3D视角(近大远小)
 * 场景Scene(游戏对象的集合)，作为文件储存的时候后缀为.unity,为Unity的图标。Ctrl+S保存的就是场景。Ctrl+N就是新创建一个场景。
 * 组件：Transform变换组件决定物体的位置角度比例，Mesh Filter网格过滤器，获取网格信息，Mesh Renderer网格渲染，才能看见。
+* 对象在创建的时候默认是在世界坐标的原点创建
+* 若要将两个或多个对象捆绑在一起作为一个整体，可以让其中一个作为父对象，其他作为子对象，当移动父对象的时候子对象也跟着一起移动，当然也可以创建一个空的对象让其他所有的对象作为此对象的子对象，这样当父对象移动的时候，同样其余也跟着一起移动，父子对象关系的创建可以直接在Hierarchy窗口通过拖动对象A到对象B实现B作为A的父对象。
+* 当建立父子对象关系之后，子对象的position就是相对于父对象的position，而父对象的position仍然是相对世界坐标而言的。当使用空对象作为其余的父对象的时候要确定这个空对象的位置在哪里，因为他是看不见的，在作为判定标准的时候要格外小心。
+* 在父子对象捆绑完毕之后给所以子对象全选中，点击右边transform的设置图标，执行reset。让对象transform更新一下，让其都变成与父对象的相对位置。
+* 一般让对象都成为空对象的子对象，把对象的行为都绑在父物体上，这样当子对象要更换模型的时候这些行为就不用再更改了。
+* material其实本质上是shader的实例，在Project面板右键然后create选项选中material可以创建自己的material，在创建material之后点击自己创建的material，在右边Inspector处有Albedo选项，左面的框就是贴图的地方，右面的框是取色的地方，要进行设置，在设置完毕之后可以将自己的material拖动到想要着色的对象名上，也可以点击想要着色的对象，将material拖动到对象的Mech Renderer组件下的Materials地方。不能将material用于给空的对象着色，因为它没有Mech Renderer组件，不具有materials属性。给对象改颜色其实也可以直接点击对象名，在右边的Albedo直接修改。
+* 右边material下有个Rendering Mode渲染模式，一般直接创建的立体是默认的Default Material不允许修改Rendering Mode等，此时就可以用自己创建的Material，这样这些对方就可以选择更改了。右边material下有个Rendering Mode渲染模式，其中cut out选项就指不显示透明通道的渲染，其中Transparent选项就是透明渲染，当然光设置为透明渲染还不行，如果要达到自己需要的透明目标还需要在Albedo处设置A的数值(即透明度)，其中Fade选项就是淡入淡出效果，最后也得在Albedo处设置A的数值(即透明度)。
+* Camera组件，作为光锥捕获画面给玩家，Audio Listener组件捕获声音给玩家。
+* Camera组件里的Clear Flag就是处理场景的空白部分，其中选项SkyBox天空盒用于包装模拟天空材质，使用天空盒，方式一：Camera中添加组件Skybox，方法二：光照窗口Window-Lighting-Environment Lighting-Skybox，方法二可将天空盒作为反射源将天空颜色反射到物体身上看起来更逼真。
+* Camera组件里的Culling Mask里面就是想让摄像机能看见的东西。
+* Camera组件里的Projection就是显示的模式，Perspective就是显示有近大远小的3D效果，Orthographic是2D效果。
 
 -----------------------------------------------------------

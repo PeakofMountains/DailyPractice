@@ -49,3 +49,82 @@
 GPU的过程，通俗讲，每帧调用显卡渲染物体的次数，要尽量减少Draw Call。
 * CPU的顶点处理：接收模型顶点数据，坐标系转换。CPU的图元装配：组装面，连接相邻的顶点,绘制为三角面。CPU光栅化：计算三角面上的像素,并为后面着色阶段提供合理的插值参数。CPU像素处理对每个像素区域进行着色。写入到缓存中。CPU缓存：一个存储像素数据的内存块，最重要的缓存是帧缓存与深度缓存。帧缓存:存储每个像素的色彩,即渲染后的图像。帧缓存常常在显存中, 显卡不断读取并输出到屏幕中。深度缓存z-buffer :存储像素的深度信息,即物体到摄像机的距离。光栅化时便计算各像素的深度值,如果新的深度值比现有值更近，则像素颜色被写到帧缓存,并替换深度缓存。
 ---------------------------------------------------------
+### Day 2
+
+* 即时遮挡剔除Instant Occlusion Culling，遮挡剔除:当物体被送进渲染流水线之前，将摄像机视角内看不到的物体进行剔除,从而减少了每帧渲染数据量, 提高渲染性能。
+* 多细节层次Levels of DetailLOD技术指根据物体模型的节点在显示环境中所处的位置和重要度，决定物体渲染的资源分配,降低非重要物体的面数和细节度,从而获得高效率的渲染运算。
+* Lighting Setting是在Window-Rendering-Lighting Settings打开。
+* 光照系统：  
+Global Illumination简称GI ,即全局光照。能够计算直接光、间接光、环境光以及反射光的光照系统。通过GI算法可以使渲染出来的光照效果更为真实丰富。  
+Shadow Type阴影类型: Hard 硬阴影、Soft 软阴影、Strength硬度:阴影的黑暗程度。Resolution分辨率:设置阴影的细节程度。Bias偏移: 物体与阴影的偏移。通过Mesh Renderer组件启用禁用阴影 ，Cast /Receive Shadows当前物体是否投射/接收阴影，Off不投射阴影, On投射阴影, Two Sided双面阴影，Shadows Only隐藏物体只投射阴影，阴影剔除:设置显示阴影的距离Edit- > Project Settings- >Quality-> Shadows Disdance
+* 环境光照：  
+作用于场景内所有物体的光照,通过Environment Lighting中Ambient控制。Ambient Source环境光源，Skybox通过天空盒颜色设置环境光照，Gradient梯度颜色，Sky天空颜色、Equator 地平线颜色、Ground 地面颜色Ambient Color纯色Ambient Intensity环境光强度Ambient GI环境光GI模式Realtime实时更新，环境光源会改变选择此项。Backed烘焙，环境光源不会改变选择此项。
+* 反射光照：  
+根据天空盒或立方体贴图计算的作用于所有物体的反射效果，通过Environment Lighting中Reflection控制。Reflection Source反射源Skybox天空盒Resolution分辨率Compression 是否压缩Custom自定义
+Cubemap立方体贴图Reflection Intensity反射强度Reflection Bounces使用Reflection Probe后允许不同游戏对象间来回反弹的次数。  
+* 间接光照：  
+物体表面在接受光照后反射出来的光。
+通过Light组件中Bounce Intensity反弹强度控制。
+可以通过Scene面板Irradiance模式查看间接光照。
+注意:
+只有标记Lightmaping Static的物体才能产生间接反弹光照。
+设置间接光照的之前需要将不移动的物体在右面的Inspector面板里static打上勾作为静态物体。Unity的间接光计算很复杂。
+* 实时GI：  
+Realtime GI 
+所谓"实时"是指在运行期间任意修改光源,而所有的变化可
+以立即更新。
+正是由于Unity 5引入了行业领先的实时全局光照技术
+Enlighten系统,才可以在运行时产生间接光照,使场景更
+为真实丰富。
+操作步骤:
+1.游戏对象设置为Lightmaping Static
+2.启用Lighting面板的Precomputed Realtime GI
+3.点击Build按钮(如果勾选Auto编辑器会自动检测场景
+的改动修复光照效果)
+* 在Edit-preference-GI Cache可查看缓存和更改缓存的位置。
+* 烘焙Lightmap：
+当场景包含大量物体时,实时光照和阴影对游戏性能有很大影响。使用烘焙技术,可以将光线效果预渲染成贴图再作用到物体上模拟光影,从而提高性能。适用于在性能较低的设备上运行的程序。设置之前也需要将静止物体设为static，烘焙只能针对静态的物体。
+* 光源侦测Light Probes  
+由于LightMapping只能作用于static物体，所以导致运动的物体与场景中的光线无法融合在一起,显得非常不真实。而Light Probes组件可以通过Probe收集光影信息,然后对运动物体邻近的几个Probe进行插值运算,最后将光照作用到物体上。
+* 步骤
+1.创建游戏对象Light Probe Group。
+2.添加侦测小球Add Probe。
+3.点击Build按钮。( 如果勾选Auto编辑器会自动检测
+场景的改动修复光照效果)
+4.勾选需要侦测物体的MeshRenderer组件的Use Light
+Probes属性。  
+* 声音：  
+Unity支持的音频文件格式:
+mp3，ogg，wav，
+aif,mod,it,s3m,xm。
+声音分为2D、3D两类
+3D声音: 有空间感,近大远小。
+2D声音:适合背景音乐。
+在场景中产生声音,主要依靠两个重要组件:
+Audio Listener音频监听器:接收场景中音频源Au
+Source发出的声音，通过计算机的扬声器播放声音。
+Audio Source音频源
+* Audio Source
+音频源:
+-- Audio Clip音频剪辑:需要播放的音频资源。
+- Mute静音:如果启用,播放音频没有声音。
+--
+Play On Awake唤醒播放:勾选后场景启动时自动播放。
+Loop循环:循环播放音频。
+-- Volume音量:音量大小
+--
+Pitch音调: 通过改变音调值调节音频播放速度。1是正
+常播放。
+-- Stereo Pan : 2D声音设置左右声道。
+-- Spatial Blend : 2D与3D声音切换。
+
+---------------------------------------------------------
+### C#语言基础
+
+* .NET dotnet
+Microsoft新代多语言的开发平台,用于构建和运行应用程序。
+* Mono
+Novell公司支持在其他操作系统下开发.NET程序的框架。
+Unity借助Mono实现跨平台，核心是NET Framework架。
+
+-------------------------------------------------------------

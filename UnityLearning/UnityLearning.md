@@ -263,3 +263,233 @@ Probes`属性。
 > 5. 局部变量的引用类型:*声明在栈中,数据在堆中*,栈中存储数据的引用。
 > 6. 区分修改的是栈中存储的引用,还是堆中数据
 * 枚举：自定义的数据类型，相当于给对象加标签
+### Day 5
+* 定义枚举类型，例：  
+```C#
+namespace Day05
+{
+/// <summary>
+///定义枚举类型:移动方向
+///</summary>
+[Flags]
+enum PersonStyle
+{
+ tall = 1,     //00000001
+ rich = 2,     //00000010
+ handsome = 4, //00000100
+ white = 8,    //00001000
+ beauty = 16   //00010000
+}
+private static void PrintPersonStyle(PersonStyle style )
+{ //判断
+if ((style & PersonStyle.tall) == PersonStyle.tall)
+Console.WriteLine("大个子");
+if((style & PersonStyle.rich) == PersonStyle.rich)
+Console.WriteLine("土豪");
+if((style & PersonStyle.handsome) == PersonStyle.handsome)
+Console.WriteLine("英俊");
+if((style & PersonStyle.white) == PersonStyle.white)
+Console.WriteLine("洁白");
+//或者用这种方法,判断与运算的结果是否不为0
+if ((style & PersonStyle.beauty) != 0)
+Console.WriteLine("漂亮");
+}
+static void Main()
+{
+  PrintPersonStyle(PersonStyle.tall | PersonStyle.handsome);
+  //如果要用数据类型转换就要进行强制类型转换
+  //字符串转枚举要用`PersonStyle style = (PersonStyle)Enum.Parse(typeof(PersonStyle),String str);//PersonStyle 是枚举类`
+}
+}
+/*
+*选择多个枚举值
+*使用按位或运算符`|`
+* 条件:  
+* 1. 定义枚举时，使用[Flags]标记此枚举类型可以多选
+* 2. 任意多个枚举值做|运算的结果不能与其他枚举值相同，设置值的时候设为2的n次方，例子在上面：
+*判断标志枚举是否包含指定枚举值
+*运算符& (按位与) : 两个对应的二进制位中都为1 , 结果位为1
+//这样设置下来进行或运算就不会与其他枚举重复
+*/
+```
+* C#里也有类和对象的概念
+* 成员变量具有初始值，可以与局部变量重名
+* 在C#类中类方法默认为private访问类型，只能在类内访问，应该让成员变量私有化，对外提供的方法公开化
+* 可以用
+```C#
+//属性:保护字段 本质就是2个方法
+//设置年龄属性
+public string Name
+{
+//读取时保护，去掉后就达到不可读取的效果
+  get
+  { return name; }
+ //写入时保护 value--要设置的数据，去掉set方法就达到不可修改的效果
+  set
+  { this.name = value; }
+}
+```
+来代替下面代码，这是C#的一种简化的操作特性
+```C#
+public void SetName(string name)
+{
+//this这个对象(引用)
+this.name = name;
+}
+public string GetName()
+{
+return name;
+}
+```
+* C#字段首字母应小写，属性名应大写
+* 构造函数如果为字段赋值,属性中的代码块不会执行
+* 一个类若没有构造函数,那么编译器会自动提供一个无参数构造函数
+* 一个类若具有构造函数,那么编译器不会提供无参数构造函数
+* 如果不希望在类的外部被创建对象,就将构造函数私有化
+* visul studio中的x个引用是说此方法被调用的次数，点击可以查看调用位置
+* 构造函数不能作为一个方法直接被调用，但是可以通过下面的格式来调用
+```C#
+public Wife()
+{
+  Console.WriteLine("创建对象就执行");
+}
+//例：调用无参数构造函数的格式
+public Wife(string name):this()
+{
+  this.name = name;
+}
+//例：调用带参的构造函数的格式
+public Wife(string name, int age):this(name)
+{
+  this.Age = age;
+}
+```
+* 构造函数特点：
+> 1. 与类同名。
+> 2. 没有返回值,也不能写void.
+> 3. 不能被直接调用，必须通过new运算符在创建对象时才会自动调用,有特例，在上面。
+> 4. 每个类都必须至少有一个构造函数,若不提供,编译器自动生成一个无参构造函数。
+> 5. 如果程序员定义了构造函数，则编译器不会再提供。
+* 在C#里写类的时候，里面那个属性可以有更方便的方式创建：  
+`//自动属性包含1个字段2个方法
+public string Password{ get; set; }`  
+就相当于写了：
+```C#
+private string password;
+public string Password
+{
+  get
+  {
+    return this.password;
+  }
+  set
+  {
+    this.password = value;
+  }
+}
+```
+* 一个类中一般有以下部分：成员变量(字段)，属性，构造函数，对外方法
+* 一般字段名首字母小写，属性名首字母大写
+* 方法调用的时候，打半个括号就能看见方法的使用规则
+* 提取方法  
+作用：将一段代码从当前位置提取出来，重新做个方法  
+使用方法：将目标代码选中，右键选择快速操作和重构，选择提取方法，修改方法名即可
+* c#泛型集合 List<数据类型>，可以理解为变长数组，可以自动进行扩容
+用法： List<User> listname = new List<User>();//这里的User是自己创建的类，也是数据类型
+* 字典集合 根据key 查找value
+ 用法： 
+ ```C#
+  Dictionary<string, User> dic = new Dictionary<string, User>;//创建字典  
+  dic.Add("Ih", new User("Ih", "123"));//向字典中添加键值对
+  User lhUser = dic["Ih"];//通过键查找到对应的值
+ ```
+* 创建属性的快捷键：prop+Tab+Tab，自动生成一个属性结构
+* 两个类概念上讲从属于同一个类，内容上有很多代码重复或相似，那么可以让这两个或多个类继承同一个父类，继承关系用`:`描述，用法：`class SonClass:FatherClass{}`,父类只能使用父类成员，不可使用子类成员，子类可以使用自己的成员，也可以使用父类的成员。父类的私有(private)成员子类不能直接使用，父类成员protected类型，则子类可以使用，但是外面的类不能使用此成员
+* 如果父类的引用指向了子类对象(`FatherClass father = new SonClass();`)，只能使用父类成员，如果需要访问该子类成员，要使用强制类型转换(`SonClass son = (SonClass)father;`)
+* 静态成员变量通过类名调用
+* 静态成员变量可在不同实例中共同修改
+* 实例成员从属于对象，静态成员从属于类
+* 静态构造函数不能有访问级别的限制
+* 实例构造函数作用:提供创建对象的方式,初始化类的实例数据成员
+* 实例化成员变量的初始化应该在实例构造函数中进行
+* "非静态字段要求对象引用"的错误出现的原因：静态代码块,只能访问静态成员，不能访问实例成员。
+* 实例代码块可以访问实例成员，也可以访问静态成员
+* 静态 static 适用性：
+  利:单独空间存储,所有对象共享,可直接被类名调用。  
+  弊:静态方法中只能访问静态成员,共享数据被多个对象访问会出现并发。
+  适用场合:
+> 1. 所有对象需要共享的数据。
+> 2. 在没有对象前就要访问成员。
+> 3. 工具类适合做静态类(常用,不需要过多数据，例如Math类)。
+* 二维数组的元素查找调用的常用类(助手类)，得自己写，创建方法：[视频地址](https://www.bilibili.com/video/BV12s411g7gU?p=106)和[视频地址](https://www.bilibili.com/video/BV12s411g7gU?p=107)
+* 结构 struct  
+定义:用于封装小型相关变量的值类型。与类语法相似,都可以包含数据成员和方法成员。但结构属于值类型，类
+属于引用类型。  
+适用性:  
+表示点、颜色等轻量级对象。如创建存储1000个点的数组，如果使用类，将为每个对象分配更多内存，使用结构可以节约资源。
+* 因为结构体自带无参数构造函数,所以结构体不能包含无参数构造函数
+* 结构体与类的最大区别是，结构体是值类型，类是引用类型
+* 声明常量const关键字
+* Alt+左键 能按矩形选择区域
+* 选中变量后Ctrl+R+Ctrl+F选择替换所有此变量 
+C#基础部分完结  
+  
+#### 面向对象思想: 分而治之， 高内聚， 低耦合
+-----------------------------------------------
+
+### Unity脚本
+
+* 脚本是附加在游戏物上用于定义游戏对象行为的指令代码。  
+  Unity支持三种高级编程语言:  
+  C#、javascript和Bo0o Script(已废弃)
+* 脚本语法结构：
+```C#
+using namespace;//加命名空间是为了防止类的重名
+public class ClassName: MonoBehaviour//附加到游戏物体的脚本类必须继承MonoBehaviour类
+{
+  void方法名()
+  {
+    Debug.Log("调试显示信息");
+    print("本质就是Debug.Log方法");
+  }
+}
+```
+* 文件名与类名必须一致
+* 写好的脚本必须附加到物体上才执行
+* 附加到游戏物体的脚本类必须从MonoBehaviour类继承
+* 在Unity中可以通过菜单设置修改默认的脚本编辑器: Edit- Preferences- External Tools- ExternalScript-Editor
+* Unity生命周期： Unity脚本从唤醒到销毁的过程。  
+消息(必然事件):当满足某种条件Unity引擎自动调用的函数。  
+* Unity中出现"以下文件中的行尾不一致,是否将行尾标准化?"提示是由于编码格式导致的，直接点是就行了
+* 脚本中设置为public变量，则此变量会显示在Unity的面板上(需要将脚本挂到对象上)
+* 序列化字段`[SerializeField]` 作用:在编辑器中显示私有变量
+```C#
+[SerializeField]
+private int a = 100;//让a不能被其他类访问但是能显示在Unity的编辑器界面上
+```
+* 序列化字段`[HidelnInspector]`作用:在编译器中隐藏字段
+```C#
+[HidelnInspector]
+public int b;//让b能被其他类访问但是不会显示在Unity的编辑器界面上
+```
+* 写脚本的时候一般不写属性部分，因为即使写了它也不能显示到Unity编辑器里
+* 不要在脚本中写构造函数
+* 同一组件的Awake的执行在Start之前，执行的时候所有物体的Awake先执行后才Start
+* 初始化操作放在Awake或者Start中
+* 游戏物体创建Awake立即执行1次，物体创建并且脚本启用Start才执行1次
+* OnEnable:每当脚本对象启用时调用。
+* FixedUpdate 固定时间执行(默认0.02s):脚本启用后,固定时间被调用，适用于对游戏对象做物理操作，例如移动等,不会受到渲染的影响。
+* Update 执行时机：渲染桢执行，执行间隔不固定，适用性：
+* LateUpdate 延迟更新 执行时机：在Update函数被调用后执行,适用于跟随逻辑
+*  鼠标相关的执行：  
+> OnMouseEnter鼠标移入:鼠标移入到当前Collider时调用。
+> OnMouseOver鼠标经过:鼠标经过当前Collider时调用。
+> OnMouseExit鼠标离开:鼠标离开当前Collider时调用。
+> OnMouseDown鼠标按下:鼠标按下当前Collider时调用。
+> OnMouseUp鼠标抬起:鼠标在当前Collider上抬起时调用。
+* > OnBecameVisible 当可见:当Mesh Renderer在任何相机上可见时调用。
+  > OnBecameInvisible当不可见:当Mesh Renderer在任何相机上都不可见时调用。
+* OnDisable当不可用时执行:对象变为不可用或附属游戏对象非激活状态时此函数被调用。
+OnDestroy当销毁时执行:当脚本销毁或附属的游戏对象被销毁时被调用。
+OnApplicationQuit当程序结束时结束:应用程序退出时被调用。
+* 

@@ -493,3 +493,41 @@ public int b;//让b能被其他类访问但是不会显示在Unity的编辑器�
 OnDestroy当销毁时执行:当脚本销毁或附属的游戏对象被销毁时被调用。
 OnApplicationQuit当程序结束时结束:应用程序退出时被调用。
 * 
+### Day 6
+
+* Unity调试方法： 1. Windows-Console显示控制台，程序的执行信息会显示到这里(适合简单逻辑)。 2. 定义共有变量,程序运行后在检测面板查看数据
+* Console的选项功能：clear：清除功能；Collapse：折叠相同项；Clear on Play：执行前清空(建议选上)；error pause：出异常程序就暂停
+* Console窗口的右上角三个都选上
+* Unity中的Print()方法只能在脚本中用
+* 调试过程中,输入代码方法:右键--快速监视或查看“即时窗口”
+* 单帧调试:启动调试-运行场景-暂停游戏-加断点-按住单帧执行按钮不放进行单帧执行-结束调试
+* 设置物体颜色的方法：例（设为红色）：`this.GetComponent<MeshRenderer>().material.color = Color.red;`
+* 程序里颜色的RGB设置范围是0~1，所以程序里写的应该是标准RGB除以255的值
+* 获取当前物体所有组件:
+```C#
+  var allComponent = this.GetComponents<Component>();
+  foreach (var item in allComponent)
+  {
+    Debug.Log(item.GetType());
+  }
+```
+* 获取后代物体的指定类型组件(从自身开始)
+```C#
+var allComponent = this.GetComponentsInChildren<MeshRenderer>();
+foreach (var item in allComponent)
+{}
+```
+* 获取前代物体的指定类型组件(从自身开始)
+```C#
+var allComponent = this.GetComponentsInParent<MeshRenderer>();
+foreach (var item in allComponent)
+{}
+```
+* Component类提供了查找(在当前物体、后代、先辈)组件的方法
+* this.transform.position找到的是世界坐标，this.transform.localPosition找到的是与父类的相对坐标
+* this.transform.localScale是相对于父类的倍数，this.transform.lossyScale是相对于最原始模型的比例
+* 向自身坐标系z轴移动1米：`this.transform.Translate(O, 0, 1);`  
+  向世界坐标系z轴移动1米：`this.transform.Translate(0, 0, 1,Space.World);`
+* 沿自身坐标系y轴旋转10度：`this.transform.Rotate(O, 0, 1);` 
+  沿世界坐标系y轴旋转10度：`this.transform.Rotate(0, 10, 0, Space.World);`
+* 

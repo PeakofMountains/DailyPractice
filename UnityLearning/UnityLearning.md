@@ -530,4 +530,48 @@ foreach (var item in allComponent)
   向世界坐标系z轴移动1米：`this.transform.Translate(0, 0, 1,Space.World);`
 * 沿自身坐标系y轴旋转10度：`this.transform.Rotate(O, 0, 1);` 
   沿世界坐标系y轴旋转10度：`this.transform.Rotate(0, 10, 0, Space.World);`
+* 围绕旋转的方法：例，绕世界的z轴旋转1度：`this.transform.RotateAround(Vector3.zero, Vector3.forward,1);`(Vector3.zero是世界原点，Vector3.forward是绕世界z轴，Vector3.up是绕世界y轴旋转)
+* Unity中快速创建一个Button用来测试的方法：
+```C#
+private void OnGUI()
+{
+  if (GUILayout.Button("ButtonName"))
+  {
+    //按下按钮发生的事件
+  }
+}
+```
+* Unity中快速创建一个Button用来测试的方法,与上面的区别在于这个Button一直按着事件就能重复执行：
+```C#
+private void OnGUI()
+{
+  if (GUILayout.RepeatButton("ButtonName"))
+  {
+    //按下按钮发生的事件
+  }
+}
+```
+* 获取根物体变换组件 `Transform rootTF = this.transform.root;`
+* 获取父物体变换组件 `Transform parentTF = this.transform.parent;`
+* 设置父物体： 
+当第二个参数设为false时，当前物体的位置视为localPosition，不加第二个参数默认为true，也就是世界坐标
+`this.transform.SetParent(tf,false);`
+* 根据名称找子物体组件：`Transform childTF = this.transform.Find("子物体名称");`
+* Transform类提供了查找(父、根、子)变换组件、改变位置、角度、大小功能
+* 在场景中物体激活状态(物体实际激活状态)`this.gameObject.activelnHierarchy`
+  物体自身激活状态(物体实际激活状态,也就是物体在Inspect面板的激活状态)`this.gameObject.activeSelf`
+* 设置物体启用或禁用`this.gameObject.SetActive()`
+* 在场景中根据名称查找物体(慎用):`GameObject.Find("游戏对象名称")`
+* 获取所有使用该标签的物体  
+`GameObjectO allEnemy = GameObject.FindGameObjectsWithTag("Enemy");`
+获取使用该标签的物体(单个)  
+`GameObject playerGO = GameObject.FindWithTag("Player");`   
+* GameObject的AddComponent()方法添加组件
+* 出现"The referenced script on this Behaviour is missing"错误是由于有的预制件的组件中包含了脚本，但是这个脚本已经删除了，那么在脚本组件的位置将显示一个丢失的信息。你需要移除这个组件，或者替换上更新后的脚本。其它的情况大体如此。细心检查，将丢失的资源补上或者移除即可。
+* 在写TransformHelper类(用于查找未知位置的组件)的时候，程序编写正确，但是在找指定的组件的时候发生了"NullReferenceException: Object reference not set to an instance of an object" 的错误，经过自己排查，发现原因是由于使用的多个例子组件直接没有构成层级关系，因此在方法中调用GetChild(0)的时候必然返回null值，那么调用的地方就会因为这个原因，导致发生上面的错误。
+* Time类，Time.time记录的是从游戏开始执行到现在的时间
+* 用这种方式保证旋转速度不受机器性能以及渲染影响`this.transform.Rotate(0, 100 * Time.deltaTime, 0);`，渲染快那么Time.deltaTime就会小了，能实现渲染出来的旋转速率统一
+* Time.deltaTime是渲染两帧之间的时间间隔
 * 
+
+------------------------------------------------------------

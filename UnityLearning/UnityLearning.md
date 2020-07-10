@@ -625,6 +625,22 @@ private void OnGUI()
 
 * 今天在人物动画的播放操作上困扰了很久，最初人物不按照指定的路线进行移动，最终发现原因是我将创建的人物作为了空物体的子对象，而将脚本挂在了空物体上，运行的时候应该有移动，但是因为是空物体所以看不见移动。这个问题解决了之后又发现人物只有移动没有移动时奔跑的动画和停止时射击的动画，这个问题更是耗费了很长时间才解决：要保证脚本挂在此物体上，同时控制动画播放的脚本要开启(组件前的框要打上对勾)，同时还要保证人物Model里的Animation前的方框也要勾选，还要设置指定时机的播放的动画名称。
 * 在脚本的类之前加上这样的语句能一起引入组件，例(这里引入的是EnemyAnimation组件)：`[RequireComponent(typeof(EnemyAnimation))];`
+-----------------------------------------
+### Day 10
+
+* 预制件创建的物体最终如果想将结果也保存到预制件上，就在Inspect窗口找到override面板里边有Apply all选项
+* Input类，获取鼠标输入：  
+当指定的鼠标按钮被按下时返回true：`bool result= Input.GetMouseButton(0);`  
+在用户按下指定鼠标按键的第一帧返回true：`bool result= Input. GetMouseButtonDown(0);`  
+在用户释放指定鼠标按键的第一帧返回true: `bool result= Input. GetMouseButtonUp(0);`  
+按钮值设定: 0对应左键, 1对应右键，2对应中键。  
+* 对鼠标的检测应该放在Update中持续进行检测
+* Input类：获取键盘输入(参数为按键的枚举)  
+当通过名称指定的按键被用户按住时返回true：`bool result=Input.GetKey(KeyCode.A);`
+当用户按下指定名称按键时的那一帧返回true: `bool result=Input. GetKeyDown(KeyCode.A);`
+在用户释放给定名称按键的那帧返回true: `bool result =Input. GetKeyUp(KeyCode.A);`
+* 如何判断两个按键是否同时按下, : `if(Input.GetKey(KeyCode.C) && Input.GetKeyDown(KeyCode.D);`
+* 利用Mathf.Lerp()方法实现线性效果（镜头从远到近由快变慢，镜头由近到远由慢变快）Lerp(起点，终点，比例)，返回起点到终点比例处的值
+* Mathf.Abs()绝对值函数
 * 
 
------------------------------------------

@@ -643,4 +643,52 @@ private void OnGUI()
 * 利用Mathf.Lerp()方法实现线性效果（镜头从远到近由快变慢，镜头由近到远由慢变快）Lerp(起点，终点，比例)，返回起点到终点比例处的值
 * Mathf.Abs()绝对值函数
 * 
-
+### Day 11
+* 在场景中点击右键不放松，然后用键盘的wsad可以控制视角的移动，更好用
+* InputManage：即输入管理器
+在Unity的Edit- -Project Settings- -Input进行设置，使用脚本通过虚拟轴名称获取自定义键的输入。让玩家可以在游戏启动时根据个人喜好对虚拟轴进行修改。
+* 一个虚拟按钮可以绑定4个真实按键
+* 虚拟按钮可以重名
+* Mouse X默认向右返回值为正，向左返回值为负，Mouse Y默认向上返回值为正，向下返回值为负
+* 虚拟按钮的个数可以修改
+* 获取虚拟轴：
+```C#
+bool result=Input. GetButton(”虚拟轴名");
+bool result=Input. GetButtonDown(虚拟轴名");
+bool result=Input. GetButtonUp("虚拟轴名”);
+float value=Input.GetAxis (" 虚拟轴名”);
+float value= Input.GetAxisRaw (" 虚拟轴名”);
+```
+* 实现摄像机视角跟随玩家鼠标移动：
+```C#
+    public float rotateSpeed = 10;
+    public void FixedUpdate()
+    {
+        float x = Input.GetAxis("Mouse X");
+        float y = Input.GetAxis("Mouse Y");
+        x *=  rotateSpeed;
+        y *=  rotateSpeed;
+        //竖直旋转采用自身坐标
+        this.transform.Rotate(-y , 0,0);
+        //水平旋转采用世界坐标
+        this.transform.Rotate(0, x, 0, Space.World);
+    }
+```
+* pos为一个三维向量，此方法能拿到他的模长：`pos.magnitude;`
+* 获取向量方向也称"标准化向量”，或"归一化向量",即获取该向量的单位向量，几何意义：将向量的模长变为1
+* 获取向量的方向向量（归一化标准化）：`Vector3 n01 = pos/pos.magnitude;`
+或`Vector3 n02 = pos.normalized;`
+* 用Translate实现移动时给的应该是归一化操作之后的方向向量而不是直接差值得到的向量
+* 三角函数API（要求radian为弧度）：
+Mathf.sin(float radian)
+Mathf.cos(float radian)
+Mathf.tan(float radian)
+反三角函数API（要求radian为弧度）：
+Mathf.Asin(float radian)
+Mathf.Acos(float radian)
+Mathf.Atan(float radian)
+* 角度与弧度的转换：  
+角度变弧度：`y = x * Mathf.Deg2Rad;`其中y为弧度，x为角度
+弧度变角度：`y = x * Mathf.Rad2Deg;`其中y为角度，x为弧度
+* 将自身坐标系下的坐标转换为世界坐标系的坐标，`Vector3 worldPoint = transform.TransformPoint(O, 0, 10);`
+* 

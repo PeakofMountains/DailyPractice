@@ -692,3 +692,81 @@ Mathf.Atan(float radian)
 弧度变角度：`y = x * Mathf.Rad2Deg;`其中y为角度，x为弧度
 * 将自身坐标系下的坐标转换为世界坐标系的坐标，`Vector3 worldPoint = transform.TransformPoint(O, 0, 10);`
 * 
+### Day 12
+
+* 点乘的API：`float dot=Vector3.Dot(va, vb);`,其中的向量va，vb应该是方向向量（单位向量）（用.normalized）
+* 叉乘的API：`Vector vector= Vector3. Cross (a, b);`
+* 得到自身正前方世界坐标系下的方向向量`this.transform.forward`，得到自身正右方的世界坐标系下的方向向量`this.transform.right`，得到自身正上方的世界坐标系下的方向向量`this.transform.up`
+* 欧拉角：使用三个角度来保存方位。
+特点：X与Z沿自身坐标系旋转, Y沿世界坐标系旋转。
+API : `Vector3 eulerAngle = this.transform.eulerAngles;`
+优点：  
+> 1. 仅使用三个数字表达方位,占用空间小。
+> 2. 沿坐标轴旋转的单位为角度,符合人的思考方式。
+> 3. 任意三个数字都是合法的,不存在不合法的欧拉角。
+缺点：  
+> 1. 表达方式不唯一：对于一个方位,存在多个欧拉角描述,因此无法判断多个欧拉角代表的角位移是否相同。  
+为了保证任意方位都只有独一无二的表示, Unity引擎限制了角度范围,即沿X轴旋转限制在90到90之间,沿Y与Z轴旋转限制在0到360之间。  
+> 2. 万向节死锁：
+物体沿X轴旋转+90度,自身坐标系Z轴与世界坐标系Y轴将
+重合，此时再沿Y或Z轴旋转时，将失去一个自由度。 
+在万向节死锁情况下,规定沿Y轴完成绕竖直轴的全部旋转
+即此时Z轴旋转为0。
+> Unity用三维向量来表示欧拉角。但是他没有方向,大小的概念,欧拉角的x.y.z ,表示各个轴向，上的旋转角度。
+> 四元数Quaternion在3D图形学中代表旋转,由一个三维向量(X/Y/Z)和一个标量(W)组成。
+旋转轴为V ,旋转弧度为 θ ,如果使用四元数表示,则四个
+分量为:
+x=sin(θ /2)*V.x
+y=sin(θ /2)*V.y
+z=sin(θ /2)*V.z
+w=cos(θ /2)
+X、Y、Z、W的取值范围是-1到1。
+API : `Quaternion qt = this.transform.rotation;`
+> 创建和使用四元数的代码：
+```C#
+//旋转轴
+Vector3 axis = Vector3.up;
+//旋转弧度
+float rad = 50 * Mathf.Deg2Rad;
+Quaternion qt = new Quaternion();
+qt.x = Mathf.Sin(rad 12) * axis.x;
+qt.y = Mathf.Sin(rad/2) * axis.y;
+qt.z = Mathf.Sin(rad 12) * axis.z;
+qt.w = Mathf.Cos(rad/ 2);
+this.transf form.rotation = qt;
+```
+
+同时Unity也提供了一种更简单的方式：
+```C#
+//欧拉角->四元数
+this.transform.rotation = Quaternion.Euler(0, 50, 0);
+```
+
+* 四元数表示能避免万向节死锁的出现
+* 四元数可以与向量相乘(顺序必须是四元数在前)达到旋转向量的目的。两个四元数相乘可以组合旋转效果。例如:
+```C#
+Quaternion rotation01 = Quaternion.Euler(O, 30, 0) * Quaternion.Euler(O, 20, 0);
+Quaternion rotation02 = Quaternion.Euler(O, 50, 0);
+//rotation01与rotation02相同
+```
+
+* 四元数的旋转是按照自身的x、y、z轴转的
+* 四元数的缺点：  
+难于使用,不建议单独修改某个数值。  
+存在不合法的四元数。  
+* 对向量的控制：
+```C#
+// vect向量根据当前物体的旋转而旋转
+vect = this.transform.rotation * new Vector3(0, 0, 10);
+// vect向量沿y轴旋转30度
+vect = Quaternion.Euler(O, 30, 0) * vect;
+// vect向量移动到当前物体位置
+vect = this.transform.position + vect;
+```  
+* normalized与normalize()方法的区别：  
+```C#
+Vector3 vect = new Vector3(O, 0, 10); 
+Vector3 norm = vect.normalized;//返回一个单位向量0 0 1
+vect.Normalize();/将vect设置为0 0 1
+```  
+* 

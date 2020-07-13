@@ -770,3 +770,110 @@ Vector3 norm = vect.normalized;//返回一个单位向量0 0 1
 vect.Normalize();/将vect设置为0 0 1
 ```  
 * 
+### Day 13
+
+* 注视旋转不改变物体的位置（position），只改变他的朝向`this.transform.rotation = Quaternion. LookRotation(dir);`
+* 
+1. 欧拉角->四元数  
+`Quaternion.Euler(欧拉角);`
+2. 四元数-->欧拉角  
+`Quaternion qt = this.transform.rotation;  
+Vector3 euler = qt.eulerAngles;`
+3. 轴/角的旋转
+`this.transform.rotation = Quaternion.AngleAxis(50, Vector3.up);`,这里第二个参数为轴的向量表示，可以是不言坐标轴的其他轴
+4. 注视旋转  
+`this.transform.rotation = Quaternion.LookRotation(dir);
+//this.transform.LookAt(tf);通过LookAt实现的旋转是在一瞬间完成的`
+5. 差值旋转Lerp
+`this.transform.rotation = Quaternion.Lerp(this.transform,rotation,dir,0.1f);`
+6. 匀速旋转RotateTowards
+`this.transform.rotation = Quaternion.RotateTowards(this.transform,rotation,dir,0.1f);`
+* 通过两个四元数判断角度是否接近的方法：
+`if(Quaternion.Angle(this.transform.rotation, dir) < 1){}`其中1为判断允许的误差度数
+*  Screen Space屏幕坐标系：
+屏幕坐标系:以像素为单位，屏幕左下角为原(0,0)点，右上角为屏幕宽、高度(Screen.width ，Screen.height) , Z为到相机的距离。X向右，Y向上  
+作用:表示物体在屏幕中的位置。
+* Viewport Space视口(摄像机)坐标系:屏幕左下角为原(0,0)点，右上角为(1,1) , Z为到相机的距离。  
+作用:表示物体在摄像机中的位置。
+* Local Space -> World Space
+transform.forward在世界坐标系中表示物体正前方。
+transform.right在世界坐标系中表示物体正右方。
+transform.up在世界坐标系中表示物体正上方。
+transform.TransformPoint
+转换点,受变换组件位置、旋转和缩放影响。
+transform.TransformDirection
+转换方向,受变换组件旋转影响。
+transform.TransformVector
+转换向量,受变换组件旋转和缩放影响。
+* World Space -> Local Space 
+transform. InverseTransformPoint
+转换点,受变换组件位置、旋转和缩放影响。
+transform.InverseTransformDirection
+转换方向,受变换组件旋转影响。
+transform.InverseTransformVector
+转换向量,受变换组件旋转和缩放影响。
+* World Space <--> Screen Space
+Camera.main.WorldToScreenPoint
+将点从世界坐标系转换到屏幕坐标系中
+Camera.rain.Screen ToWorldPoint
+将点从屏幕坐标系转换到世界坐标系中
+* World Space <--> Viewport Space
+Camera.main.WorldToViewportPoint
+将点从世界坐标系转换到视口]坐标系中
+Camera.rain.Viewport ToWorldPoint
+将点从屏幕坐标系转换到世界坐标系中
+* Screen.width得到的屏幕宽度其实是camera的视锥宽度大小，摄像机的视锥大小决定了显示屏幕的宽度
+* 实现移动的限制：如果超过屏幕,停止运动，如果到了最左边并且还想向左移动或者到了最右边并且还想向右移动
+```C#
+Vector3 screenPoint = Camera.main.WorldToScreenPoint(this.transform.position);
+if((screenPoint.x <= 0 && hor <0) || (screenPoint.x >= Screen.width && hor>0))
+{hor= 0;}
+```
+* 物理引擎
+给物体加Rigidbody组件变成具有物理特性的刚体，给物体加collider碰撞器组件产生碰撞效果，根据不同的需求选择不同的形状碰撞器(能满足需求的情况下尽量选择面少的)
+* Rigidbody属性  
+质量Mass : 物体的质量。  
+阻力Drag : 当受力移动时物体受到的空气阻力。0表示没有空气阻力,极大时可使物体停止运动，通常砖头0.001 ,羽毛设置为10。  
+角阻力Angular Drag : 当受扭力旋转时物体受到的空气阻力。0表示没有空气阻力,极大时使物体停止旋转。  
+使用重力Use Gravity :若激活,则物体受重力影响。  
+是否是运动学Is Kinematic : 若激活,该物体不再受物理引擎控制,而只能通过变换组件来操作。  
+插值Interpolate :用于缓解刚体运动时的抖动。  
+无None --不应用插值。  
+内插值Interpolate -基于上一帧的变换来平滑本帧变换。  
+外插值Extrapolate --基于下一-帧的预估变换来平滑本帧变换。    
+碰撞检测Collision Detection : 碰撞检测模式。快速移动的刚体在碰撞时有可能互相穿透,可以设置碰撞检测频率，但频率越高对物理引|擎性能影响越大。  
+不连续Discrete : 不连续碰撞检测。适用于普通碰撞(默认模式)。  
+连续Continuous :连续碰撞检测。  
+动态连续Continuous Dynamic :连续动态碰撞检测,适用于高速物体。  
+约束Constraints :对刚体运动的约束。  
+冻结位置Freeze Position :刚体在世界中沿所选X , Y , Z轴的移动，将无效。  
+冻结旋转Freeze Rotation :刚体在世界中沿所选的X,Y,Z轴的旋转,将无效。  
+* 让自身能作为刚体但是发生碰撞的时候自己不受到力的作用，而另一个物体受到力的作用就给这个Rigidbody里的Is Kinematic勾选上
+* 碰撞条件：1. 两者具有碰撞组件 2. 运动的物体具有刚体组件
+当进入碰撞时执行  `void OnCollisionEnter(Collision collOther)`
+当碰撞体与刚体接触时每帧执行 `void OnCollisionStay(Collision collOther)`
+当停止碰撞时执行 `void OnCollisionExit(Collision collOther)`
+* 触发条件：  
+1. 两者具有碰撞组件
+2. 其中之一带有刚体组件
+3. 其中之一勾选isTrigger
+触发三阶段
+当Collider(碰撞体)进入触发器时执行
+void OnTriggerEnter( ollider cldOther)
+当碰撞体与触发器接触时每帧执行
+void OnTriggerStay(Collider cldOther)
+当停止触发时执行
+void OnTriggerExit (Collider cldOther)
+* 如果物体移动速度过快,碰撞检测将失效
+解决方案:开始时,使用射线检测
+* 让子类方法不覆盖父类方法的办法：  
+在不想被子类同名方法覆盖的方法前用protected修饰，同时在权限修饰符后加override，然后在子类中敲override+空格之接就会出现要求重写的方法，自动生成格式，在方法中写重写的内容，此方法中的base.方法名其实就是父类的方法，将来就是父类的这个方法和子类的方法都执行
+* 通过代码读取资源：  
+资源必须放到Resources目录下
+```C#
+GameObject prefabGO = Resources.Load<GameObject>("目录/资源名称");
+  // 创建资源
+ Instantiate(prefabGO);
+```
+* 如果确实是自己项目中的代码文件但是vs总是认为他是杂项文件的话就在vs的资源管理器中找所有文件选项显示出当前的所有文件，找到出现问题的文件，右键包含在项目中就可以了
+* 

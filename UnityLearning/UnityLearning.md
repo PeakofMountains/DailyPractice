@@ -877,3 +877,11 @@ GameObject prefabGO = Resources.Load<GameObject>("目录/资源名称");
 ```
 * 如果确实是自己项目中的代码文件但是vs总是认为他是杂项文件的话就在vs的资源管理器中找所有文件选项显示出当前的所有文件，找到出现问题的文件，右键包含在项目中就可以了
 * 
+--------------------------------------------
+
+### Day 14
+
+* 可以在project面板creat一个physical material，设置改变这个材料的物理属性，例如摩擦力，弹力(数值设置0~1)
+* Trail Renderer组件能实现拖尾效果，可以用于子弹
+* 在网上找到了一种在Unity中查找指定物体下是否有指定脚本的方法：[解决办法：在Unity的面板中能生成一个查找的面板](https://blog.csdn.net/alayeshi/article/details/52039314)
+* 

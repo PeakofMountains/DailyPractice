@@ -884,4 +884,10 @@ GameObject prefabGO = Resources.Load<GameObject>("目录/资源名称");
 * 可以在project面板creat一个physical material，设置改变这个材料的物理属性，例如摩擦力，弹力(数值设置0~1)
 * Trail Renderer组件能实现拖尾效果，可以用于子弹
 * 在网上找到了一种在Unity中查找指定物体下是否有指定脚本的方法：[解决办法：在Unity的面板中能生成一个查找的面板](https://blog.csdn.net/alayeshi/article/details/52039314)
+* 使用此方法能将变量设置为public的同时，在编译器中隐藏达到在编译器中不可修改而其他方法中可以对这个参数进行修改的目的，例：  
+```C#
+[HideInInspector]//在编译器中隐藏
+public float atk;
+```
+* 经实践发现用面或者立方体绘制出的图形不能当作准星，因为这样绘制出来的图形会随着光线的变化颜色也发生改变，甚至在黑暗中准星就变成黑色的了，这显然和真实的效果不一致
 * 

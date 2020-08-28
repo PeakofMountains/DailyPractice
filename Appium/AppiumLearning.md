@@ -44,3 +44,12 @@
 通过在代码中加大允许等待的时间可以解决这个问题  
 
 ![](https://pic3.zhimg.com/50/v2-ac7a976b3b3353895d504c93466375ee_hd.jpg?source=1940ef5c)
+
+
+上面的尝试例子是访问Bilibili软件，如果要访问其他的应用就会用到包名Package，对于获取应用包名根据应用是否已经安装在手机上有两种分类，这两种方法见[教程文章](http://www.python3.vip/tut/auto/appium/01/#%E6%9F%A5%E6%89%BE-%E5%BA%94%E7%94%A8-package-%E5%92%8C-activity)和[教程视频](https://www.bilibili.com/video/BV1tE411n7rV?p=6)  
+
+要实现功能按键的点击等操作就必须定位到相关组件的位置，Appium提供了几种定位的方法，详细的使用见[教程文章](http://www.python3.vip/tut/auto/appium/02/)和[教程视频1](https://www.bilibili.com/video/BV1tE411n7rV?p=7)和[教程视频2](https://www.bilibili.com/video/BV1tE411n7rV?p=8)和[教程视频2](https://www.bilibili.com/video/BV1tE411n7rV?p=9)和[教程视频2](https://www.bilibili.com/video/BV1tE411n7rV?p=10)  
+
+
+
+

@@ -39,7 +39,7 @@ Auto.Js软件
 
 3. 建立一个新文件，保存，名字格式设置为以js为后缀，因为它采用的是JavaScript框架.
 
-4.快捷键CTRL+SHIFT+P打开搜索控制台，在里面输入Auto.js start server开启虚拟服务器(关闭服务器的方法是输入Auto.js stop server就行)
+4. 快捷键CTRL+SHIFT+P打开搜索控制台，在里面输入Auto.js start server开启虚拟服务器(关闭服务器的方法是输入Auto.js stop server就行)
 
 5. 电脑端打开cmd控制台，输入ipconfig命令查看电脑的网络连接信息，找到当前自己的电脑网络连接状态对应的网络ip地址，要求手机电脑都连接的是一个网络，在连接WiFi时电脑端应该看ipv4地址，我当时看教程误以为是网关地址，结果弄了一个晚上都没和手机端连接成功.
 

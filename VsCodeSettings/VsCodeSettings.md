@@ -11,15 +11,15 @@ Visual Studio Code是一款很好的编辑器，具备众多的插件支持，�
 2. 安装MinGW提供C语言的编译环境和编译器  
 3. 在电脑的环境变量里修改PATH路径，将MinGW文件中bin文件夹所在路径添加到PATH中，这样能在命令行中进行源程序的编译操作。  
 4. 在vscode中修改两个文件：tasks.json文件和launch.json文件：  
-依次选择：运行->打开配置  
-就会弹出launch.json文件，将其中的内容用下列内容替换:  
+先随便在工作路径下新建一个C语言程序，然后点击左边第四个debug图标，选择添加配置文件，然后系统会给创建一个launch.json文件，
+将其中的内容用下列内容替换:  
 ```json
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
-            "preLaunchTask": "build",
+            "name": "(gdb) Launch",    //链接执行preLaunchTask任务
+            "preLaunchTask": "C/C++: gcc.exe build active file",    //链接到tasks.json文件中的对应内容label部分，执行其下的args部分
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
@@ -27,7 +27,8 @@ Visual Studio Code是一款很好的编辑器，具备众多的插件支持，�
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,   //这里是选择是否采用外部控制台显示
+            "internalConsoleOptions": "neverOpen",//选择运行后显示的是终端控制台还是Console控制台，这里设置的是先显示终端控制台
             "MIMode": "gdb",
             "miDebuggerPath": "D:\\VSCode\\MinGW\\bin\\gdb.exe", // 这里修改GDB路径为安装的mingw64的bin下的gdb.exe所在路径
             "setupCommands": [

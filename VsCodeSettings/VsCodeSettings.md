@@ -44,7 +44,8 @@ Visual Studio Code是一款很好的编辑器，具备众多的插件支持，�
 这里的`"miDebuggerPath": "D:\\VSCode\\MinGW\\bin\\gdb.exe"`这一句需要根据自己的电脑MinGW安装所在位置进行修改，同时注意输入的时候
 要保持和原来的格式相同，即文件目录之间用双反斜线相隔，否则会出现错误。  
 如果想让程序直接在vscode中的控制台中执行显示，就把  
-`"externalConsole": true,`这句的true改成false，注意后面的`,`不要漏掉，修改后保存  
+`"externalConsole": true,`这句的true改成false，注意后面的`,`不要漏掉，修改后保存。
+
 点击launch.json就能看到下面有tasks.json文件，点击打开，将其中的内容用下面的内容替换:
 ```json
 {
@@ -99,3 +100,9 @@ Visual Studio Code是一款很好的编辑器，具备众多的插件支持，�
 5. 试着编一个C语言的程序看能否正常运行和调试，如果出现乱码的情况，在右下角有选择编码方式，点击修改就能解决，如果修改后不能解决，重启vscode或者电脑使之生效。  
 6. 如果发现不能在vscode的终端进行输入操作，就在CodeRunner插件上右键，选择扩展设置，在里面将code-runner:Run in Terminal选项前打上勾。  
 7. 配置完成，如果没有起作用就重启电脑试试。
+
+碰到的其他问题:  
+1. 由于 Exception.tostring()失败,因此无法打印异常字符串  
+  解决办法：用管理员权限打开cmd，执行`chcp 936`命令，修改显示字符格式。  
+2. Debug时出现`Unable to start debugging.Unable to establish a connection to GDB.`的错误，不能进行调试，解决办法就是把这里的`"externalConsole": true,`改成`"externalConsole": false`，vscode的终端应该和windows的不兼容，如果选择在内部终端运行就会报这个错误，所以目前不建议更改成内部终端执行，[详情解决办法](https://github.com/Microsoft/vscode-cpptools/issues/2889)  
+3. 

@@ -47,4 +47,11 @@ initial frozen solve. Retrying with flexibl”的错误提示，根据网上的�
 * 安装完毕之后通过`python`命令进入python环境，用`import torch`语句看有没有错误提示，如果没有就说明安装成功（或者直接通过`pip list`列出目前电脑上安装的所有包，查看有没有torch）  
 * 在python环境中用`exit()`语句退出python环境，重新进入命令行模式。
 
+7. [ffmpeg下载安装](https://ffmpeg.zeranoe.com/builds/)，安装的时候注意配置环境变量，这样才能在命令行启动。  
+
 至此环境配置完毕(其实是否完毕还要看之后的运行时会不会出现)
+
+相关模型等文件下载：[参考这篇文章作者给出的链接](https://mp.weixin.qq.com/s/CyWyrVvWs3-iFKOUdDg0pQ)  
+
+项目的执行方法在原项目中有详细介绍
+

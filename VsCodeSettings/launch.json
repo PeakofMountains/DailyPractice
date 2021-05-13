@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",//链接执行preLaunchTask任务
+            "preLaunchTask": "C/C++: gcc.exe build active file",//链接到tasks.json文件中的label部分，执行args部分
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,//选择是否用外部控制台
+            "internalConsoleOptions":"neverOpen",//选择运行后显示的是console控制台还是终端控制台
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\VSCode\\MinGW\\bin\\gdb.exe", // 这里修改GDB路径为安装的mingw64的bin下的gdb.exe所在路径
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

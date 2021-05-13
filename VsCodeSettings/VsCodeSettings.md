@@ -107,7 +107,7 @@ Visual Studio Code是一款很好的编辑器，具备众多的插件支持，�
 2. Debug时出现`Unable to start debugging.Unable to establish a connection to GDB.`的错误，不能进行调试，解决办法就是把这里的`"externalConsole": true,`改成`"externalConsole": false`，vscode的终端应该和windows的不兼容，如果选择在内部终端运行就会报这个错误，所以目前不建议更改成内部终端执行，[详情解决办法](https://github.com/Microsoft/vscode-cpptools/issues/2889)  
 
 
-### 我现在已经把我vscode的相关配置文件放在了此目录下,仅供参考,其中有些部分可能需要某些插件的支持,我也在下面列举了几个好用的插件,仅供参考:
+### 我现在已经把我vscode的相关配置文件放在了此目录下,仅供参考,其中有些部分可能需要某些插件的支持,我也在下面列举了几个好用的插件,仅供参考:  
 1. bracket pair colorizer 2
 2. background
 3. code runner

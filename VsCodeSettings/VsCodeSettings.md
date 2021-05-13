@@ -98,11 +98,16 @@ Visual Studio Code是一款很好的编辑器，具备众多的插件支持，�
 ```
 这个文件内容不用修改什么，照着复制就行。  
 5. 试着编一个C语言的程序看能否正常运行和调试，如果出现乱码的情况，在右下角有选择编码方式，点击修改就能解决，如果修改后不能解决，重启vscode或者电脑使之生效。  
-6. 如果发现不能在vscode的终端进行输入操作，就在CodeRunner插件上右键，选择扩展设置，在里面将code-runner:Run in Terminal选项前打上勾。  
+6. 如果发现不能在vscode的终端进行输入操作，就在CodeRunner插件上右键，选择扩展设background置，在里面将code-runner:Run in Terminal选项前打上勾。  
 7. 配置完成，如果没有起作用就重启电脑试试。
 
 碰到的其他问题:  
 1. 由于 Exception.tostring()失败,因此无法打印异常字符串  
   解决办法：用管理员权限打开cmd，执行`chcp 936`命令，修改显示字符格式。  
 2. Debug时出现`Unable to start debugging.Unable to establish a connection to GDB.`的错误，不能进行调试，解决办法就是把这里的`"externalConsole": true,`改成`"externalConsole": false`，vscode的终端应该和windows的不兼容，如果选择在内部终端运行就会报这个错误，所以目前不建议更改成内部终端执行，[详情解决办法](https://github.com/Microsoft/vscode-cpptools/issues/2889)  
-3. 
+
+
+### 我现在已经把我vscode的相关配置文件放在了此目录下,仅供参考,其中有些部分可能需要某些插件的支持,我也在下面列举了几个好用的插件,仅供参考:
+1. bracket pair colorizer 2
+2. background
+3. code runner

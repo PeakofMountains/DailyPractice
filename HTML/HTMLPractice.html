@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>今日小说排行榜</title>
+</head>
+<body>
+	<!-- 表格的使用 -->
+	<table align="center" width="600" height="200" cellpadding=5 cellspacing=0 border="1">
+		<!-- 表头行 -->
+		<tr>
+			<th>排名</th>
+			<th>关键词</th>
+			<th>趋势</th>
+			<th>进入搜索</th>
+			<th>最近七日</th>
+			<th>相关链接</th>
+		</tr>
+		<!-- 第二行 -->
+		<tr>
+			<td>1</td>
+			<td>鬼吹灯</td>
+			<td><img src="#"></td>
+			<td>345</td>
+			<td>123</td>
+			<td><a href="#">贴吧</a><a href="#">图片</a></td>
+		</tr>
+	</table>
+	<!-- 无序列表的使用 -->
+	<ur>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ur>
+	<!-- 有序列表的使用 -->
+	<ol>
+		<li>列表项1</li>
+		<li>列表项2</li>
+		<li>列表项3</li>
+	</ol>
+	<!-- 自定义列表的使用 -->
+	<dl>
+		<dt>名词</dt>
+		<dd>名词解释1</dd>
+		<dd>名词解释2</dd>
+	</dl>
+	<!-- 表单和表单控件的使用 -->
+	<form action="url地址" method="提交方式" name="表单域名称">
+		用户名:<input type="text">
+		<!-- label标签和单选控件的使用 -->
+		<!-- name属性设置一样才能实现单选功能 --><br />
+		<input type="radio" id="nan" name="sex"><label for="nan">男</label>
+		<input type="radio" id="nv" name="sex"><label for="nv">女</label>
+		<!-- 下拉列表标签的使用 -->
+		<br />
+		籍贯：
+		<select>
+			<option value="选项1">陕西</option>
+			<!-- selected属性用于设置默认勾选的选项，属性值为selected -->
+			<option value="选项2" selected="selected">北京</option>	
+			<option value="选项3">上海</option>
+		</select>
+		<br />
+		<!-- 文本域的使用 -->
+		备注信息：<br />
+		<!-- 这里只是规定文本域的宽度和高度，你可以在其中一直输入，实际开发中用CSS设置 -->
+		<textarea name="textarea" id="" cols="30" rows="5"></textarea>
+	</form>
+	
+</body>
+</html>

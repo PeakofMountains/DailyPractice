@@ -1,0 +1,53 @@
+/* 标签选择器 */
+p {
+    /* 这里的color和font都是属性 */
+    /* color: aquamarine;
+    color: #ccooff; */
+    color: rgb(204,0,255);
+    font: 100;
+    font-family: 'Microsoft YaHei';
+    text-decoration: line-through;
+}
+div {
+    /* text-indent: 20px */
+    text-indent: 2em;
+    line-height: 26px;
+}
+/* 类选择器 */
+.red {
+    color: red;
+}
+.font20 {
+    font-size: 20px;
+    font-weight: 100;
+    font-style: italic;
+}
+/* id选择器 */
+#pink {
+    color: pink;
+}
+/* 通配符选择器 */
+    /* * {
+    color: red;
+}  */
+/* 后代选择器 */
+ul li {
+    color: red;
+}
+/* 伪类链接选择器 */
+a:link {
+    color: black;
+}
+a:visited {
+    color: orange;
+}
+a:hover {
+    color: aquamarine;
+}
+a:active {
+    color: fuchsia;
+}
+/* :focus伪类选择器 */
+input:focus {
+    background-color: peachpuff;
+}

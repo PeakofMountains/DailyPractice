@@ -35,6 +35,15 @@ ul li {
     color: red;
 }
 /* 伪类链接选择器 */
+a {
+    /* 将行内元素a转换为块元素 */
+    display: block;
+    width: 13em;
+    height: 2em;
+    background-color: gainsboro;
+    /* 这里将行高和块元素的高度设成一样就能达到垂直对齐的效果了 */
+    line-height: 2em;
+}
 a:link {
     color: black;
 }

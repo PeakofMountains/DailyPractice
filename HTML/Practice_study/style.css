@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.w {
+    width: 1200px;
+    margin: auto;
+}
+body {
+    background-color: #f3f5f7;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+/* 头部 */
+.header {
+    height: 42px;
+    /* background-color: bisque; */
+    /* 此处会层叠w中的margin设置 */
+    margin: 30px auto;
+}
+/* logo部分 */
+.logo {
+    float: left;
+    width: 228px;
+    height: 42px;
+    /* background-color: aqua; */
+}
+/* 头部的导航栏 */
+.nav {
+    float: left;
+    height: 42px;
+    margin-left: 37px;
+    /* background-color: blueviolet; */
+}
+.nav ul li {
+    float: left;
+}
+.firstleft {
+    margin-left: 46px;
+}
+.nav ul li a {
+    display: block;
+    padding: 0px 21.5px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 18px;
+    color: #050505;
+    
+    
+}
+.nav ul li a:hover {
+    border-bottom: 2px solid #00a4ff;
+    color: #00a4ff;
+}
+/* 搜索框部分 */
+.search {
+    float: left;
+    /* width: 412px; */
+    height: 42px;
+    margin-left: 73.5px;
+    /* background-color: black; */
+}
+.search input {
+    float: left;
+    width: 340px;
+    height: 39px;
+    padding-left: 20px;
+    border-right: 0;
+    border: 1px solid #00a4ff;
+    color: #bfbfbf;
+    font-size: 14px ;
+
+}
+.search input:hover {
+    border:1.5px solid #00a4ff;
+}
+.search button {
+    float: left;
+    width: 50px;
+    height: 42px;
+    /* background-color: #00a4ff; */
+    border: none;
+    background: url(images/search_button.png);
+}
+/* 用户信息部分 */
+.user {
+    float: right;
+    margin-right: 36px;
+    font-size: 14px;
+    line-height: 42px;
+    color: #666;
+}
+/* banner部分 */
+.banner {
+    height: 420px;
+    background-color: #1c036c;
+}
+.banner .w {
+    height: 420px;
+    /* 注意此处图片用来做背景，是在css文件中以background: url()的形式引入的 */
+    background: url(images/banner.png) no-repeat top center;
+}
+.subnav {
+    width: 190px;
+    height: 420px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.subnav ul li {
+    padding: 0px 20px;
+    height: 46px;
+    line-height: 46px;
+}
+.subnav ul li a {
+    font-size: 14px;
+    color: #fff;
+}
+.subnav ul li:hover {
+    background-color: #00a4ff;
+}

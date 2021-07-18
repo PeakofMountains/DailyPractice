@@ -530,19 +530,204 @@
 
     **为了约束浮动元素位置,我们网页布局一般采取的策略是:先用标准流的父元素排列上下位置,之后内部子元素采取浮动排列左右位置.符合网页布局第一准侧**
 
+* 常见网络布局：
+
+  * 垂直排列
+  * 左右排列
+
+  **不设置宽度就是默认和浏览器宽度一样**
+
+  * 布局注意点：
+
+    * 浮动与标准流父元素搭配使用
+
+    * 浮动不会压住前面的标准流，浮动的盒子只能压住后面的标注流
+
+    * 一个元素浮动了理论上其余兄弟元素也要浮动，防止引发问题
+
+    * 有些情况下不适合给父盒子固定高度，不应该给父盒子高度，但是滋贺子浮动又不占有位置，使得父级盒子高度自动调整为0了，就会影响下面的标准流盒子，因此需要**清除浮动**：
+
+      * 清除浮动的策略时：闭合浮动。清除浮动之后，父级就会根据浮动的子盒子自动检测高度。父级有了高度，就不会影响下面的标准流了，语法，例：`div {clear: left;}`属性值可以为：
+
+        * left，表示不允许左侧有浮动
+        * right，表示不允许右侧有浮动
+        * both，同时清理左右两侧的浮动影响
+
+        实际中基本上都用`div {clear: both}`
+
+      清除浮动的方法：
+
+      1. 额外标签法也称为隔墙法，是W3C推荐的做法，是指在浮动元素末尾加上一个空标签，例如`<div style=" clear:both"></div>` ，或者其他标签`<br>`等
+
+         * 缺点∶添加许多无意义的标签，结构化较差，**注意此方法要求加入的空标签必须是块级元素，不能是行内元素**
+
+      2. 父级添加overflow属性
+
+         可以给父级添加overflow属性，将其属性值设置为hidden、auto或 scroll ，常用hidden属性值，例：`div { overflow: hidden;}`，
+
+         * **注意是给父元素添加overflow属性**，缺点∶无法显示溢出的部分
+
+      3. 父级添加`:after`伪元素（这种方法比较高级），语法，例：
+
+         ```html
+         <!DOCTYPE html>
+         <html lang="en">
+         
+         <head>
+             <meta charset="UTF-8">
+             <meta http-equiv="X-UA-Compatible" content="IE=edge">
+             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+             <title>伪元素浮动处理</title>
+             <style>
+                 /* 定义伪元素浮动处理的类，在父元素中进行调用 */
+                 .clearfix:after {
+                     content: "";
+                     display: block;
+                     height: 0;
+                     clear: both;
+                     visibility: hidden;
+                 }
+         
+                 .clearfix {
+                     /* IE6、7专有 */
+                     *zoom: 1;
+                 }
+         		/* 父元素father没有设置高度，子元素的浮动会造成父元素高度自动调整为0，那么后面的anotherman元素就会挤占到本属于父元素的位置 */
+                 .father {
+                     width: 300px;
+                     background-color: blueviolet;
+                 }
+         
+                 .father>div {
+                     float: left;
+                     background-color: bisque;
+                     width: 100px;
+                     height: 50px;
+                     margin-left: 10px;
+                     margin-bottom: 10px;
+                 }
+         
+                 .anotherman {
+                     background-color: cyan;
+                     height: 50px;
+                 }
+             </style>
+         </head>
+         
+         <body>
+             <div class="father clearfix">
+                 <div class="child1">child1</div>
+                 <div class="child2">child2</div>
+             </div>
+             <div class="anotherman"></div>
+         </body>
+         
+         </html>
+         ```
+
+         
+
+      4. 父级添加双伪元素
+
+         也是给父元素添加，相当于给浮动的子元素前后都添加了空标签，语法，例：
+
+         ```html
+         <!DOCTYPE html>
+         <html lang="en">
+         
+         <head>
+             <meta charset="UTF-8">
+             <meta http-equiv="X-UA-Compatible" content="IE=edge">
+             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+             <title>浮动处理</title>
+             <style>
+                 /* 给浮动子元素前后都设置空标签，clearfix类还是用在父标签中 */
+                 .clearfix:before,
+                 .clearfix:after {
+                     content: "";
+                     display: table;
+                 }
+                 .clearfix:after {
+                     clear: both;
+                 }
+                 .clearfix {
+                     /* IE6、7专有 */
+                     *zoom: 1;
+                 }
+         
+                 .father {
+                     width: 300px;
+                     background-color: blueviolet;
+                 }
+         
+                 .father>div {
+                     float: left;
+                     background-color: bisque;
+                     width: 100px;
+                     height: 50px;
+                     margin-left: 10px;
+                     margin-bottom: 10px;
+                 }
+         
+                 .anotherman {
+                     background-color: cyan;
+                     height: 50px;
+                 }
+             </style>
+         </head>
+         
+         <body>
+             <div class="father clearfix">
+                 <div class="child1">child1</div>
+                 <div class="child2">child2</div>
+             </div>
+             <div class="anotherman"></div>
+         </body>
+         
+         </html>
+         ```
+
+* 常见的图片格式
+  * jpg图片：JPEG(JPG)对色彩的保留较好，高清，颜色较多，产品类图片经常用jpg格式
+  * gif图片：最多只能存储256色，通常显示简单图形及字体，但是可以保存透明背景和动画效果，实际经常用于一些图片小动画效果
+  * png图片是一种新兴的网络图形格式，结合GIF和JPEG的有点，具有存储形式丰富的特点，能保持透明背景，所以想要切成背景透明的图片选择png格式
+  * PSD图片，是Photoshop专用格式，可以存放图层，通道，遮罩等多种设计稿，不能直接放页面中，对前端人员来说最大优点是：可以直接从上面复制文字，获得图片，还可以测量大小和距离
+
+* PS切图
+  * 图层切图：对于PSD格式图片，在PS中右键图层导出为png，有时需要先合并图层：按住shift选中多个图层，在图层菜单中选择合并图层，然后再右键导出png图片
+  * 切片切图：对于PSD格式图片，在PS中先把右边的图层滑到最低端，将背景关闭(这样能得到透明背景的切片切图，但是注意保存文件的时候图片格式要选择png格式)，之后在左边剪切菜单栏选择切片工具，框选需要截图的区域，点击文件-导出-存储为wed设备所用格式-选择png格式-切片选择选中的切片-保存
+  * PS插件切图：对于PSD格式图片，在PS中安装cutterman插件，在窗口扩展功能中进行使用
 
 
 
+## CSS属性书写顺序(重点) 
+
+建议遵循以下顺序:
+
+1. 布局定位属性:display / position / float / clear / visibiity / overflow(建议display第一个写，毕竟关系到模式)
+2. 自身属性: width / height / margin / padding / border / background
+3. 文本属性:color / font / text-decoration / text-align / vertical-align / white- space / break-word
+4. 其他属性(CSS3 ) : content / cursor / border-radius / box-shadow / text-shadow / background:linear-gradient...
 
 
 
+### 页面布局整体思路
+为了提高网页制作的效率，布局时通常有以下的整体思路:
+
+1. 必须确定页面的版心(可视区），我们测呈可得知.
+2. 分析页面中的行模块，以及每个行模块中的列模块。其实页面布局第一准则.
+3. 一行中的列模块经常浮动布局,先确定每个列的大小之后确定列的位置.页面布局第二准则
+4. 制作HTML结构。我们还是遵循，先有结构，后有样式的原则。结构永远最重要.
+5. 所以先理清楚布局结构,再写代码尤为重要.这需要我们多写多积累.
 
 
 
+### 导航栏注意点:
+​	实际开发中，我们不会直接用链接a而是用li包含链接(li+a)的做法。
 
-
-
-
+1. li+a语义更清晰，一看这就是有条理的列表型内容。
+2. 如果直接用a,搜索引擎容易辨别为有堆砌关键字嫌疑（故意堆砌关键字容易被搜索引擎有降权的风险），
+   从而影响网站排名
 
 
 
@@ -612,3 +797,4 @@ Emmet语法，使用缩写，提高html/css编写速度，vscode内部已经集�
     ```
 
     就可以在保存的时候自动格式化代码，只用设置依次即可永久生效
+

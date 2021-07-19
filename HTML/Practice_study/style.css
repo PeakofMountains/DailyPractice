@@ -15,6 +15,18 @@ li {
 a {
     text-decoration: none;
 }
+/* 清除浮动 */
+.clearfix:before, .clearfix:after {
+            content: "";
+            display: table;
+        }
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    /* IE6、7专有 */
+    *zoom: 1;
+}
 /* 头部 */
 .header {
     height: 42px;
@@ -93,6 +105,9 @@ a {
     font-size: 14px;
     line-height: 42px;
     color: #666;
+}
+.user a:hover {
+    color: #00a4ff;
 }
 /* banner部分 */
 .banner {
@@ -208,4 +223,119 @@ a {
 .goods ul li a:hover {
     color: #00a4ff;
 }
-
+.box {
+    margin-top: 37px;
+}
+.boxhead {
+    height: 27px;
+}
+.boxhead h3{
+    float: left;
+    font-size: 20px;
+    color: #494949;
+}
+.boxhead a {
+    float: right;
+    font-size: 14px;
+    color: #00a4ff;
+    margin-right: 61px;
+}
+.boxbody {
+    height: 572px;
+    width: 1215px;
+}
+.boxbody ul li {
+    float: left;
+    width: 228px;
+    height: 271px;
+    background-color: #fff;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+.boxbody ul li img {
+    width: 100%;
+}
+.boxbody ul li h3 {
+    font-size: 14px;
+    color: #050505;
+    margin: 25px 23px 18px 23px;
+}
+.boxbody ul li h3:hover {
+    color:#00a4ff;
+}
+.boxbody ul li .bottomtext {
+    height: 13px;
+    line-height: 13px;
+    margin: 0px 23px 25px 23px;
+}
+.boxbody .degree {
+    float: left;
+    font-size: 12px;
+    color: #ff7c2d;
+}
+.boxbody .number {
+    float: left;
+    font-size: 12px;
+    color: #999;
+}
+.boxbody .dot {
+    float: left;
+    font-size: 12;
+    color: #999;
+    margin: 0px 9px;
+}
+/* 网页尾部部分，先要清除浮动 */
+.footer {
+    margin-top: 40px;
+    height: 417px;
+    background-color: #fff;
+}
+.footer .w {
+    padding-top: 32px;
+    /* background-color: #050505; */
+}
+.copyright {
+    display: inline-block;
+    margin-left: 23px;
+}
+.copyright p {
+    margin: 24px 0px 15px 0px;
+    font-size: 12px;
+    color: #666;
+    /* background-color: #1c036c; */
+}
+.copyright a {
+    /* a标签要转成块元素才能设置宽度和高度 */
+    display: block;
+    width: 120px;
+    height: 35px;
+    /* 水平居中垂直对齐 */
+    line-height: 35px;
+    text-align: center;
+    border: 1px solid #00a4ff;
+    color: #00a4ff;
+    font-size: 16px;
+}
+.links {
+    display: inline-block;
+    float: right;
+}
+.links>div {
+    float: right;
+    margin: 0px 74px;
+}
+.links>div h3 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #7d7d7d;
+}
+.links>div ul li {
+    margin-bottom: 9px;
+}
+.links>div ul li a {
+    font-size: 12px;
+    color: #333;
+}
+.links>div ul li a:hover {
+    color: #00a4ff;
+}

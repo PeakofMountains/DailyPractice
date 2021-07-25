@@ -881,11 +881,68 @@
 
     * icomoon字库http://icomoon.io推荐指数★★★★★
       lcoMoon成立于2011年，推出了第一个自定义图标字体生成器，它允许用户选择所需要的图标，使它们成一字型。该字库内容种类繁多，非常全面，唯一的遗憾是国外服务器，打开网速较慢。
+      
     * 阿里iconfont字库http://www.iconfontcn/推荐指数★★★★★
       这个是阿里妈妈M2UX的一个iconfont字体图标字库，包含了淘宝图标库和阿里妈妈图标库。可以使用AlI制作图标上传生成。重点是，免费!
-
+    
     * 阿里iconfont字库的使用方法见此[官方教程](https://www.iconfont.cn/help/detail?spm=a313x.7781069.1998910419.13.4uXHQh&helptype=code)
-
+    
+      举例，字体Unicode使用方法：
+      
+      字体文件从阿里的iconfont字库中下载下来，把里面的文件拷贝到项目文件夹中，然后在代码中如下使用：
+      
+      ```html
+      
+      <!DOCTYPE html>
+      <html lang="en">
+      
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>字体图标的使用</title>
+          <style>
+              /* 这段引入必须有 */
+              @font-face {
+                  font-family: 'iconfont';
+                  src: url('iconfont.woff2?t=1627226688474') format('woff2'),
+                      url('iconfont.woff?t=1627226688474') format('woff'),
+                      url('iconfont.ttf?t=1627226688474') format('truetype');
+              }
+      
+              /* 这里定义了一个iconfont的类用于使用的时候进行调用 */
+              /* 类的名字无所谓，但是里面内容要和此例一样（除了font-size可设置或其他字体属性如color） */
+              .iconfont {
+                  font-family: "iconfont" !important;
+                  font-size: 18px;
+                  font-style: normal;
+                  -webkit-font-smoothing: antialiased;
+                  -moz-osx-font-smoothing: grayscale;
+              }
+      
+              /* 就像这里创建了一个叫test的类，可以更改里面的font-size和color属性 */
+              .test {
+                  font-family: "iconfont" !important;
+                  font-size: 16px;
+                  color: blueviolet;
+                  font-style: normal;
+                  -webkit-font-smoothing: antialiased;
+                  -moz-osx-font-smoothing: grayscale;
+              }
+          </style>
+      </head>
+      
+      <body>
+          <span class="iconfont">&#xe673;</span>
+          <span class="test">&#xe673;</span>
+          <span class="test">&#xe66f;</span>
+      </body>
+      
+      </html>
+      ```
+      
+      
+      
       
 
 * CSS三角

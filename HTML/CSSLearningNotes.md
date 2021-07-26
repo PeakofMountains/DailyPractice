@@ -947,31 +947,361 @@
 
 * CSS三角
 
+  网页中常见一些三角形，使用CSS直接画出来就可以，不必做成图片或者字体图标，原理：一个没有高度和宽度的盒子，其每个边就代表一个三角（三角指向内部），利用一个边设置颜色其余三边设为透明色可以达到三角的制作目的。
+
 * CSS用户界面样式
+
+  * 更改用户鼠标样式
+
+    利用鼠标的cursor属性，例：
+
+    ```html
+    <ul>
+        <li style="cursor: default;">我是默认的小白鼠标样式</li>
+        <li style="cursor: pointer;">我是鼠标小手样式</li>
+        <li style="cursor: move;">我是鼠标移动样式</li>
+        <li style="cursor: text;">我是鼠标文本样式</li>
+        <li style="cursor: not-allowed">我是鼠标禁止样式</li>
+    </ul>
+    ```
+
+    
+
+  * 表单轮廓
+
+    给表单添加`outline:0;`或者`outline: none;`样式之后，就可以去掉输入边框的默认蓝色边框。
+    例：`input { outline: none; }`
+
+  * 防止表单域拖拽
+
+    例：`textarea { resize: none;}`
 
 * vertical-align属性应用
 
+  多用于文字和图片、表单对齐效果，vertical-align属性值：bottom，top，middle，base，默认是基线对齐。注意：用于对齐的元素必须为行内元素或行内块元素
+
+  例：`<img src="1.jpg" alt="" style="vertical-align: middle">This is a test.`
+
+  * 解决图片底部默认空白缝隙问题
+    bug :图片底侧会有一个空白缝隙，原因是行内块元素会和文字的基线对齐。主要解决方法有两种:
+    1．给图片添加`vertical-align: middle|top|bottom;`（提倡使用的)
+    2．把图片转换为块级元素`display: block;`
+
 * 溢出的文字省略号
+
+  例：
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>文字单行省略号显示</title>
+      <style>
+          .singleellipsis {
+              width: 150px;
+              height: 100px;
+              background-color: bisque;
+              /* 文字强制单行显示 */
+              white-space: nowrap;
+              /* 单行显示后多余文字隐藏 */
+              overflow: hidden;
+              /* 多余部分省略号显示 */
+              text-overflow: ellipsis;
+          }
+      </style>
+  </head>
+  
+  <body>
+      <div class="singleellipsis">This is a test.This is a test.This is a test.</div>
+  </body>
+  
+  </html>
+  ```
+
+  
 
 * 显示常见布局技巧
 
+  * margin负值的运用
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>利用margin负值合并边框</title>
+        <style>
+            ul li {
+                float: left;
+                list-style: none;
+                width: 150px;
+                height: 200px;
+                border: 1px solid red;
+                /* 利用margin属性负值将每个盒子向左移动边框宽度大小,
+                盒子浮动后紧贴，之后左移就会使边框重叠 */
+                margin-left: -1px;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+    
+        </ul>
+    </body>
+    </html>
+    ```
+
+    这种方式能让盒子边框重叠显示，但是如果要单独对盒子进行样式设置时，这种重叠效果又会成为阻碍，这时通过提高当前盒子的层级解决此问题(如果没有有定位，则加相对定位（保留位置），如果有定位，则加z-index设置显示优先级 )
+
+  * 文字围绕浮动元素
+
+    利用浮动时不会压住文字的特性将图片设置为浮动，则其下的文字就被挤到盒子的其他位置
+
+  * 行内块的巧妙运用
+
+    在一行里的行内块元素会自动产生间隔，并且给父盒子加属性时会应用到全部行内块元素的特点
+
+  * css三角强化
+
+    通过改变无宽高的盒子的边框宽度实现三角形的大小形状变化，产生不同形状的三角形，例：
+
+    ```html
+    <style>
+    .zhijiao {
+                width: 0px;
+                height: 0px;
+                margin-top: 20px;
+                border-top: 40px solid transparent;
+                border-bottom: 0px solid transparent;
+                border-left: 20px solid transparent;
+                border-right: 20px solid lawngreen;
+            }
+    </style>
+    <body>
+        <div class="zhijiao"></div>
+    </body>
+    ```
+
+  * CSS初始化
+
+    不同浏览器对有些标签的默认值是不同的，为了消除不同浏览器对HTML文本呈现的差异，照顾刘览器的兼容，我们需要对CSS初始化
+
+    简单理解:CSS初始化是指重设浏览器的样式。(也称为CSS reset )每个网页都必须首先进行CSS初始化。
+
+    Unicode编码字体∶
+    把中文字体的名称用相应的Unicode编码来代替，这样就可以有效的避免浏览器解释CSS代码时候出现乱码的问题。
+    比如︰
+    黑体`\9ED1\4F53` 
+
+    宋体`5B8B\4F53`
+    微软雅黑`\5FAE\8F6F\96C5\9ED1`
 
 
 
+* HTML5新特性
 
+  这些新特性都有兼容性问题，基本是IE9+以上版本的浏览器才支持，如果不考虑兼容性问题，可以大量使用这些新特性。
 
+  * HTML5新增的语义化标签
 
+    <header>: 头部标签
+    <nav>: 导航标签
+    <article>: 内容标签
+    <section>: 定义文档某个区域
+    <aside>: 侧边栏标签
+    <footer>: 尾部标签
 
+    注意：
 
+    * 这种语义化标准主要是针对搜索引擎的
+    * 这些新标签页面中可以使用多次
+    * 在IE9中，需要把这些元素转换为块级元素
+    * 其实，我们移动端更喜欢使用这些标签
+    * HTML5还增加了很多其他标签
 
+  * 新增多媒体标签
 
+    HTMLS在不使用插件的情况下，也可以原生的支持视频格式文件的播放，当然，支持的格式是有限的。
+    视频<video>标签
+    当前<video>元素支持三种视频格式，尽量使用mp4格式
 
+    video标签的属性：
 
+    * src，属性值是视频链接
 
+    * autoplay，属性值是autoplay时视频自动播放
+    * muted，属性值是muted时静音播放
+    * loop，属性值是loop时视频循环播放
+    * poster，属性值是图片的地址，规定视频未加载完成时显示的图片
+    * width和height属性设置播放器宽度高度
+    * controls，属性值controls向用户显示播放控件
 
+  * 新增音频标签<audio>
 
+    HTML5在不使用插件的情况下，也可以原生的支持音频格式文件的播放，当然，支持的格式是有限的，建议用mp3格式，常见属性：
 
+    * autoplay
+    * controls
+    * loop
+    * src
 
+  **注意：谷歌浏览器把音频和视频自动播放禁止了，可通过给视频标签添加muted属性来静音自动播放视频，但是音频不行**
+
+  更多标签属性详见菜鸟教程网站
+
+  * 新增的input特性，例：
+
+    ```htmml
+    <input type="email" />
+    <input type="search" />
+    <input type="number" />
+    <input type="tel" />
+    ```
+
+  * 新增的表单属性
+    * required属性，属性值required表示输入不能为空
+    * placeholder属性，值是用于提示的文本，可用`input::placeholder{color: red;}`的方式进行字体颜色的设置
+    * autofocus属性，属性值为autofocus，用于设置当前位置为默认焦点位置
+    * autocomplete属性值off或on，用于记住输入记录，一般用off关掉
+    * multiple属性值，属性multiple设置可以多选文件提交
+
+* CSS3新特性
+
+  * 新增选择器
+
+    * 属性选择器
+
+      属性选择器可以根据元素特定属性的来选择元素。这样就可以不用借助于类或者id选择器。例：
+
+      * E[att] 用于选择具有att属性的E元素，例：`input[type]{}`
+      * E[att="val"] 选择具有att属性且属性值等于val 的E元素，例：`input[type="password"]{}`
+      * E[att4="val"] 匹配具有att属性且值以val开头的E元素
+      * E[att$="val"] 匹配具有att属性且值以val结尾的E元素
+      * E[att*="val"] 匹配具有att属性且值中含有val 的E元素
+
+      **注意∶类选择器、属性选择器、伪类选择器，权重为10。**
+
+    * 结构伪类选择器
+
+      根据文档结构来选择元素，常用于根据父级选择里面的子元素
+
+      * att E:first-child{}匹配父元素att中第一个子元素，子元素需是E类型
+
+      * att E:last-child{}匹配父元素att中的第一个子元素，子元素需要是E类型
+
+      * att E:nth-child(n){}，括号中的n是指第几个孩子，从1开始计数，n可以是数字，关键字和公式，
+
+        * 如果是关键字，则有不同选择效果，关键字如下：
+          * 关键字even，选择偶数的子元素
+          * 关键字odd，选择计数的子元素
+
+        * 如果是公式，则有其他选择效果，用法如下：
+          * n选择全部子元素
+          * 2n选择偶数的子元素
+          * 2n+1选择奇数的子元素
+          * 5n选择5的正整数倍数的子元素
+          * n+5选择从第5个开始（包含5）到最后的子元素
+          * -n+5选择前5个（包含5）
+
+      * att E:first-of-type(n)用法和上面基本相同
+      * att E:last-of-type(n)
+      * att E:nth-of-type(n)
+
+      **区别:**
+
+      1. E:nth-child(n)对父元素里面所有孩子排序选择(序号是固定的）先找到第n个孩子，然后看看是否和E匹配
+      2. E:nth-of-type(n)对父元素里面指定子元素进行排序选择。先去匹配E，然后再根据E找第n个孩子
+
+    * 伪元素选择器
+
+      伪元素选择器可以帮助我们利用CSS创建新标签元素，而不需要HTML标签，从而简化HTML结构，选择符：
+
+      * `::before`在元素内部的前部插入内容
+      * `::after`在元素内部的后部插入内容
+
+      * 语法：`element::before{}`，before和after必须有content属性
+
+      * 伪元素选择器和标签选择器一样，权重为1
+
+      * before和after创建一个元素，但是属于行内元素
+
+      * 新创建的元素在文档树中是找不到的，因此称伪元素
+
+      * 伪元素在使用的时候，例：`.test::before{content:'';}`，`.test:hover::before{}`实现鼠标经过的效果
+
+      * 伪元素清除浮动，用双伪元素在元素前后分别插入before和after实现闭合清除浮动，也可单侧清除浮动，例：
+
+        ```html
+        .clearfix::after {
+                    /* after伪类选择器必须的属性 */
+                    content: "";
+                    /* 插入的盒子必须是块级元素 */
+                    display: block;
+                    /* 让高度是0隐藏起来 */
+                    height: 0;
+                    /* 清除浮动的核心代码 */
+                    clear: both;
+                    /* 隐藏元素 */
+                    visibility: hidden;
+                }
+        ```
+
+  * CSS3盒子模型
+
+    CSS3中可以通过 box-sizing来指定盒模型，属性值可指定为content-box或border-box，这样我们计算盒子大小的方式就发生了改变。
+    可以分成两种情况：
+
+    1. `box-sizing: content-box`盒子大小为width + padding + border (默认)
+    2. `box-sizing: border-box`盒子大小为width，如果盒子模型改为了`box-sizing: border-box`，那padding和border就不会撑大盒子（前提padding和border不会超过width宽度)
+
+  * CSS3滤镜filter属性，用于将模糊或者颜色偏移等图形效果应用于元素，语法，例：`filter: blur(1px);`此语句中blur函数是添加模糊效果，数值越大越模糊，数值要加单位
+
+  * CSS3 计算calc函数，此CSS函数让你在声明CSS属性值时执行一些计算。如：`width: calc(100% - 80px);`放在子元素中能实现此子元素永远比父元素宽度小80px
+    括号里面可以使用`+`,`-`,`*`,`/`来进行计算。
+
+  * 过渡(transition)
+
+    是CSS3中具有颠覆性的特征之一，我们可以在不使用Flash 动画或JavaScript 的情况下，当元素从一种样式变换为另一种样式时为元素添加效果。
+
+    * 过渡动画:是从一个状态渐渐的过渡到另外一个状态
+      可以让我们页面更好看，更动感十足，虽然低版本浏览器不支持 ( ie9以下版本）但是不会影响页面布局。
+
+    * 我们现在经常和:hover一起搭配使用。
+
+    * 语法：transition:要过渡的属性 花费时间 运动曲线 何时开始;  ,谁做过渡给谁加。
+
+      1. 属性：想要变化的css属性，宽度高度背景颜色内外边距都可以。如果想要所有的属性都变化过渡，写一个all就可以。
+      2. 花费时间:单位是秒(必须写单位）比如0.5s
+      3. 运动曲线:默认是ease (可以省略)
+      4. 何时开始︰单位是秒(必须写单位)可以设置延迟触发时间默认是0s(可以省略)
+
+      例：
+
+      ```css
+      div {
+          width: 200px;
+          height: 100px;
+          background-color: pink;
+          /* transition:变化的属性 花费时间 运动曲线 何时开始; */
+          transition: width .5s ease 1s;
+              }
+      div:hover {
+          width: 400px;
+      }
+      ```
+
+      
+
+      
 
 
 

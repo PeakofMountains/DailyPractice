@@ -1,4 +1,153 @@
+/* 字体图标引用 */
+@font-face {
+  font-family: "iconfont"; /* Project id 2699096 */
+  src: url('../font/iconfont.woff2?t=1627433336227') format('woff2'),
+       url('../font/iconfont.woff?t=1627433336227') format('woff'),
+       url('../font/iconfont.ttf?t=1627433336227') format('truetype');
+}
+
 .w {
     width: 1200px;
     margin: 0 auto;
+}
+/* 左浮动 */
+.fl {
+    float: left;
+}
+/* 右浮动 */
+.fr {
+    float: right;
+}
+/* 快捷导航栏 */
+.shortcut {
+    height: 30px;
+    background-color: #f1f1f1;
+    line-height: 30px;
+}
+/* 字体颜色红色 */
+.style_red {
+    color: #c81623;
+}
+/* 左侧字体设置 */
+.shortcut .fl ul li {
+    float: left;
+    font-size: 12px;
+    color: #666;
+}
+/* 右侧字体设置 */
+.shortcut .fr ul li {
+    float: right;
+    font-size: 12px;
+    color: #666;
+}
+.shortcut .fr ul li:nth-of-type(2n) {
+    margin: auto 15px;
+}
+/* 下箭头字体图标样式设置 */
+.arrow_down::after {
+    font-family: "iconfont";
+    content: "\e665";
+    color: #6e6e6e;
+    font-size: 12px;
+    margin-left: 5px;
+}
+/* header部分设置 */
+.header {
+    position: relative;
+    height: 106px;
+    /* background-color: greenyellow; */
+}
+/* logo模块 */
+.logo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 209px;
+    height: 106px;
+    /* background-color: #f1f1f1; */
+}
+/* 由于a不是块级元素没有行高和宽度，因此对a进行宽高设置的时候应该通过`display: block;`来转换 */
+.logo h1 a {
+    display: block;
+    width: 209px;
+    height: 106px;
+    /* 将字号设置为0，将其隐藏 */
+    font-size: 0px;
+    background: url(../images/logo.png) no-repeat;
+}
+/* 搜索框模块 */
+.search {
+    
+    position: absolute;
+    left: 347px;
+    top: 26px;
+    width: 539px;
+    height: 37px;
+    /* background-color: #c81623; */
+}
+.search input {
+    float: left;
+    width: 454px;
+    height: 37px;
+    border: 1px solid #b1191a;
+    outline: none;
+    padding-left: 10px;
+}
+.search button {
+    float: left;
+    width: 82px;
+    height: 37px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #b1191a;
+}
+/* 热词模块 */
+.hotwords {
+    position: absolute;
+    left: 347px;
+    bottom: 24px;
+    /* background-color: #c81623; */
+}
+.hotwords a {
+    padding: 0 12px;
+    font-size: 12px;
+    color: #666;
+}
+.hotwords a:hover {
+    color:#c81623
+}
+.shopcar {
+    position: absolute;
+    right: 64px;
+    top: 27px;
+    width: 140px;
+    height: 36px;
+    font-size: 12px;
+    color: #666;
+    line-height: 36px;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+.shopcar::before {
+    content: "\e746";
+    font-family: "iconfont";
+    font-size: 16px;
+    margin-right: 5px;
+}
+.shopcar::after {
+    content: "\e667";
+    font-family: "iconfont";
+    margin-left: 5px;
+}
+.count {
+    position: absolute;
+    left: 105px;
+    bottom: 26px;
+    font-size: 12px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    border-radius: 7px 7px 7px 0px;
+    color: #fefefe;
+    background-color: #e60012;
 }

@@ -1,0 +1,22 @@
+/* 注意在html文件中先link引入 */
+.main {
+    width: 982px;
+    height: 456px;
+    margin-top: 10px;
+    margin-left: 218px;
+    background-color: aqua;
+}
+/* 焦点部分 */
+.focuspoint {
+    float: left;
+    width: 720px;
+    height: 456px;
+    background-color: antiquewhite;
+}
+/* 热点部分 */
+.newpoint {
+    float: right;
+    width: 250px;
+    height: 456px;
+    background-color: blueviolet;
+}

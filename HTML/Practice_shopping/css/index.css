@@ -130,6 +130,10 @@
     float: left;
     
 }
+.recommend_bd ul li img {
+    width: 247px;
+    height: 163px;
+}
 .recommend_bd ul li:nth-of-type(-n+3)::after {
     content: "";
     position:absolute;
@@ -138,4 +142,126 @@
     width: 2px;
     height: 145px;
     background-color: #ddd;
+}
+/* 猜你喜欢模块 */
+.guess {
+    height: 261px;
+    margin-top: 22px;
+    /* background-color: antiquewhite; */
+}
+.guess_hd {
+    height: 39px;
+    line-height: 39px;
+    border-bottom: 1px solid #ededed;
+    /* background-color: gold; */
+}
+.guess_hd h3 {
+    float: left;
+    font-size: 18px;
+    color: #333;
+}
+.guess_hd a {
+    float: right;
+    font-size: 12px;
+    color: #666;
+}
+.guess_hd a::after{
+    content: "\e667";
+    font-family: "iconfont";
+    margin-left: 5px;
+}
+.guess_bd {
+    height: 233px;
+    /* background-color: greenyellow; */
+}
+.guess_bd ul li {
+    position: relative;
+    float: left;
+    text-align: center;
+}
+.guess_bd ul li a {
+    display: block;
+    width: 200px;
+    height: 233px;
+    background: url(../upload/guess1.png) no-repeat;
+}
+.guess_bd ul li:nth-of-type(-n+5)::after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    bottom: 8px;
+    width: 1px;
+    height: 62px;
+    /* 盒子的颜色是通过background-color来设置，而不是color */
+    background-color: #ededed;
+}
+
+/* 楼层模块 */
+.floor {
+    margin-top: 20px;
+}
+.floor_hd {
+    height: 38px;
+    line-height: 38px;
+    border-bottom: 2px solid #c81623;
+}
+.floor_hd h3 {
+    float: left;
+    font-size: 18px;
+    font-weight: 400;
+    color: #c81623;
+}
+.tab_list {
+    float: right;
+}
+.tab_list ul li {
+    float: left;
+}
+.tab_list ul li a{
+font-size: 12px;
+margin: 0px 16px;
+}
+.floor_bd {
+    height: 360px;
+    /* background-color: gold; */
+}
+.width_210 {
+    width: 210px;
+    text-align: center;
+}
+.width_328 {
+    width: 328px;
+    text-align: center;
+    /* background-color: #c81623; */
+}
+.width_221 {
+    width: 221px;
+    text-align: center;
+    /* background-color: goldenrod; */
+}
+.width_219 {
+    width: 219px;
+    text-align: center;
+}
+.tab_list_item>div {
+    float: left;
+    height: 360px;
+}
+.width_210 {
+    padding-left: 10px;
+    width: 210px;
+}
+.width_210 ul li {
+    float: left;
+    width: 84px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin-right: 10px;
+    border-bottom: 1px solid #ededed;
+}
+.width_210 ul li a {
+
+    font-size: 12px;
+    color: #666;
 }

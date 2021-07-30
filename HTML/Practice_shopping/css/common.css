@@ -221,6 +221,7 @@
 /* footer模块 */
 .footer {
     height: 417px;
+    margin-top: 10px;
     background-color: #f5f5f5;
 }
 .mod_service {

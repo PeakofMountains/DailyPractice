@@ -1,0 +1,55 @@
+/* 版心样式 */
+.w {
+    width: 1200px;
+    margin: 0px auto;
+}
+.logo {
+    padding-top: 16px;
+    border-bottom: 2px solid #b1191a;
+}
+.registerarea {
+    height: 523px;
+    border: 1px solid #dfdfdf;
+}
+.registerarea h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: 400;
+    height: 42px;
+    line-height: 42px;
+    padding-left: 10px;
+    background-color: #ececec;
+}
+.login {
+    float: right;
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px;
+    background-color: #ececec;
+}
+.login a i {
+    font-size: 14px;
+    color: #c81623;
+}
+.reg_form {
+    width: 600px;
+    text-align: center;
+    margin: 50px auto 0px;
+    /* background-color: #333; */
+}
+.reg_form ul li label {
+    display: inline-block;
+    width: 85px;
+    font-size: 12px;
+    color: #4c4c4c;
+    text-align: right;
+}
+.reg_form ul li input {
+    width: 240px;
+    height: 35px;
+    border: 1px solid #999;
+}
+.reg_form ul li span {
+    font-size: 12px;
+    color: #df3033;
+}

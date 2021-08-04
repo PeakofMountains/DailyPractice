@@ -1255,288 +1255,217 @@
                 }
         ```
 
-  * CSS3盒子模型
+  
 
-    CSS3中可以通过 box-sizing来指定盒模型，属性值可指定为content-box或border-box，这样我们计算盒子大小的方式就发生了改变。
-    可以分成两种情况：
+  * CSS3 2D转换transform
+  
+    * 移动translate
+  
+      * 类似定位，可以改变元素位置，语法，例：`transform: translate(x,y);` x，y的单位是px像素
 
-    1. `box-sizing: content-box`盒子大小为width + padding + border (默认)
-    2. `box-sizing: border-box`盒子大小为width，如果盒子模型改为了`box-sizing: border-box`，那padding和border就不会撑大盒子（前提padding和border不会超过width宽度)
+      * translate最大的优点：不会影响其他元素的位置，其中x和y也可以是百分比，是相当于自身元素大小的百分比进行移动
 
-  * CSS3滤镜filter属性，用于将模糊或者颜色偏移等图形效果应用于元素，语法，例：`filter: blur(1px);`此语句中blur函数是添加模糊效果，数值越大越模糊，数值要加单位
+      * translate对于行内元素是无效的
+  
+    * 旋转rotate
+  
+      * 默认绕盒子元素中心进行旋转，语法，例：`transform: rotate(deg);` 其中deg是度数，单位是deg，要带着单位写，为正数时是顺时针，反之为逆时针，例：`tranform: rotate(45deg);`，利用rotate可以做出三角图标：盒子两个边有颜色，两个边为透明，然后对盒子进行45°旋转，形成三角图标
+      * 可以对旋转参照点进行修改，利用`transform-origin`属性，语法`tranform-origin: x y;`，例：`transform-origin: left bottom;`就是绕着元素的左下角进行旋转，x和y为方位名词，当然x和y也可以为像素，要带单位，也可为百分比，默认为50%
 
-  * CSS3 计算calc函数，此CSS函数让你在声明CSS属性值时执行一些计算。如：`width: calc(100% - 80px);`放在子元素中能实现此子元素永远比父元素宽度小80px
-    括号里面可以使用`+`,`-`,`*`,`/`来进行计算。
+    * 缩放scale
+  
+      * 缩放，可以等比例，也可以宽高不等比例缩放，语法`transform: scale(x,y);`，例：`transform: scale(2,0.5);` 就是宽变为之前的2倍，高变为之前的0.5倍，也可以进行等比例缩放的简写：`tranform: scale(2)`就是指宽和高都变为之前的2倍
+      * 优势：默认相对于元素中心进行缩放，不会影响其他元素位置，也可以通过transform-origin属性设置缩放中心点
 
-  * 过渡(transition)
+    * 这是利用旋转和缩放建立的一个例子：
 
-    是CSS3中具有颠覆性的特征之一，我们可以在不使用Flash 动画或JavaScript 的情况下，当元素从一种样式变换为另一种样式时为元素添加效果。
-
-    * 过渡动画:是从一个状态渐渐的过渡到另外一个状态
-      可以让我们页面更好看，更动感十足，虽然低版本浏览器不支持 ( ie9以下版本）但是不会影响页面布局。
-
-    * 我们现在经常和:hover一起搭配使用。
-
-    * 语法：transition:要过渡的属性 花费时间 运动曲线 何时开始;  ,谁做过渡给谁加。
-
-      1. 属性：想要变化的css属性，宽度高度背景颜色内外边距都可以。如果想要所有的属性都变化过渡，写一个all就可以。
-      2. 花费时间:单位是秒(必须写单位）比如0.5s
-      3. 运动曲线:默认是ease (可以省略)
-      4. 何时开始︰单位是秒(必须写单位)可以设置延迟触发时间默认是0s(可以省略)
-
-      例：
-
-      ```css
-      div {
-          width: 200px;
-          height: 100px;
-          background-color: pink;
-          /* transition:变化的属性 花费时间 运动曲线 何时开始; */
-          transition: width .5s ease 1s;
+      ```html
+      <!DOCTYPE html>
+      <html lang="en">
+      
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>盒子旋转缩放动画</title>
+          <style>
+              .father {
+                  width: 300px;
+                  height: 300px;
+                  margin: 200px auto;
+                  /* 隐藏子盒子 */
+                  overflow: hidden;
+                  /* 父盒子进行大小scale变换 */
+                  transition: all 1s;
+                  background-color: gold;
               }
-      div:hover {
-          width: 400px;
-      }
+      
+              .father::after {
+                  content: "";
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  transform-origin: left bottom;
+                  transform: rotate(90deg);
+                  background-color: greenyellow;
+                  /* 子盒子进行旋转rotate变换 */
+                  transition: all 1s;
+              }
+      
+              .father:hover::after {
+                  transform: rotate(0deg);
+              }
+      
+              .father:hover {
+                  transform: scale(2);
+              }
+          </style>
+      </head>
+      
+      <body>
+          <div class="father"></div>
+      </body>
+      
+      </html>
       ```
-
-      
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* 常见的图片格式
-  * jpg图片：JPEG(JPG)对色彩的保留较好，高清，颜色较多，产品类图片经常用jpg格式
-  * gif图片：最多只能存储256色，通常显示简单图形及字体，但是可以保存透明背景和动画效果，实际经常用于一些图片小动画效果
-  * png图片是一种新兴的网络图形格式，结合GIF和JPEG的有点，具有存储形式丰富的特点，能保持透明背景，所以想要切成背景透明的图片选择png格式
-  * PSD图片，是Photoshop专用格式，可以存放图层，通道，遮罩等多种设计稿，不能直接放页面中，对前端人员来说最大优点是：可以直接从上面复制文字，获得图片，还可以测量大小和距离
-
-* PS切图
-  * 图层切图：对于PSD格式图片，在PS中右键图层导出为png，有时需要先合并图层：按住shift选中多个图层，在图层菜单中选择合并图层，然后再右键导出png图片
-  * 切片切图：对于PSD格式图片，在PS中先把右边的图层滑到最低端，将背景关闭(这样能得到透明背景的切片切图，但是注意保存文件的时候图片格式要选择png格式)，之后在左边剪切菜单栏选择切片工具，框选需要截图的区域，点击文件-导出-存储为wed设备所用格式-选择png格式-切片选择选中的切片-保存
-  * PS插件切图：对于PSD格式图片，在PS中安装cutterman插件，在窗口扩展功能中进行使用
-
-
-
-## CSS属性书写顺序(重点) 
-
-建议遵循以下顺序:
-
-1. 布局定位属性:display / position / float / clear / visibiity / overflow(建议display第一个写，毕竟关系到模式)
-2. 自身属性: width / height / margin / padding / border / background
-3. 文本属性:color / font / text-decoration / text-align / vertical-align / white- space / break-word
-4. 其他属性(CSS3 ) : content / cursor / border-radius / box-shadow / text-shadow / background:linear-gradient...
-
-
-
-### 页面布局整体思路
-为了提高网页制作的效率，布局时通常有以下的整体思路:
-
-1. 必须确定页面的版心(可视区），我们测呈可得知.
-2. 分析页面中的行模块，以及每个行模块中的列模块。其实页面布局第一准则.
-3. 一行中的列模块经常浮动布局,先确定每个列的大小之后确定列的位置.页面布局第二准则
-4. 制作HTML结构。我们还是遵循，先有结构，后有样式的原则。结构永远最重要.
-5. 所以先理清楚布局结构,再写代码尤为重要.这需要我们多写多积累.
-
-
-
-### 导航栏注意点:
-​	实际开发中，我们不会直接用链接a而是用li包含链接(li+a)的做法。
-
-1. li+a语义更清晰，一看这就是有条理的列表型内容。
-2. 如果直接用a,搜索引擎容易辨别为有堆砌关键字嫌疑（故意堆砌关键字容易被搜索引擎有降权的风险），
-   从而影响网站排名
-
-
-
-### 网站favicon图标
-
-​	favicon.ico一般用作缩略的网站标志，显示在浏览器的地址栏或者标签上，目前主要的浏览器都支持favicon图标，使用方法：
-
-1. 制作favicon图标
-
-   * 把需要的图标图案从psd图片上去掉背景切下保存为png图片
-   * 将png图片通过第三方转换网站转换成ico图标，例：[比特虫](http://www.bitbug.net)
-
-2. 将favicon图标文件放在项目根目录下
-
-3. 在代码中进行引入
-
-   代码会在比特虫网站中生成，只需要加在代码的head标签中
-
-
-
-### 列表页制作
-
-列表页制作经常会碰到用`ul` 和 `li`作为基本商品容器，经常会添加鼠标经过 `li`  时边框变颜色的设计要求，直接只在hover中添加颜色改变效果会导致鼠标经过`li`时整个`li`的大小和内部文字的排版位置发生变化，这种现象产生的原因是`li`默认带有边框，解决办法：不仅在hover中设置变换后的颜色，也在`li`中设置其边框的宽度，线性和颜色，**注意颜色设置为transparent**
-
-### 网站制作TDK三大标签SEO优化
-
-SEO ( Search Engine Optimization )汉译为搜索引擎优化，是一种利用搜索引擎的规则提高网站在有关搜索引擎内自然排名的方式。
-SEO的目的是对网站进行深度的优化，从而帮助网站获取免费的流量，进而在搜索引擎上提升网站的排名，提高网站的知名度。
-页面必须有三个标签用来符合SEO优化。
-
-* title网站标题
-
-  title具有不可替代性，是我们内页的第一个重要标签，是搜索引擎了解网页的入口和对网页主题归属的最佳判断点。
-  建议∶网站名（产品名)–网站的介绍（尽量不要超过30个汉字)
-  例如∶
-  	京东(JD.COM)-综合网购首选-正品低价、品质保障、配送及时、轻松购物!·	小米商城-小米5s、红米Note4、小米MIX、小米笔记本官方网站
-
-* description网站说明
-
-  简要说明我们网站主要是做什么的。
-  我们提倡，description作为网站的总体业务和主题概括，多采用“我们是.”、“我们提供.….”、“×××网作为.….”、“电话:010...”之类语句。
-  例如∶
-
-  <meta name="description" content="京东JD.COM-专业的综合网上购物商城销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上购物体验!"/>
-
-* keywords关键字
-
-  keywords是页面关键词，是搜索引擎的关注点之一。
-  keywords最好限制为6~8个关键词，关键词之间用英文逗号隔开，采用关键词1,关键词2的形式。
-  例如︰
-
-  <meta name= “keywords" content="网上购物,网上商城手机,笔记本,电脑,MP3,CD,VCD,DV,相机,数码配件,手表,存储卡,京东"/>
-
-
-
-### LOGO SEO优化
-
-1.  logo里面首先放一个h1标签，目的是为了提权，告诉搜索引擎，这个地方很重要
-2.  h1里面再放一个链接，可以返回首页的，把logo的背景图片给链接即可
-3. 为了搜索引擎收录我们，我们链接里面要放文字(网站名称），但是文字不要显示出来。
-   * 方法1 : text-indent移到盒子外面( text-indent:-9999px)，然后overflow:hidden，淘宝的做法。
-   * 方法2∶直接给font-size:0;就看不到文字了，京东的做法。
-4. 最后给链接一个title属性，这样鼠标放到logo上就可以看到提示文字了
-
-例：
-
-```html
-<!-- logo部分 start-->
-<!-- 设置title的目的是鼠标放在logo上时显示提示信息 -->
-<div class="logo" title="品优购商城首页">
-    <h1><a href="index.html">品优购商城首页</a></h1>
-</div>
-<!-- logo部分 end-->
-```
-
-
-
-
-
-### 盒子大小的设置
-
-**注意设置盒子大小的时候，要确认盒子比里面的内容空间大，特别是里面容纳的是文字时很有可能盒子大小不能容纳设置的字号，导致文字下压下面的内容**
-
-
-
-
-
-
-
-### 工具Snipaste
-
-Snipaste是一个简单但强大的截图工具，也可以让你将截图贴回到屏幕上.常用快捷方式:
-
-* F1可以截图.同时测量大小,设置箭头书写文字等
-* F3在桌面置顶显示
-* 点击图片, alt可以取色(按下shift可以切换取色模式)
-* 按下esc取消图片显示
-
-Windows下载方式：直接在Microsoft Store中搜索即可安装，官网也可下载其他版本
-
-### PS基本操作 
-
-大部分切图，测量在ps中进行，部分操作：
-
-* PhotoShop中打开图片
-* Ctrl+R调出标尺
-* 标尺上右键，单位改成像素
-* Ctrl+加号 放大视图，Ctrl+减号 缩小视图
-* 按住空格键，鼠标拖动就能移动图片
-* 吸管工具可以进行取色
-* 选框工具可用来测量
-
-* Chrome调试工具
-  * Chrome提供了非常好用的调试工具，用于调试HTML结构和CSS样式，使用`右键检查`或者`F12`都可以打开调试页面
-  * `Ctrl+滚轮`可以放大开发者工具代码大小
-  * 左边是HTML元素结构，右边是CSS样式
-  * 右边CSS样式可以改动数值（上下箭头或者直接输入）和查看颜色，在这里改动的数值在浏览器关闭后就会消失，不会保存在代码中，因此应该最终在代码中进行修改
-  * Ctrl+0复原浏览器大小
-  * 如果点击元素，发现右侧没有样式引入，极有可能是类名或者样式引入错误
-  * 如果有样式，但是样式前面有黄色叹号提示，同样是样式属性书写错误，在右侧对应区域右上角会显示出错代码所在行数
-
-Emmet语法，使用缩写，提高html/css编写速度，vscode内部已经集成该语法
-
-* 快速生成HTML结构语法
-
-  * 输入标签名按---`Tab`键即可补全
-  * 生成多个相同标签--- 标签*数量 ，即可，例：`div*3`就能快速生成三对div标签
-  * 父子级关系的标签用`>`，例：`ul>li`就可以生成`<ul> <li></li> </ul>`
-  * 兄弟关系的标签用`+`连接就可以，例：`div+p`
-  * 生成带有类名或者id名字，直接写`.类名`或者`#类名`加上`Tab`键就可以了
-  * 如果生成的div类名是有顺序的，可以用自增符号`$`,例：`.demo$*5`
-  * 在生成的标签内部写内容可以用`{}`表示，如`p{I am a demo}`,`p{demo$}*3`
-
-* 快速生成CSS样式语法
-
-  * 输入首字母来缩写样式代码，例：`tac`按Tab得到`text-align: center;`
-
-  * 快速格式化代码
-
-    在settings.json用户设置里面添加
-
-    ```json
-    "editor.formatOnType":true,
-    "editor.formatOnSave":true,
+  
+      这个效果还蛮好看的
+  
+    * transform的属性一般搭配上transition属性进行使用能实现简单的动画效果
+  
+    * 同时使用多个transform转换进行搭配，其语法为：`transform: translate() rotate() scale();` 其书写顺序会影响到实现效果，先旋转会改变坐标轴方向，当有位移要求是记得将位移translate()放在最前面
+
+* CSS动画
+
+  动画可以通过设置多个节点来精准控制一个或一组动画，常用来实现复杂的动画效果，相比较过渡，动画能够实现连续自动播放等效果
+
+  * 动画的使用方法：1. 定义动画 2. 使用动画
+
+  * 例：
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>动画的使用</title>
+        <style>
+            /* 动画的定义,实现网站打开后盒子从左边向右平移一段距离 */
+            @keyframes anim {
+    
+                /* 动画的初始状态 */
+                0% {
+                    transform: translate(0px);
+                }
+                50%{
+                    transform: translate(500px);
+                }
+                /* 动画的结束状态 */
+                100% {
+                    transform: translate(1000px);
+                }
+            }
+    
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: gold;
+                /* 调用定义好的动画 */
+                animation-name: anim;
+                /* 规定动画的持续时间 */
+                animation-duration: 2s;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div></div>
+    </body>
+    
+    </html>
     ```
 
-    就可以在保存的时候自动格式化代码，只用设置依次即可永久生效
+    其中from关键字可以替代0%，to关键字可以替代100%，利用百分比可以设置动画的时间进程上的不同动作
 
-### Vscode快捷使用
+  * 动画常用属性：
 
-* Ctrl+g输入行数能定位到指定行
+    * @keyframes 规定动画。
+    * animation
+      所有动画属性的简写属性，除了animation-play-state属性。
+    * animation-name
+      规定@keyframes动画的名称。(必须的)
+    * animation-duration
+      规定动画完成一个周期所花费的秒或毫秒，默认是0。(必须的)
+    * animation-timing-function
+      规定动画的速度曲线，默认是“ease”。
+    * animation-delay
+      规定动画何时开始，默认是0。
+    * animation-iteration-count
+      规定动画被播放的次数，默认是1，还有infinite是无限循环播放
+    * animation-direction
+      规定动画是否在下一周期逆向播放，默认是“normal ",alternate逆方向播放
+    * animation-play-state
+      规定动画是否正在运行或暂停。默认是"running",还有"paused"。
+    * animation-fill-mode
+      规定动画结束后状态，保持forwards回到起始backwards
 
+
+
+
+
+
+
+
+
+
+
+* CSS3盒子模型
+
+  CSS3中可以通过 box-sizing来指定盒模型，属性值可指定为content-box或border-box，这样我们计算盒子大小的方式就发生了改变。
+  可以分成两种情况：
+
+  1. `box-sizing: content-box`盒子大小为width + padding + border (默认)
+  2. `box-sizing: border-box`盒子大小为width，如果盒子模型改为了`box-sizing: border-box`，那padding和border就不会撑大盒子（前提padding和border不会超过width宽度)
+
+* CSS3滤镜filter属性，用于将模糊或者颜色偏移等图形效果应用于元素，语法，例：`filter: blur(1px);`此语句中blur函数是添加模糊效果，数值越大越模糊，数值要加单位
+
+* CSS3 计算calc函数，此CSS函数让你在声明CSS属性值时执行一些计算。如：`width: calc(100% - 80px);`放在子元素中能实现此子元素永远比父元素宽度小80px
+  括号里面可以使用`+`,`-`,`*`,`/`来进行计算。
+
+* 过渡(transition)
+
+  是CSS3中具有颠覆性的特征之一，我们可以在不使用Flash 动画或JavaScript 的情况下，当元素从一种样式变换为另一种样式时为元素添加效果。
+
+  * 过渡动画:是从一个状态渐渐的过渡到另外一个状态
+    可以让我们页面更好看，更动感十足，虽然低版本浏览器不支持 ( ie9以下版本）但是不会影响页面布局。
+
+  * 我们现在经常和:hover一起搭配使用。
+
+  * 语法：transition:要过渡的属性 花费时间 运动曲线 何时开始;  ,谁做过渡给谁加。
+
+    1. 属性：想要变化的css属性，宽度高度背景颜色内外边距都可以。如果想要所有的属性都变化过渡，写一个all就可以。
+    2. 花费时间:单位是秒(必须写单位）比如0.5s
+    3. 运动曲线:默认是ease (可以省略)
+    4. 何时开始︰单位是秒(必须写单位)可以设置延迟触发时间默认是0s(可以省略)
+
+    例：
+
+    ```css
+    div {
+        width: 200px;
+        height: 100px;
+        background-color: pink;
+        /* transition:变化的属性 花费时间 运动曲线 何时开始; */
+        transition: width .5s ease 1s;
+            }
+    div:hover {
+        width: 400px;
+    }
+    ```
+
+    
+
+    

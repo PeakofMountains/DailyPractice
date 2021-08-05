@@ -1469,3 +1469,10 @@
     
 
     
+
+* 动画简写，遵循下面格式： `animation: name duration]timing-function delay iteration-count direction fill-mode;` 
+  * 简写属性里面不包含animation-play-state
+  * 暂停动画: `animation-play-state: puased;`
+  * 经常和鼠标经过等其他配合使用想要动画走回来，而不是直接跳回来:`animation-direction : alternate`
+  * 盒子动画结束后，停在结束位置: `animation-fill-mode : forwards`
+

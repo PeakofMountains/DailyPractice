@@ -1393,32 +1393,201 @@
   * 动画常用属性：
 
     * @keyframes 规定动画。
+    
     * animation
       所有动画属性的简写属性，除了animation-play-state属性。
+      
     * animation-name
       规定@keyframes动画的名称。(必须的)
+      
     * animation-duration
       规定动画完成一个周期所花费的秒或毫秒，默认是0。(必须的)
+      
     * animation-timing-function
-      规定动画的速度曲线，默认是“ease”。
+      规定动画的速度曲线，默认是"ease"，还可以是步数"step"等。
+      
+      * 利用这个属性可以做出打字机的效果：
+      
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>利用动画animation-timing-function属性值step实现打字机效果</title>
+            <style>
+                .typewriter {
+                    font-size: 16px;
+                    height: 20px;
+                    line-height: 20px;
+                    color: black;
+                    animation: boxwidth 4s steps(20) forwards;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                @keyframes boxwidth {
+                    0% {
+                        width: 0px;
+                    }
+                    100% {
+                        width: 400px;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="typewriter">
+                这是一个打字机这是一个打字机这是一个打字机
+            </div>
+        </body>
+        </html>
+        ```
+      
+        
+      
     * animation-delay
       规定动画何时开始，默认是0。
+      
     * animation-iteration-count
       规定动画被播放的次数，默认是1，还有infinite是无限循环播放
+      
     * animation-direction
       规定动画是否在下一周期逆向播放，默认是“normal ",alternate逆方向播放
+      
     * animation-play-state
       规定动画是否正在运行或暂停。默认是"running",还有"paused"。
+      
     * animation-fill-mode
       规定动画结束后状态，保持forwards回到起始backwards
 
+* 动画简写，遵循下面格式： `animation: name duration timing-function delay iteration-count direction fill-mode;` 
+  * 简写属性里面不包含animation-play-state
+  * 暂停动画: `animation-play-state: puased;`
+  * 经常和鼠标经过等其他配合使用想要动画走回来，而不是直接跳回来:`animation-direction : alternate`
+  * 盒子动画结束后，停在结束位置: `animation-fill-mode : forwards`
 
+  
 
+### CSS3D转换
 
+利用perspective透视实现，理解成安排一个光源在电脑屏幕外，之间是被观测物体，光源发出的光在物体上的投影投到电脑屏幕上，实现近大远小的效果，透视的单位是像素px
 
+* 透视perspective写在想要实现3D效果元素的父元素上，大小代表光源距离屏幕的距离
+* 当perspective固定下来之后，通过改变translateZ(物体距离屏幕的距离)同样能实现3D效果，值越大物体越大
+* 3D旋转rotate3d
+  * 默认3D坐标轴的轴心在盒子的中心
+  * 旋转正方向由左手定则判断，拇指指向轴的正方向，四指弯曲方向就是旋转正方向
+  * `transform: rotateX(deg);`沿着x轴旋转
+  * `transform: rotateY(deg);`沿y轴
+  * `transform: rotateZ(deg);`沿z轴
+  * `transform: rotate3d(x,y,z,deg);`x，y，z表示旋转轴的矢量，最终的旋转轴由这三个矢量合成来计算，最后一个表示旋转的角度
+* transform-style属性，控制子元素是否开启三维立体环境
+  * 属性值默认为flat子元素不开启三位立体环境，属性值还可以为preserve-3d子元素开启三维空间环境
+  * 这个属性代码写给父元素，但是执行的效果在子元素
+* 同时具有移动和旋转属性时要把移动属性放在前面
 
+* 通过3D变换制作木马旋转图的效果：
 
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>3D旋转实现旋转木马效果</title>
+      <style>
+          body {
+              perspective: 1000px;
+          }
+  
+          section {
+              position: relative;
+              width: 300px;
+              height: 200px;
+              margin: 300px auto;
+              /* 子元素开启3D立体环境 */
+              transform-style: preserve-3d;
+              /* 动画调用，让大盒子旋转起来 */
+              animation: rotate 5s linear infinite;
+          }
+  
+          /* 当鼠标经过的时候停止旋转 */
+          section:hover {
+              animation-play-state: paused;
+          }
+  
+          /* 设定图片的大小 */
+          section div img {
+              width: 100%;
+              height: 100%;
+          }
+  
+          section div {
+              position: absolute;
+              left: 0px;
+              top: 0px;
+              width: 100%;
+              height: 100%;
+          }
+  
+          section div:nth-of-type(1) {
+              transform: translateZ(300px);
+          }
+  
+          section div:nth-of-type(2) {
+              transform: rotateY(60deg) translateZ(300px);
+          }
+  
+          section div:nth-of-type(3) {
+              transform: rotateY(120deg) translateZ(300px);
+          }
+  
+          section div:nth-of-type(4) {
+              transform: rotateY(180deg) translateZ(300px);
+          }
+  
+          section div:nth-of-type(5) {
+              transform: rotateY(240deg) translateZ(300px);
+          }
+  
+          section div:nth-of-type(6) {
+              transform: rotateY(300deg) translateZ(300px);
+          }
+  
+          /* 动画样式的定义 */
+          @keyframes rotate {
+              0% {
+                  transform: rotateY(0deg);
+              }
+  
+              100% {
+                  transform: rotateY(360deg);
+              }
+          }
+      </style>
+  </head>
+  
+  <body>
+      <!-- section作为大盒子装六张图片盒子 -->
+      <section>
+          <!-- 每个小盒子中分别装一张图片 -->
+  <!-- 这里为了方便都装的是一张图片，可根据自己的文件目录选择背景图片 -->
+          <div><img src="./images/1.jpg" alt=""></div>
+          <div><img src="./images/1.jpg" alt=""></div>
+          <div><img src="./images/1.jpg" alt=""></div>
+          <div><img src="./images/1.jpg" alt=""></div>
+          <div><img src="./images/1.jpg" alt=""></div>
+          <div><img src="./images/1.jpg" alt=""></div>
+      </section>
+  </body>
+  
+  </html>
+  ```
 
+  
 
 
 
@@ -1470,9 +1639,12 @@
 
     
 
-* 动画简写，遵循下面格式： `animation: name duration]timing-function delay iteration-count direction fill-mode;` 
-  * 简写属性里面不包含animation-play-state
-  * 暂停动画: `animation-play-state: puased;`
-  * 经常和鼠标经过等其他配合使用想要动画走回来，而不是直接跳回来:`animation-direction : alternate`
-  * 盒子动画结束后，停在结束位置: `animation-fill-mode : forwards`
+
+### 浏览器私有前缀
+
+* -moz-：代表firefox浏览器私有属性
+* -ms-：代表IE浏览器私有属性
+* -webkit-：代表safari、chrome私有属性
+* -o-：代表Opera私有属性
+* 例：`-moz-border-radius: 10px;`
 

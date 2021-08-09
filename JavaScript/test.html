@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS写法测试</title>
+    <!-- 内嵌式js -->
+    <script>
+
+        // // 测试true和false的数值值
+        // var flag = true;
+        // console.log(flag + 0);
+        // flag = false;
+        // console.log(flag + 0);
+
+        // // typeof使用
+        // var number = 8;
+        // console.log(typeof number);
+
+        // // 隐式转换为数字型
+        // console.log('11' - '10');
+
+        // // 三元运算符测试
+        // var a = prompt('请输入a的值：');
+        // a = parseInt(a);
+        // console.log(a > 8 ? a - 1 : a + 1);
+
+        // // 冒泡排序
+        // var arr = [1, 4, 3, 2, 5];
+        // var temp;
+        // for (var i = 0; i < arr.length - 1; i++) {
+        //     for (var j = 0; j < arr.length - i - 1; j++) {
+        //         if (arr[j] > arr[j + 1]) {
+        //             temp = arr[j + 1];
+        //             arr[j + 1] = arr[j];
+        //             arr[j] = temp;
+        //         }
+        //     }
+        // }
+        // console.log(arr);
+
+        // // 两种声明函数的方式，都能进行参数的传递
+        // // 1. 用函数关键字function声明函数
+        // function fn(aru1) {
+        //     console.log(aru1);
+        // }
+        // // 第一种声明函数的调用方法
+        // fn('第一种声明函数的方式');
+        // // 2. 用定义变量函数表达式的方式声明函数（匿名函数）
+        // var fun = function (aru2) {
+        //     console.log(aru2);
+        // }
+        // // 第二种声明函数的调用方法
+        // fun('第二种声明函数的方式');
+        // // fun是变量名，不是函数名，其中存的是函数，不是值
+
+        // // 目前JS中不存在块级作用域
+        // if (3 < 5) {
+        //     var num = 10;
+        // }
+        // console.log(num);
+        // 这个输出的结果就是10，能访问到if语句块中的num变量，这是目前JS和java等语言的作用域的差异
+
+        // // 作用域链
+        // var num = 20;
+        // function fn() {
+        //     var num = 10;
+        //     function fun() {
+        //         console.log(num);
+        //         // 由于离此处调用的num最近的是fn函数定义的num = 10，因此最终的输出结果应该是10
+        //     }
+        //     fun();
+        // }
+        // fn();
+
+        // // 预解析和代码执行顺序测试
+        // function f1() {
+        //     var a = b = c = 9;
+        //     // 上面这条语句相当于var a = 9; b = 9; c = 9;
+        //     // 因为b和c没有用var直接进行声明，因此b，c是全局变量
+        //     // 所以函数外的全局作用域中可以调用b，c的值，但是a是局部变量因此在全局作用域中进行调用会报错
+        //     console.log(a);
+        //     console.log(b);
+        //     console.log(c);
+        // }
+        // f1();
+        // console.log(c);
+        // console.log(b);
+        // console.log(a);
+        // // 执行结果：9 9 9 9 9 报错
+
+    </script>
+    <!-- 外部js写法,test.js文件在同级目录下 -->
+    <!-- <script src="test.js"></script> -->
+    <!-- 引用外部js文件的script标签之间不能写代码 -->
+</head>
+
+<body>
+    <!-- 行内式 -->
+    <!-- <input type="button" value="唐伯虎" onclick="alert('秋香姐')"> -->
+</body>
+
+</html>

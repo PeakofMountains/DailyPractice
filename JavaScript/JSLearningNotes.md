@@ -139,31 +139,350 @@
     * 字符串型String，推荐使用单引号
 
       * 转义字符和C语言一样，例`\n`换行，`\b`空格
-
-      * length属性能获取字符串长度，例字符串str的长度就是`str.length`
-
+    * length属性能获取字符串长度，例字符串str的长度就是`str.length`
       * 字符串的拼接，用 `+` 进行字符串连接，不管什么类型和字符串进行拼接都会转为字符串后拼接成字符串
-      * 变量不要写道字符串中，变量与字符串通过加号相连的方式将变量值与字符串进行连接
-
-    * 布尔型Boolean，值为true和false，true数字值为1，false数字值为0
-
-    * 空值null
-
-    * 未定义undefined
-
-  * 查看数据类型typeof，例：
-
-    ```javascript
+    * 变量不要写道字符串中，变量与字符串通过加号相连的方式将变量值与字符串进行连接
+      * 字符串的连接多用于输出功能上
+      
+  * 布尔型Boolean，值为true和false，true数字值为1，false数字值为0
+    
+  * 空值null
+    
+  * 未定义undefined
+    
+* 查看数据类型typeof，例：
+  
+  ```javascript
     var num = 8;
     console.log(typeof num);
     ```
-
-  * 数据类型转换
-
-    使用表单、prompt获取过来的数据默认是字符串类型的，此时就不能直接简单的进行加法运算，而需要转换变量的数据类型。通俗来说，就是把一种数据类型的变量转换成另外一种数据类型。
-
-    * 转换为字符串，例数字型num转换成字符串：`var str = num.toString();` 或` var str = String(num);` 或 `var str = num+''`的隐式转换效果
+  
+* 数据类型转换
+  
+  使用表单、prompt获取过来的数据默认是字符串类型的，此时就不能直接简单的进行加法运算，而需要转换变量的数据类型。通俗来说，就是把一种数据类型的变量转换成另外一种数据类型。
+  
+  * 转换为字符串，例数字型num转换成字符串：`var str = num.toString();` 或` var str = String(num);` 或 `var str = num+''`的隐式转换效果
     * 转换为数字型，例字符串str转换为数字型：`var num = parseInt(str);`,取整转换，会去掉单位，`var num = parseFloat(str);`,浮点数转换，会去掉单位，`var num = Number(str);`进行强制转换，`var num = '12'-'11';`这种形式进行隐式转换，上述语句结果是数字型1，同样的隐式转换还可以用 `*` 和 `/` 
+  
+  * 转换为布尔型，使用Boolean()函数，例：`var bool = Boolean(12);`注意：**代表空、否定的值会被转换为false ,如"、0、NaN、null、undefined，其余值都转换为true**
 
-    * 转换为布尔型，使用Boolean()函数，例：`var bool = Boolean(12);`注意：**代表空、否定的值会被转换为false ,如"、0、NaN、null、undefined，其余值都转换为true**
+#### 关键字
+
+包括: break、case、catch、continue、default、delete、do、else、finally、for、function、if、in、instanceof、new、return、switch、this、throw、try、typeof、var、void、while、with等。
+
+#### 保留字
+
+包括: boolean、byte、char、class、const、debugger、double、enum、export、extends、fimal、 float、goto、implements、import、int、interface、long、mative、package、
+private、protected、public、short、static、super、synchronized、throws、transient、volatile等。
+
+#### JS运算符
+
+常用运算符：
+
+* 算术运算符
+  * 不要直接判断两个浮点数是否相等
+  * 与C语言的算术运算符相同
+* 递增递减运算符
+  * `++a`先加1后返回值
+  * `a++`先返回值后加1
+* 比较运算符
+  * 与C语言基本相同
+  * 使用 `==` 进行判断是否相等的时候会自动进行数据转换，因此`18=='18'`的值是true
+  * 相比C语言多了全等比较符：`===`，利用全等运算符来比较要求两侧的值和数据类型完全一致，才会返回true，因此`18==='18'`的值是false
+* 逻辑运算符
+  * 与C语言相同，`&&`、`||`、`!`
+  * **短路运算的原理︰当有多个表达式(值)时左边的表达式值可以确定结果时,就不再继续运算右边的表达式的值; **
+
+* 赋值运算符
+  * 与C语言相同，`=`，`+=`，`-=`，`*=`，`/=`，`%=`
+
+运算符优先级
+
+* 小括号>一元运算符>算数运算符>关系运算符>相等运算符>逻辑运算符>赋值运算符>逗号运算符
+* 特别的算术运算符中先`*`，`/`，`%`后`+`，`-`
+* 逻辑运算符先`&&`后`||`
+
+#### 流程控制
+
+* 顺序结构
+
+* 分支结构
+
+  * if分支，语法，例：
+
+    ```javascript
+    var a = 1;
+    if (a==1){
+        alert('a等于1');
+    }
+    ```
+
+  * if-else分支，语法，例：
+
+    ```javascript
+    var a = 1;
+    if (a==1){
+        alert('a等于1');
+    } else {
+        alert('a不等于1');
+    }
+    ```
+
+  * if-if else分支，语法，例：
+
+    ```javascript
+    var a = 1;
+    if (a==1){
+        alert('a等于1');
+    } 
+    else if(a==0) {
+        alert('a等于0');
+    }
+    else {
+        alert('a不等于1和0');
+    }
+    ```
+
+  * 三元表达式 
+
+    语法，条件表达式?表达式1:表达式2
+
+    规则：如果条件表达式结果为真则返回表达式1的值，如果条件表达式结果为假则返回表达式2的值。
+
+    例：`a>8?a-1:a+1`
+
+  * switch分支
+
+    * 语法，例：
+
+      ```javascript
+      switch(a) {
+          case 1: console.log('a=1');break;
+          case 2: console.log('a=2');break;
+          case 3: console.log('a=3');break;
+          default:console.log('a不等于1或2或3');
+      }
+      ```
+
+* 循环结构
+
+  * for(){}
+  * while(){}
+  * do{}while()
+  * continue跳出当前次的循环
+  * break跳出整个循环结构
+
+  用法与C语言相同
+
+#### 代码调试
+
+* 浏览器中按F12--> sources -->找到需要调试的文件-->在程序的某一行设置断点Watch:监视，通过watch可以监视变量的值的变化，非常的常用。
+* F11:程序单步执行，让程序一行一行的执行，这个时候，观察watch中变量的值的变化（按加号可以添加观察变量），也可以把鼠标放变量上。
+
+#### 命名规范和语法格式
+
+* 标识符命名规范
+  * 变量一般名词
+  * 函数一般动词
+* 操作符规范
+  * 一般左右留空格
+* 单行注释规范
+  * 注释号后一般敲一个空格
+
+#### 数组
+
+* 创建方式：
+  1. 利用new关键字，例：`var arr = new Array();`，arr就是数组名
+  2. 利用数组字面量，例：`var arr = [];`，arr是数组名，空数组
+* 访问方式：
+  * 索引，例：`arr[0]`，**注意索引号是从0开始计算的**
+* 数组长度：
+  * .length属性，例：`arr.length`就是获取数组arr的长度(元素的个数)
+
+* 数组内可以放不同的数据类型，元素之间逗号分隔，例：`var arr = [1,'1',true，1.1];`
+
+* 数组扩容
+  * 修改length 给数组长度赋值，例：`arr.length = 5;`，当扩容后没有被赋值，则空余的空间元素就是undefined
+  * 修改索引，给数组的元素赋值，例：`arr[4] = 1;`
+  * **不要给数组名赋值，否则数组中元素全部没有了**
+
+* 数组排序
+
+  * 冒泡排序
+
+    ```javascript
+    // 升序冒泡
+    var arr = [1, 4, 3, 2, 5];
+            var temp;
+    		// 这里比较次数应该比数组总长度小1
+            for (var i = 0; i < arr.length - 1; i++) {
+                for (var j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        temp = arr[j + 1];
+                        arr[j + 1] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+    console.log(arr);
+    ```
+
+    
+
+    ```javascript
+    // 降序冒泡
+    var arr = [1, 4, 3, 2, 5];
+            var temp;
+    		// 这里比较次数应该比数组总长度小1
+            for (var i = 0; i < arr.length - 1; i++) {
+                for (var j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] < arr[j + 1]) {
+                        temp = arr[j + 1];
+                        arr[j + 1] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+    console.log(arr);
+    ```
+
+    升序冒泡与降序冒泡的区别就是条件比较的大于号换成小于号
+
+#### 函数
+
+* 函数的声明和调用，语法，例：
+
+  ```javascript
+  // 函数的声明
+  function sayHi(){
+      console.log('Hi~~~');
+  }
+  // 函数的调用
+  sayHi();
+  ```
+
+
+
+#### 函数返回值
+
+*  return关键字
+* JS中的函数返回值与其他语言不同的是：JS中的函数返回值可以返回一个数组
+* 在函数中如果没有return语句或者没有执行return语句，则函数的返回值是undefined
+
+
+
+#### JS中的arguments的使用
+
+* 函数中的arguments中含有函数传进来的实参
+* 只有函数才有arguments对象，而且是每个函数都内置了这个对象
+* arguments对象在函数内可直接当作数组进行调用和访问
+* arguments对象具有数组的length属性，通过arguments.length获得的长度是传入的实参的个数
+* 按照索引的方式进行存储
+* 它本身并不是真正的数组，没有真正数组的一些方法，如pop()，push()等
+
+
+
+#### 声明函数的两种方式
+
+```javascript
+// 两种声明函数的方式，都能进行参数的传递
+// 1. 用函数关键字function声明函数
+function fn(aru1) {
+    console.log(aru1);
+}
+// 第一种声明函数的调用方法
+fn('第一种声明函数的方式');
+
+// 2. 用定义变量函数表达式的方式声明函数（匿名函数）
+var fun = function (aru2) {
+    console.log(aru2);
+}
+// 第二种声明函数的调用方法
+fun('第二种声明函数的方式');
+// fun是变量名，不是函数名，其中存的是函数，不是值
+```
+
+
+
+#### 作用域
+
+* **下面说的作用域均是在ECMAScript 6之前的规则**
+
+* 局部作用域-局部变量-在函数内部起作用
+* 全局作用域-全局变量-整个script标签或者单独的js文件中起作用
+
+* 块级作用域
+
+  * 现阶段JS中没有块级作用域，在ECMAScript 6 之后加入了块级作用域（将if(){}和for(){}形成的空间成为块级作用域），因此目前的JS中不考虑块级作用域的影响，因此可以在if语句块和for语句块的外面访问在其内部语句块中定义的变量，例：
+
+    ```javascript
+    if (3<5) {
+        var num = 10;
+    }
+    console.log(num);
+    // 这个输出的结果就是10，能访问到if语句块中的num变量，这是目前JS和java等语言的作用域的差异
+    ```
+
+  **注意区分这个块级作用域和局部作用域以及全局作用域，全局作用域中是不能访问局部作用域中定义的局部变量的**
+
+  
+
+* 作用域链
+
+  在内部函数中访问变量会从内部作用域中逐层向外部作用域中进行查找，采用就近原则的方式，访问首先遇到的变量值作为此变量的值，例：
+
+  ```javascript
+  // 作用域链
+  var num = 20;
+  function fn() {
+      var num = 10;
+      function fun() {
+          console.log(num);
+          // 由于离此处调用的num最近的是fn函数定义的num = 10，因此最终的输出结果应该是10
+      }
+      fun();
+  }
+  fn();
+  ```
+
+  
+
+#### JS引擎运行JS的步骤
+
+预解析和代码执行
+
+* 预解析：JS引擎将JS中所有的var变量声明和function函数声明提升到**当前作用域**的最前端
+  * 提升变量的时候不进行变量的赋值操作
+  * 提升函数的时候不进行函数的执行调用
+* 代码执行：按照与解析后的顺序从上往下依次进行执行
+
+举一个例子：
+
+```javascript
+// 预解析和代码执行顺序测试
+function f1() {
+    var a = b = c = 9;
+    // 上面这条语句相当于var a = 9; b = 9; c = 9;
+    // 因为b和c没有用var直接进行声明，因此b，c是全局变量
+    // 所以函数外的全局作用域中可以调用b，c的值，但是a是局部变量因此在全局作用域中进行调用会报错
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+f1();
+console.log(c);
+console.log(b);
+console.log(a);
+// 执行结果：9 9 9 9 9 报错
+```
+
+
+
+
+
+#### 对象
+
+组成：属性（名词），方法（动词）
+
+其概念和其他编程语言中的对象相同
 

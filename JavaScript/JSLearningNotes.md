@@ -143,19 +143,19 @@
       * 字符串的拼接，用 `+` 进行字符串连接，不管什么类型和字符串进行拼接都会转为字符串后拼接成字符串
     * 变量不要写道字符串中，变量与字符串通过加号相连的方式将变量值与字符串进行连接
       * 字符串的连接多用于输出功能上
-      
+    
   * 布尔型Boolean，值为true和false，true数字值为1，false数字值为0
     
   * 空值null
     
   * 未定义undefined
-    
+  
 * 查看数据类型typeof，例：
   
   ```javascript
     var num = 8;
     console.log(typeof num);
-    ```
+  ```
   
 * 数据类型转换
   
@@ -485,4 +485,150 @@ console.log(a);
 组成：属性（名词），方法（动词）
 
 其概念和其他编程语言中的对象相同
+
+对象创建方式：
+
+```js
+// 创建对象的方式1
+var man = {
+    // 对象属性的定义，注意之间用逗号隔开，而不是分号，属性与属性值，方法名与方法体之间都是键值对的形式
+    uname: '张三',
+    age: 18,
+    // 对象方法的定义
+    sayHi: function () {
+        console.log('Hi~~~');
+    }
+}
+// 对象属性的调用
+// 方法1
+console.log(man.uname);
+// 方法2
+console.log(man['age']);
+// 对象方法的调用
+man.sayHi();
+```
+
+
+
+```js
+// 创建对象的方式2
+// 创建一个空的对象，再逐步往空的对象里添加属性和方法
+var woman = new Object();
+// 添加属性,属性与属性值之间用赋值号连接，不同属性和方法之间用分号分隔
+woman.uname = '张三',
+    woman.age = 18,
+    // 对象方法的定义
+    woman.sayHi = function () {
+    console.log('Hi~~~');
+}
+// 对象属性的调用
+// 方法1
+console.log(woman.uname);
+// 方法2
+console.log(woman['age']);
+// 对象方法的调用
+woman.sayHi();
+
+```
+
+
+
+```js
+// 创建对象的方式3
+// 利用构造函数,构造函数的首字母大写
+// 构造函数不需要return就能返回结果
+function Man(uname, age) {
+    this.uname = uname;
+    this.age = age;
+    this.sing = function (sang) {
+        console.log(sang);
+    }
+}
+// 调用构造函数创建对象，调用构造函数必须使用new关键字
+var man1 = new Man('刘德华', 50)
+// 创建好的对象可以使用其属性和方法
+console.log(man1.uname);
+console.log(man1.age);
+man1.sing('歌曲');
+```
+
+**构造函数与对象的关系：构造函数，泛指某一大类，将一类事物的特征抽象出来，封装在构造函数中，类似java语言中的类，对象是具体的一个事物，可以通过构造函数实例化创建对象。**
+
+#### 遍历对象中内容
+
+* 利用 for in 循环，语法，例：
+
+  ```js
+  // 利用for in 循环遍历对象中内容
+  // 对象创建
+  var obj = {
+      uname: '六花',
+      age: 17,
+      sex: 'woman'
+  }
+  // 遍历对象中的内容
+  for (var k in obj) {
+      // k输出的是对象中的变量或方法名
+      console.log(k);
+      // obj[k]输出的是变量值或方法体
+      console.log(obj[k]);
+  }
+  ```
+
+
+
+
+
+#### 内置对象
+
+JS语言自带对象，供开发者使用，并提供了常用的或必要的功能（属性和方法），如Math，Array，String
+
+
+
+#### 查文档
+
+Mozilla开发者网络提供了有关开放网络技术（Open Web）的信息，包括HTML、CSS和万维网及HTML5应用的API
+
+MDN：[官方网址](https://developer.mozilla.org/zh-CN/)
+
+
+
+#### Math对象
+
+不用new，可以直接使用
+
+* 常用属性和方法：
+  * Math.PI			// 圆周率
+
+  * Math.floor()      // 向下取整
+
+  * Math.ceil()       // 向上取整
+
+  * Math.round()   // 四舍五入 就近取整，**.5特殊，它往大取，例如：Math.round(-1.5)的值是-1**
+
+  * Math.abs()      // 绝对值
+
+  * Math.max()     // 最大值
+
+  * Math.min()      // 最小值
+
+  * Math.random()// 返回一个[0,1]的浮点数
+
+    * 得到两个数之间（包含这两个整数）的随机整数
+
+      ```js
+      // 得到两个整数之间（包含这两个整数）的随机整数
+      function getRandomInt(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      // 调用方式举例
+      console.log(getRandomInt(1, 3));
+      
+      ```
+
+
+
+#### Date日期对象
+
+是一个构造函数，必须用new关键字创建一个对象实例
 

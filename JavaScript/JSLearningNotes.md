@@ -294,6 +294,7 @@ private、protected、public、short、static、super、synchronized、throws、
 * 创建方式：
   1. 利用new关键字，例：`var arr = new Array();`，arr就是数组名
   2. 利用数组字面量，例：`var arr = [];`，arr是数组名，空数组
+  3. 利用Array对象，例：`var arr = new Array(1,2);`，相当于 `var arr = [1,2];`，**但是注意像`var arr = new Array(2);`这种Array()中仅含有一个数字的写法是创建了一个长度为2的空数组** 
 * 访问方式：
   * 索引，例：`arr[0]`，**注意索引号是从0开始计算的**
 * 数组长度：
@@ -360,6 +361,8 @@ private、protected、public、short、static、super、synchronized、throws、
   // 函数的调用
   sayHi();
   ```
+  
+  
 
 
 
@@ -422,6 +425,8 @@ fun('第二种声明函数的方式');
     console.log(num);
     // 这个输出的结果就是10，能访问到if语句块中的num变量，这是目前JS和java等语言的作用域的差异
     ```
+    
+    
 
   **注意区分这个块级作用域和局部作用域以及全局作用域，全局作用域中是不能访问局部作用域中定义的局部变量的**
 
@@ -631,4 +636,222 @@ MDN：[官方网址](https://developer.mozilla.org/zh-CN/)
 #### Date日期对象
 
 是一个构造函数，必须用new关键字创建一个对象实例
+
+* 获取格式化日期，例：
+
+```js
+// 获取格式化日期
+function getNowDate() {
+    var date = new Date();
+    var year = date.getFullYear();
+    // date.getMonth()方法得到的月份是0~11月，因此应该将结果+1
+    var month = date.getMonth() + 1;
+    var dates = date.getDate();
+    var day = date.getDay();
+    // date.getDay()方法得到的第一天是星期日，因此我们利用数组将星期对应起来
+    var days = ['星期日', '星期六', '星期五', '星期四', '星期三', '星期二', '星期一'];
+    console.log('今天是：' + year + '年' + month + '月' + dates + '日  ' + days[day]);
+}
+getNowDate();
+```
+
+* 获取格式化时间，例：
+
+```js
+// 获取格式化时间
+function getNowTime() {
+    var date = new Date();
+    var hour = date.getHours();
+    // 为了让时间显示的格式相同，将小于10的数字前面加上0占位，例如8显示为08
+    hour = hour < 10 ? '0' + hour : hour;
+    var minutes = date.getMinutes();
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var seconds = date.getSeconds();
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    var day = date.getDay();
+    return hour + '时' + minutes + '分' + seconds + '秒  ';
+}
+console.log('现在是：' + getNowTime());
+```
+
+
+
+* 获取日期的总的毫秒形式
+
+Date对象基于1970年1月1日（世界标准时间）经过的毫秒数
+
+````js
+// 距离1970-1-1的毫秒数
+var date = new Date();
+// 写法1
+console.log(date.valueOf());
+// 写法2
+console.log(date.getTime());
+// 简单写法：与上面的写法相同
+var date1 = +new Date();
+// 新写法，HTML5新增,不考虑兼容性
+console.log(Date.now());
+````
+
+利用这个做出倒计时效果：
+
+```js
+// 倒计时效果
+function countDown(time) {
+    // 现在总的毫秒数
+    var nowTime = +new Date();
+    // 用户输入的时间总的毫秒数
+    var inputTime = +new Date(time);
+    var times = (inputTime - nowTime) / 1000;
+    // 倒计时天数
+    var day = parseInt(times / 60 / 60 / 24);
+    // 格式化操作
+    day = day < 10 ? '0' + day : day;
+    var hours = parseInt(times / 60 / 60 % 24);
+    hours = hours < 10 ? '0' + hours : hours;
+    var minutes = parseInt(times / 60 % 60);
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var seconds = parseInt(times % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return day + '天' + hours + '时' + minutes + '分' + seconds + '秒';
+}
+console.log('倒计时： ' + countDown('2021-8-12 09:25:00'));
+```
+
+
+
+#### Aarry数组对象
+
+#### 判读是否为数组
+
+语法，例：
+
+```js
+// 判断是否为数组
+// 方法1
+var arr = [];
+if (arr instanceof Array) {
+    console.log('是数组');
+}
+else {
+    console.log('不是数组');
+}
+// 方法2,HTML5新增，IE9以上版本支持
+var arr = [];
+if (Array.isArray(arr)) {
+    console.log('是数组');
+}
+else {
+    console.log('不是数组');
+}
+
+```
+
+
+
+#### 添加和删除数组元素
+
+* 方法，例：
+
+```js
+// 添加和删除数组元素
+
+var arr = [1, 2, 3];
+// 在结尾添加一个元素
+arr.push(4);
+// 在结尾添加多个元素
+// push()方法返回值是新数组的长度
+console.log(arr.push(5, '六花'));
+console.log(arr);
+// 在数组开头添加一个元素
+arr.unshift(0);
+// 在数组开头添加多个元素
+arr.unshift('勇太', -1);
+console.log(arr);
+// 同样unshift()的返回值也是新数组的长度
+// 删除数组最后一个元素
+// pop()返回值是删除的那个元素
+console.log(arr.pop());
+console.log(arr);
+// 删除第一个元素
+// shift()返回值是删除的那个元素
+console.log(arr.shift());
+console.log(arr);
+```
+
+#### 数组翻转
+
+```js
+var arr = [1,2,3];
+console.log(arr.reverse());
+```
+
+#### 数组排序（冒泡）
+
+```js
+var arr = [13,4,77,1,7];
+arr.sort(function(a,b){
+    // 升序冒泡
+    return a - b;
+})
+console.log(arr);
+```
+
+
+
+```js
+var arr = [13,4,77,1,7];
+arr.sort(function(a,b){
+    // 降序冒泡
+    return b - a;
+})
+console.log(arr);
+```
+
+#### 数组索引查询
+
+```js
+// 数组索引查询
+var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+// arr.indexOf()方法返回从左往右第一个查找到的索引号，如果没有找到，返回-1
+console.log(arr.indexOf('汐'));
+// arr.indexOf()方法返回从右往左第一个查找到的索引号，如果没有找到，返回-1
+console.log(arr.lastIndexOf('汐'));
+```
+
+
+
+#### 数组去重
+
+```js
+// 数组去重
+function unique(arr) {
+    var newarr = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (newarr.indexOf(arr[i]) === -1) {
+            newarr.push(arr[i]);
+        }
+    }
+    return newarr;
+}
+// 测试
+var arr = ['a', 1, 3, 1, 4, 'a', 'b'];
+console.log(unique(arr));
+
+```
+
+#### 数组转换为字符串
+
+```js
+// 数组转换为字符串
+var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+// 1. toString()方法
+console.log(arr.toString());
+// 2. join(分隔符)方法，可以设置转换后的元素之间的连接符
+var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+// join()没有参数是默认逗号分隔
+console.log(arr.join());
+console.log(arr.join('-'));
+console.log(arr.join('&'));
+```
 

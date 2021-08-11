@@ -322,17 +322,77 @@
         // console.log(arr.join('-'));
         // console.log(arr.join('&'));
 
+        // // 连接多个数组，不影响原数组
+        // var arr1 = ['六花'];
+        // var arr2 = ['勇太'];
+        // var arr = arr1.concat(arr2);
+        // console.log(arr);
+        // console.log(arr1);
+        // console.log(arr2);
 
+        // // slice()方法截取数组，参数slice(begin,end);截取的是[begin,end),左闭右开，取不到end索引的值
+        // // 同样返回截取的新数组，不改变原数组的值
+        // var arr = ['六花', '勇太', '森大人'];
+        // console.log(arr.slice(0, 2));
+        // console.log(arr);
 
+        // // splice()方法删除数组指定片段
+        // var arr = ['六花', '勇太', '森大人'];
+        // // splice(start,length)函数，第一个参数是删除起始的索引，第二个参数是删除片段的长度
+        // console.log(arr.splice(0, 2));
+        // // splice()方法返回删除的片段
+        // console.log(arr);
+        // // splice()方法会改变原数组
 
+        // // 基本包装类型
+        // var str = '犬夜叉';
+        // // 这条语句实际上是进行了如下包装过程
+        // // 生成临时变量temp，将简单数据类型包装成复杂数据类型
+        // var temp = new String('犬夜叉');
+        // // 将临时变量赋值给声明的字符变量
+        // var str = temp;
+        // // 销毁临时变量
+        // temp = null;
 
+        // // 查找字符在字符串中的索引号
+        // var str = '犬夜叉和戈薇,杀生丸和玲';
+        // var index = str.indexOf('薇');
+        // console.log(str[index]);
+        // // indexOf(字符，index)第二个参数设置开始查找的起始索引号（包含）
+        // console.log(str.indexOf('和', 4));
+        // // 反向查找
+        // console.log(str.lastIndexOf('薇'));
+        // console.log(str.lastIndexOf('薇', 3));
+        // // indexOf(字符，index)第二个参数设置开始反向查找的起始索引号（包含）
+        // console.log(str.lastIndexOf('薇', 5));
 
+        // // 统计字符在字符串中出现的次数
+        // function countCharTimes(str, char) {
+        //     // count用来计数
+        //     var count = 0;
+        //     // i作为起始索引号，找到指定字符后将索引更换为找到的位置
+        //     for (var i = 0; ; i++) {
+        //         i = str.indexOf(char, i);
+        //         if (i === -1) {
+        //             // 从起始索引处没有找到就跳出循环，返回结果
+        //             break;
+        //         }
+        //         count++;
+        //     }
+        //     return count;
+        // }
+        // // 使用示例
+        // var str = '六花喜欢勇太，勇太喜欢六花';
+        // console.log(countCharTimes(str, '花'));
 
-
-
-
-
-
+        var str1 = '六花喜欢勇太，勇太喜欢六花';
+        // 根据索引输出索引处的值
+        console.log(str1.charAt(1));
+        var str2 = 'the world';
+        // charCodeAt()方法返回索引号的字符ASCII值，目的：判断用户按下了哪个键
+        console.log(str2.charCodeAt(2));
+        // HTML5,IE8+支持，和charAt()作用等效
+        console.log(str1[1]);
 
 
 

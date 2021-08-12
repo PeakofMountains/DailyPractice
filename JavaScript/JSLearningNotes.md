@@ -976,3 +976,64 @@ console.log(str2.charCodeAt(2));
 console.log(str1[1]);
 ```
 
+
+
+#### 统计字符串中字符出现次数
+
+```js
+// 统计字符串中字符出现次数最多的字符
+var str = 'this is a test';
+// 创建一个空对象
+var count = {};
+for (var i = 0; i < str.length; i++) {
+    var chars = str.charAt(i);
+    if (count[chars]) {
+        // 查找到字符后将对应属性值加1
+        count[chars]++;
+    }
+    else {
+        count[chars] = 1;
+    }
+}
+console.log(count);
+var max = 0;
+var char = '';
+for (var k in count) {
+    if (count[k] > max) {
+        max = count[k];
+        char = k;
+    }
+}
+console.log(max);
+console.log('出现次数最多的是：' + char)
+```
+
+
+
+#### 字符串操作方法
+
+* concat()方法，连接字符串，可以被+连接字符串的方式代替
+* substr()方法截取字符串，第一个参数是起始位置，第二个参数是截取长度
+* replace()方法替换字符，第一个参数是要被替换掉的字符，第二个参数是用来替换的字符，替换的是字符串中这个字符出现的第一个位置
+* split()方法参数是分隔符，根据字符串中的这个分隔符将字符串划分为数组元素，返回值是数组
+* toUpperCase()方法转换大写
+* toLowerCase()方法转换小写
+
+
+
+#### 简单数据类型和复杂数据类型
+
+* 简单数据类型-值类型 string、number、boolean、undefined、null
+  * 存储时变量存储的是值本身
+  * 其中简单数据类型null返回的是一个空的对象，如果有个变量以后打算存储为对象，但暂时被想好内容，就可以先给null
+  * 简单数据类型存储在栈中，复杂数据类型存储在堆中
+
+* 复杂数据类型-引用类型
+  * 通过new关键字创建的对象，如Object、Array、Date等
+  * 复杂数据类型指向栈中的地址，栈中的地址指向存储在堆中的实际数据
+
+
+
+#### 堆和栈
+
+可以看作简单数据类型存储在栈中，复杂数据类型存储在堆中，但是JS中是没有堆栈的概念的

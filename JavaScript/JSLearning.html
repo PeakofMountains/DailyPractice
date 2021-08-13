@@ -437,6 +437,15 @@
 <body>
     <!-- 行内式 -->
     <!-- <input type="button" value="唐伯虎" onclick="alert('秋香姐')"> -->
+
+    <!-- 使用ID获取元素 -->
+    <button id="btn">button</button>
+    <script>
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            alert('托尔');
+        }
+    </script>
 </body>
 
 </html>

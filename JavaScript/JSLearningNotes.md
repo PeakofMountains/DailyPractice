@@ -1037,3 +1037,138 @@ console.log('出现次数最多的是：' + char)
 #### 堆和栈
 
 可以看作简单数据类型存储在栈中，复杂数据类型存储在堆中，但是JS中是没有堆栈的概念的
+
+
+
+#### Web APIs 和 JS基础关联性
+
+JS基础学习ECMAScript基础语法，为后面做铺垫，Web APIs是JS的应用，大量使用JS基础语法做交互效果
+
+#### API
+
+Application Programming Interface应用程序编程接口，简称API，是一些预先定义的函数，是给程序员提供的一种工具，一遍轻松完成功能
+
+#### Web API
+
+Web API 是浏览器提供的一套操作浏览器功能（BOM）和页面元素的API(DOM)
+
+Web API一般都有输入和输出（函数的传参和返回值），Web API 很多都是函数方法
+
+[MDN详细API](https://developer.mozilla.org/zh-CN/docs/Web/API)
+
+
+
+#### DOM
+
+文档对象模型（Document Object Model，简称DOM），是W3C组织土建的处理HTML或XML的标准编程接口
+
+W3C已经定义了一系列的DOM接口，通过这些DOM接口可以改变网络的内容、结构和样式
+
+* DOM树
+  * 文档：一个页面就是一个文档，DOM中使用document表示
+  * 元素：页面中所有标签都是元素，DOM中使用element表示
+  * 节点：网页中所有内容都是节点（标签、属性、文本、注释等），DOM中使用node表示
+  * DOM把以上内容都看作对象
+
+#### DOM获取元素
+
+* 由于JS是从上向下执行，因此script标签应该写在body标签的尾部
+
+* 根据ID获取，使用getElementById()方法，返回匹配ID的元素，参数是大小写敏感的ID，返回的是一个元素对象，例：
+
+  ```js
+  var mytime = document.getElementById('time');
+  ```
+
+  
+
+* 根据标签Tag获取某个元素(父元素)内部所有指定标签名的子元素，返回的是获取元素对象的集合，以伪数组的形式存储，因此可以通过 object[1] 的方式访问对象，注意父元素必须是单个对象(必须指明是哪一个元素对象).获取的时候不包括父元素自己。例：
+
+  ```js
+  var lis = document.getElementsByTagName('li');
+  ```
+
+  
+
+* 可以根据类名获取，例：
+
+  ```js
+  var boxes = document.getElementsByClassName('box')
+  ```
+
+  
+
+* 返回指定选择器的第一个对象，例：
+
+  ```js
+  // 注意选择器前需加对应符号
+  var firstbox = document.querySelector('.box');
+  var nav = document.querySelector('#nav');
+  ```
+
+  
+
+* 返回指定选择器的所有元素对象集合，例：
+
+  ```js
+  var allbox = document.querySelectorAll('.box');
+  ```
+
+  
+
+* 获取body元素，例：
+
+  ```js
+  var bodyEle = document.body;
+  ```
+
+  
+
+* 获取html元素，例：
+
+  ```js
+  var htmlEle = document.documentElement;
+  ```
+
+
+
+#### 事件三要素
+
+* 事件是有三部分组成：事件源、事件类型、事件处理程序，我们也称为事件三要素
+
+  * 事件源：事件被触发的对象
+
+  * 事件类型：如何触发，什么事件，比如鼠标点击(onclick)，还是鼠标经过，还是键盘按下
+
+  * 事件处理程序：通过一个函数赋值的方式完成
+
+  * 使用过程，例：
+
+    ```html
+    <body>    
+        <!-- 使用ID获取元素 -->
+        <button id="btn">button</button>
+        <script>
+            // 获取事件源
+            var btn = document.getElementById('btn');
+            // 绑定事件，添加事件处理程序
+            btn.onclick = function () {
+                alert('托尔');
+            }
+        </script>
+    </body>
+    ```
+
+    
+
+#### 鼠标事件
+
+* onclick 鼠标点击左键触发
+* onmouseover 鼠标经过触发
+* onmouseout 鼠标离开触发
+* onfocus 获得鼠标焦点触发
+* onblur 失去鼠标焦点触发
+* onmousemove 鼠标移动触发
+* onmouseup 鼠标弹起触发
+* onmousedown 鼠标按下触发
+

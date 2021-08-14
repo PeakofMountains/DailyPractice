@@ -1172,3 +1172,112 @@ W3C已经定义了一系列的DOM接口，通过这些DOM接口可以改变网�
 * onmouseup 鼠标弹起触发
 * onmousedown 鼠标按下触发
 
+
+#### 操作元素之改变元素内容
+
+例：
+
+```js
+var div = document.querySelector('div');
+div.innerText = 'changeText';
+```
+
+
+
+```js
+var div = document.querySelector('div');
+div.innerHTML = 'changeText';
+```
+
+这两种方式的区别：
+
+* innerText不识别html标签，非标准，去除空格和换行
+* innerHTML 识别html标签，是W3C标准，保留空格和换行的
+
+这两个属性都是可以读写的，因此可以当作一个值使用，例：
+
+```js
+var text = div.innerHTML;
+```
+
+#### 操作元素之修改元素属性
+
+例：
+
+```js
+var img = document.querySelector('img');
+img.src = 'image/1.jpg';
+img.title = 'Test';
+```
+
+#### 操作元素之表单属性修改
+
+例：
+
+```js
+var btn = document.querySelector('button');
+var input = document.querySelector('input');
+btn.onclick = function(){
+    // 修改输入框的显示内容
+    input.value = '康娜';
+    // 禁用按钮，这里使用了this用法，因为调用者是btn，因此this就代指的btn
+    this.disable = true;    
+}
+
+```
+
+示例：
+
+```js
+// 密码框的做法
+// 1. 获取元素
+var eye = document.getElementById('eye');
+var pwd = document.getElementById('psw');
+// 2.注册事件，定义处理程序
+var flag = 0;
+// flag = 0 表示为明文显示
+eye.onclick = function () {
+    if (flag == 0) {
+        pwd.type = 'text';
+        eye.src = 'image/open.jpg';
+        flag = 1;
+    }
+    else {
+        // 密码显示的时候将显示框类型调整为密码框
+        pwd.type = 'password';
+        eye.src = 'image/close.jpg';
+        flag = 0;
+    }
+}
+```
+
+#### 操作元素之修改样式属性
+
+例：
+
+```js
+// 方法1：利用.style方式
+var div = document.querySelector('div');
+div.style.width = '250px';
+// style样式属性应该使用驼峰命名法，例如：fontSize、backgroundColor等
+// 利用JS修改style样式操作，产生的是行内样式css权重比较高
+```
+
+```js
+// 方法2：利用操作类名方式
+// -------------在css中定义类-------------
+.change {
+    fontsize = 14px;
+    color = skyblue;
+}
+// ------------在JS中修改类名-------------
+var div = document.querySelector('div');
+div.className = 'change';
+// 适用于样式修改较多的情形
+// 因为class是保留字，因此通过className来操作元素类名属性
+// className会直接覆盖掉原来的类名
+// 假如原来的div还有一个类名为first的类，此时想保留first类，希望他不被覆盖掉，则可以用下面的写法
+div.className = 'first change';
+```
+
+

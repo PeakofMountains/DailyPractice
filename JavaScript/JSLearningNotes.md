@@ -956,5 +956,89 @@ for (var i = 0; i < j_tbs.length; i++) {
   * element.属性 = '值'
   * element.setAttribute('属性'，'值');
 
-**注意自定义属性是H5新增属性**
+#### H5新增的自定义属性的方法
+
+* 规定自定义属性的名字必须是以`data-`开头的
+
+* H5规定将所有以data-开头的自定义属性都放在dataset这样一个集合中，因此在访问的时候可以把自定义属性当成对象dataset的属性进行使用，例：
+
+  
+
+  ```html
+  <body>
+      <div data-index="1">我是康娜</div>
+      <script>
+          var div = document.querySelector('div');
+          console.log(div.dataset.index);
+      </script>
+  </body>
+  ```
+
+  
+
+* 如果自定义属性的名字是以data-开头，而且包含多个`-`连接的单词，则采用驼峰命名法进行使用，例：
+
+  ```html
+  <body>
+      <div data-list-name="kangna">我是康娜</div>
+      <script>
+          var div = document.querySelector('div');
+          console.log(div.dataset.listName);
+      </script>
+  </body>
+  ```
+
+  
+
+#### 节点操作
+
+* 原因：之前学到的用DOM提供的方法获取元素的方法逻辑性不强，繁琐，因此这里学习另一种操作元素的方法——节点操作，根据元素在元素树中的父子，兄弟节点关系获取元素，逻辑性强，但是兼容性较差
+
+* 一般地，节点至少拥有nodeType(节点类型 ) 、nodeName (节点名称）和nodeValue (节点值)这三个基本属性。
+  * 元素节点nodeType为1
+  * 属性节点nodeType为2
+  * 文本节点nodeType为3(文本节点包含文字、空格、换行等)
+  * 我们在实际开发中，节点操作主要操作的是元素节点
+
+* 父节点，例：
+
+  ```js
+  // 父节点操作,查找的是离元素最近的父亲节点，否则返回null
+  var div = document.querySelector('div');
+  console.log(div.parentNode);
+  ```
+
+  
+
+* 子节点，例：
+
+  ```js
+  var div = document.querySelector('div');
+  // 方法1
+  console.log(div.childNodes);
+  // 不提倡使用此方法，因为此方法返回指定节点的所有子节点的集合，包含元素节点、文本节点等
+  // 如果只是想返回元素节点，就需要专门处理，设置一个函数，在其中对childNodes节点集合进行遍历
+  // 用nodeType属性查看节点是否为元素节点，将元素节点返回
+  
+  // 方法2
+  console.log(div.children);
+  // 获取指定节点的所有子元素节点，也是实际开发中常用的
+  ```
+
+* 关于获取第一个子节点和最后一个子节点
+
+  ```js
+  var ol = document.queryselector('ol');
+  // 1. firstchild第一个子节点不管是文本节点还是元素节点 
+  console.log(ol.firstchild);
+  console.log(ol.lastchild);
+  // 2. firstElementchild返回第一个子元素节点
+  console.log(ol.firstElementChild);
+  console.log(ol.lastElementchild);
+  // 3．实际开发的写法既没有兼容性问题又返回第一个子元素
+  console.log(ol.children[0]);
+  console.log(ol.children[ol.children.length - 1]);
+  ```
+
+  
 

@@ -441,11 +441,83 @@
         //     }
         // }
 
+        // // 排他思想算法
+        // // 获取按钮元素
+        // var bnts = document.getElementsByTagName('button');
+        // // btns得到的是伪数组
+        // for (var i = 0; i < bnts.length; i++) {
+        //     bnts[i].onclick = function () {
+        //         // 先将所有的背景颜色设为空
+        //         for (var i = 0; i < bnts.length; i++) {
+        //             bnts[i].style.backgroundColor = '';
+        //         }
+        //         // 将当前背景颜色设为指定颜色
+        //         this.style.backgroundColor = 'yellow';
+        //     }
+        // }
+
+        // // 全选框的设计
+        // // 全选功能实现：复选框跟随全选按钮的checked属性
+        // // 1. 获取元素,j_cbAll为全选按钮，j_tbs为复选框
+        // var j_cbAll = document.getElementById('j_cbAll');
+        // var j_tbs = document.getElementById('j_tb').getElementsByTagName('input');
+        // // 2. 注册事件
+        // j_cbAll.onclick = function () {
+        //     for (var i = 0; i < j_tbs.length; i++) {
+        //         j_tbs[i].checked = this.checked;
+        //     }
+        // }
+        // // 给所有的复选框绑定事件
+        // for (var i = 0; i < j_tbs.length; i++) {
+        //     j_tbs[i].onclick = function () {
+        //         // 设置标志变量控制全选按钮是否选中
+        //         var flag = true;
+        //         for (var i = 0; i < j_tbs.length; i++) {
+        //             if (!j_tbs[i].checked) {
+        //                 flag = false;
+        //                 break;
+        //             }
+        //         }
+        //         j_cbAll.checked = flag;
+        //     }
+        // }
+
+        // // 节点操作
+        // var div = document.querySelector('div');
+        // console.log(div.parentNode);
+
+        // console.log(div.childNodes);
+
+        // var ol = document.queryselector('ol');
+        // // 1. firstchild第一个子节点不管是文本节点还是元素节点 
+        // console.log(ol.firstchild);
+        // console.log(ol.lastchild);
+        // // 2. firstElementchild返回第一个子元素节点
+        // console.log(ol.firstElementChild);
+        // console.log(ol.lastElementchild);
+        // // 3．实际开发的写法既没有兼容性问题又返回第一个子元素
+        // console.log(ol.children[0]);
+        // console.log(ol.children[ol.children.length - 1]);
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 
 
     </script>
     <!-- 外部js写法,test.js文件在同级目录下 -->
@@ -458,12 +530,16 @@
     <!-- <input type="button" value="唐伯虎" onclick="alert('秋香姐')"> -->
 
     <!-- 使用ID获取元素 -->
-    <button id="btn">button</button>
+    <!-- <button id="btn">button</button>
+    <!-- 自定义属性的使用 -->
+    <div data-index="1">I am div</div> -->
     <script>
-        var btn = document.getElementById('btn');
-        btn.onclick = function () {
-            alert('托尔');
-        }
+        // var btn = document.getElementById('btn');
+        // btn.onclick = function () {
+        //     alert('托尔');
+        // }
+        // var div = document.querySelector('div');
+        // console.log(div.dataset.index);
     </script>
 </body>
 

@@ -364,7 +364,12 @@ private、protected、public、short、static、super、synchronized、throws、
 * 函数的声明和调用，语法，例：
 
   ```javascript
-  // 函数的声明function sayHi(){    console.log('Hi~~~');}// 函数的调用sayHi();
+  // 函数的声明
+  function sayHi(){
+      console.log('Hi~~~');
+  }
+  // 函数的调用
+  sayHi();
   ```
 
   
@@ -393,7 +398,21 @@ private、protected、public、short、static、super、synchronized、throws、
 #### 声明函数的两种方式
 
 ```javascript
-// 两种声明函数的方式，都能进行参数的传递// 1. 用函数关键字function声明函数function fn(aru1) {    console.log(aru1);}// 第一种声明函数的调用方法fn('第一种声明函数的方式');// 2. 用定义变量函数表达式的方式声明函数（匿名函数）var fun = function (aru2) {    console.log(aru2);}// 第二种声明函数的调用方法fun('第二种声明函数的方式');// fun是变量名，不是函数名，其中存的是函数，不是值
+// 两种声明函数的方式，都能进行参数的传递
+// 1. 用函数关键字function声明函数
+function fn(aru1) {
+    console.log(aru1);
+}
+// 第一种声明函数的调用方法
+fn('第一种声明函数的方式');
+
+// 2. 用定义变量函数表达式的方式声明函数（匿名函数）
+var fun = function (aru2) {
+    console.log(aru2);
+}
+// 第二种声明函数的调用方法
+fun('第二种声明函数的方式');
+// fun是变量名，不是函数名，其中存的是函数，不是值
 ```
 
 
@@ -411,7 +430,11 @@ private、protected、public、short、static、super、synchronized、throws、
   * 现阶段JS中没有块级作用域，在ECMAScript 6 之后加入了块级作用域（将if(){}和for(){}形成的空间成为块级作用域），因此目前的JS中不考虑块级作用域的影响，因此可以在if语句块和for语句块的外面访问在其内部语句块中定义的变量，例：
 
     ```javascript
-    if (3<5) {    var num = 10;}console.log(num);// 这个输出的结果就是10，能访问到if语句块中的num变量，这是目前JS和java等语言的作用域的差异
+    if (3<5) {
+        var num = 10;
+    }
+    console.log(num);
+    // 这个输出的结果就是10，能访问到if语句块中的num变量，这是目前JS和java等语言的作用域的差异
     ```
 
     
@@ -425,7 +448,17 @@ private、protected、public、short、static、super、synchronized、throws、
   在内部函数中访问变量会从内部作用域中逐层向外部作用域中进行查找，采用就近原则的方式，访问首先遇到的变量值作为此变量的值，例：
 
   ```javascript
-  // 作用域链var num = 20;function fn() {    var num = 10;    function fun() {        console.log(num);        // 由于离此处调用的num最近的是fn函数定义的num = 10，因此最终的输出结果应该是10    }    fun();}fn();
+  // 作用域链
+  var num = 20;
+  function fn() {
+      var num = 10;
+      function fun() {
+          console.log(num);
+          // 由于离此处调用的num最近的是fn函数定义的num = 10，因此最终的输出结果应该是10
+      }
+      fun();
+  }
+  fn();
   ```
 
   
@@ -442,7 +475,21 @@ private、protected、public、short、static、super、synchronized、throws、
 举一个例子：
 
 ```javascript
-// 预解析和代码执行顺序测试function f1() {    var a = b = c = 9;    // 上面这条语句相当于var a = 9; b = 9; c = 9;    // 因为b和c没有用var直接进行声明，因此b，c是全局变量    // 所以函数外的全局作用域中可以调用b，c的值，但是a是局部变量因此在全局作用域中进行调用会报错    console.log(a);    console.log(b);    console.log(c);}f1();console.log(c);console.log(b);console.log(a);// 执行结果：9 9 9 9 9 报错
+// 预解析和代码执行顺序测试
+function f1() {
+    var a = b = c = 9;
+    // 上面这条语句相当于var a = 9; b = 9; c = 9;
+    // 因为b和c没有用var直接进行声明，因此b，c是全局变量
+    // 所以函数外的全局作用域中可以调用b，c的值，但是a是局部变量因此在全局作用域中进行调用会报错
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+f1();
+console.log(c);
+console.log(b);
+console.log(a);
+// 执行结果：9 9 9 9 9 报错
 ```
 
 
@@ -458,19 +505,67 @@ private、protected、public、short、static、super、synchronized、throws、
 对象创建方式：
 
 ```js
-// 创建对象的方式1var man = {    // 对象属性的定义，注意之间用逗号隔开，而不是分号，属性与属性值，方法名与方法体之间都是键值对的形式    uname: '张三',    age: 18,    // 对象方法的定义    sayHi: function () {        console.log('Hi~~~');    }}// 对象属性的调用// 方法1console.log(man.uname);// 方法2console.log(man['age']);// 对象方法的调用man.sayHi();
+// 创建对象的方式1
+var man = {
+    // 对象属性的定义，注意之间用逗号隔开，而不是分号，属性与属性值，方法名与方法体之间都是键值对的形式
+    uname: '张三',
+    age: 18,
+    // 对象方法的定义
+    sayHi: function () {
+        console.log('Hi~~~');
+    }
+}
+// 对象属性的调用
+// 方法1
+console.log(man.uname);
+// 方法2
+console.log(man['age']);
+// 对象方法的调用
+man.sayHi();
 ```
 
 
 
 ```js
-// 创建对象的方式2// 创建一个空的对象，再逐步往空的对象里添加属性和方法var woman = new Object();// 添加属性,属性与属性值之间用赋值号连接，不同属性和方法之间用分号分隔woman.uname = '张三',    woman.age = 18,    // 对象方法的定义    woman.sayHi = function () {    console.log('Hi~~~');}// 对象属性的调用// 方法1console.log(woman.uname);// 方法2console.log(woman['age']);// 对象方法的调用woman.sayHi();
+// 创建对象的方式2
+// 创建一个空的对象，再逐步往空的对象里添加属性和方法
+var woman = new Object();
+// 添加属性,属性与属性值之间用赋值号连接，不同属性和方法之间用分号分隔
+woman.uname = '张三',
+    woman.age = 18,
+    // 对象方法的定义
+    woman.sayHi = function () {
+    console.log('Hi~~~');
+}
+// 对象属性的调用
+// 方法1
+console.log(woman.uname);
+// 方法2
+console.log(woman['age']);
+// 对象方法的调用
+woman.sayHi();
+
 ```
 
 
 
 ```js
-// 创建对象的方式3// 利用构造函数,构造函数的首字母大写// 构造函数不需要return就能返回结果function Man(uname, age) {    this.uname = uname;    this.age = age;    this.sing = function (sang) {        console.log(sang);    }}// 调用构造函数创建对象，调用构造函数必须使用new关键字var man1 = new Man('刘德华', 50)// 创建好的对象可以使用其属性和方法console.log(man1.uname);console.log(man1.age);man1.sing('歌曲');
+// 创建对象的方式3
+// 利用构造函数,构造函数的首字母大写
+// 构造函数不需要return就能返回结果
+function Man(uname, age) {
+    this.uname = uname;
+    this.age = age;
+    this.sing = function (sang) {
+        console.log(sang);
+    }
+}
+// 调用构造函数创建对象，调用构造函数必须使用new关键字
+var man1 = new Man('刘德华', 50)
+// 创建好的对象可以使用其属性和方法
+console.log(man1.uname);
+console.log(man1.age);
+man1.sing('歌曲');
 ```
 
 **构造函数与对象的关系：构造函数，泛指某一大类，将一类事物的特征抽象出来，封装在构造函数中，类似java语言中的类，对象是具体的一个事物，可以通过构造函数实例化创建对象。**
@@ -914,31 +1009,7 @@ var btn = document.querySelector('button');var input = document.querySelector('i
 #### 全选框的设计
 
 ```js
-// 全选框的设计
-// 全选功能实现：复选框跟随全选按钮的checked属性
-// 1. 获取元素,j_cbAll为全选按钮，j_tbs为复选框
-var j_cbAll = document.getElementById('j_cbAll');
-var j_tbs = document.getElementById('j_tb').getElementsByTagName('input');
-// 2. 注册事件
-j_cbAll.onclick = function () {
-    for (var i = 0; i < j_tbs.length; i++) {
-        j_tbs[i].checked = this.checked;
-    }
-}
-// 给所有的复选框绑定事件
-for (var i = 0; i < j_tbs.length; i++) {
-    j_tbs[i].onclick = function () {
-        // 设置标志变量控制全选按钮是否选中
-        var flag = true;
-        for (var i = 0; i < j_tbs.length; i++) {
-            if (!j_tbs[i].checked) {
-                flag = false;
-                break;
-            }
-        }
-        j_cbAll.checked = flag;
-    }
-}
+// 全选框的设计// 全选功能实现：复选框跟随全选按钮的checked属性// 1. 获取元素,j_cbAll为全选按钮，j_tbs为复选框var j_cbAll = document.getElementById('j_cbAll');var j_tbs = document.getElementById('j_tb').getElementsByTagName('input');// 2. 注册事件j_cbAll.onclick = function () {    for (var i = 0; i < j_tbs.length; i++) {        j_tbs[i].checked = this.checked;    }}// 给所有的复选框绑定事件for (var i = 0; i < j_tbs.length; i++) {    j_tbs[i].onclick = function () {        // 设置标志变量控制全选按钮是否选中        var flag = true;        for (var i = 0; i < j_tbs.length; i++) {            if (!j_tbs[i].checked) {                flag = false;                break;            }        }        j_cbAll.checked = flag;    }}
 ```
 
 
@@ -965,13 +1036,7 @@ for (var i = 0; i < j_tbs.length; i++) {
   
 
   ```html
-  <body>
-      <div data-index="1">我是康娜</div>
-      <script>
-          var div = document.querySelector('div');
-          console.log(div.dataset.index);
-      </script>
-  </body>
+  <body>    <div data-index="1">我是康娜</div>    <script>        var div = document.querySelector('div');        console.log(div.dataset.index);    </script></body>
   ```
 
   
@@ -995,6 +1060,7 @@ for (var i = 0; i < j_tbs.length; i++) {
 * 原因：之前学到的用DOM提供的方法获取元素的方法逻辑性不强，繁琐，因此这里学习另一种操作元素的方法——节点操作，根据元素在元素树中的父子，兄弟节点关系获取元素，逻辑性强，但是兼容性较差
 
 * 一般地，节点至少拥有nodeType(节点类型 ) 、nodeName (节点名称）和nodeValue (节点值)这三个基本属性。
+
   * 元素节点nodeType为1
   * 属性节点nodeType为2
   * 文本节点nodeType为3(文本节点包含文字、空格、换行等)
@@ -1041,4 +1107,67 @@ for (var i = 0; i < j_tbs.length; i++) {
   ```
 
   
+
+* 兄弟节点，例：
+
+  ```js
+  // 兄弟节点操作
+  var div = document.querySelector('div');
+  // 1. 方法1, 得到下一个或前一个兄弟节点，包含元素节点或文本节点等
+  console.log(div.nextSibling);
+  console.log(div.previousSibling);
+  // 2. 方法2，得到下一个或前一个兄弟元素节点，只包含元素节点
+  console.log(div.nextElementSibling);
+  console.log(div.previousElementSibling);
+  ```
+
+####  创建和添加元素节点
+
+动态添加元素的方式分为两步：1. 创建元素 2. 将元素添加至指定位置，例：
+
+```js
+// 获取父元素
+var ul = document.querySelector('ul');
+// 动态创建和添加元素节点
+var li = document.createElement('li');
+// 将li插入到ul的子元素的末尾
+ul.appendChild(li);
+var newli = document.createElement('li');
+// 将newli插入到ul第一个子元素的前面
+ul.insertBefore(newli, ul.children[0]);
+```
+
+
+
+#### 删除节点
+
+从父节点中删除指定子节点，例：
+
+```js
+// 从父节点中删除子节点
+var fatherNode = document.querySelector('ul');
+var sunNode = document.querySelectorAll('li');
+// 从父节点出发删除子节点
+// 1. 可以通过父节点获取子节点
+fatherNode.removeChild(fatherNode.children[0]);
+// 2. 可以通过直接元素获取的方式获取子节点
+fatherNode.removeChild(sunNode[1]);
+```
+
+#### 拷贝节点
+
+分为带着标签内容一起拷贝和只拷贝标签两种形式，例
+
+```js
+var ul = document.querySelector('ul');
+// cloneNode()的参数为空或者为false时只拷贝标签，不拷贝标签中内容
+var li1 = ul.children[0].cloneNode();
+ul.appendChild(li1);
+// cloneNode()的参数为true时拷贝标签的同时，也会将标签内容拷贝
+var li2 = ul.children[0].cloneNode(true);
+ul.appendChild(li2);
+```
+
+#### 动态生成表格案例
+
 

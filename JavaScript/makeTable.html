@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态生成表格</title>
+
+    <!-- css样式部分 -->
+    <style>
+        table {
+            width: 500px;
+            margin: 100px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        td,
+        th {
+            border: 1px solid #333;
+        }
+
+        thead tr {
+            height: 40px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <table cellspacing="0">
+        <!-- 表头部分 -->
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>科目</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <!-- 主体部分，数据内容 -->
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        var data = [
+            {
+                name: '鸣人',
+                subject: 'JavaScript',
+                score: 100
+            },
+            {
+                name: '佐助',
+                subject: 'JavaScript',
+                score: 99
+            },
+            {
+                name: '小樱',
+                subject: 'JavaScript',
+                score: 98
+            }
+        ]
+        var tbody = document.querySelector('tbody');
+        for (var i = 0; i < data.length; i++) {
+            // 根据人数创建行
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            // 在单元行中根据数据的属性个数创建数据单元格
+            for (var k in data[i]) {
+                var td = document.createElement('td');
+                tr.appendChild(td);
+                // 将内容赋值给单元格,data[i][k]得到属性值
+                td.innerHTML = data[i][k];
+            }
+            // 在单元行中创建删除选项的单元格
+            var td = document.createElement('td');
+            // 将删除选项单元格进行规格化，这种形式比较固定，都是用来设置删除选项的统一格式
+            td.innerHTML = '<a href = "javascript:;">删除</a>'
+            tr.appendChild(td);
+        }
+        // 定义删除操作
+        var a = document.querySelectorAll('a');
+        for (var i = 0; i < a.length; i++) {
+            a[i].onclick = function () {
+                tbody.removeChild(this.parentNode.parentNode);
+            }
+        }
+    </script>
+</body>
+
+</html>

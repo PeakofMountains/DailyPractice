@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS写法测试</title>
+    <!-- 内嵌式js -->
+    <script>
+
+        // // 测试true和false的数值值
+        // var flag = true;
+        // console.log(flag + 0);
+        // flag = false;
+        // console.log(flag + 0);
+
+        // // typeof使用
+        // var number = 8;
+        // console.log(typeof number);
+
+        // // 隐式转换为数字型
+        // console.log('11' - '10');
+
+        // // 三元运算符测试
+        // var a = prompt('请输入a的值：');
+        // a = parseInt(a);
+        // console.log(a > 8 ? a - 1 : a + 1);
+
+        // // 冒泡排序
+        // var arr = [1, 4, 3, 2, 5];
+        // var temp;
+        // for (var i = 0; i < arr.length - 1; i++) {
+        //     for (var j = 0; j < arr.length - i - 1; j++) {
+        //         if (arr[j] > arr[j + 1]) {
+        //             temp = arr[j + 1];
+        //             arr[j + 1] = arr[j];
+        //             arr[j] = temp;
+        //         }
+        //     }
+        // }
+        // console.log(arr);
+
+        // // 两种声明函数的方式，都能进行参数的传递
+        // // 1. 用函数关键字function声明函数
+        // function fn(aru1) {
+        //     console.log(aru1);
+        // }
+        // // 第一种声明函数的调用方法
+        // fn('第一种声明函数的方式');
+        // // 2. 用定义变量函数表达式的方式声明函数（匿名函数）
+        // var fun = function (aru2) {
+        //     console.log(aru2);
+        // }
+        // // 第二种声明函数的调用方法
+        // fun('第二种声明函数的方式');
+        // // fun是变量名，不是函数名，其中存的是函数，不是值
+
+        // // 目前JS中不存在块级作用域
+        // if (3 < 5) {
+        //     var num = 10;
+        // }
+        // console.log(num);
+        // 这个输出的结果就是10，能访问到if语句块中的num变量，这是目前JS和java等语言的作用域的差异
+
+        // // 作用域链
+        // var num = 20;
+        // function fn() {
+        //     var num = 10;
+        //     function fun() {
+        //         console.log(num);
+        //         // 由于离此处调用的num最近的是fn函数定义的num = 10，因此最终的输出结果应该是10
+        //     }
+        //     fun();
+        // }
+        // fn();
+
+        // // 预解析和代码执行顺序测试
+        // function f1() {
+        //     var a = b = c = 9;
+        //     // 上面这条语句相当于var a = 9; b = 9; c = 9;
+        //     // 因为b和c没有用var直接进行声明，因此b，c是全局变量
+        //     // 所以函数外的全局作用域中可以调用b，c的值，但是a是局部变量因此在全局作用域中进行调用会报错
+        //     console.log(a);
+        //     console.log(b);
+        //     console.log(c);
+        // }
+        // f1();
+        // console.log(c);
+        // console.log(b);
+        // console.log(a);
+        // // 执行结果：9 9 9 9 9 报错
+
+        // // 创建对象的方式1
+        // var man = {
+        //     // 对象属性的定义，注意之间用逗号隔开，而不是分号,属性与属性值，方法名与方法体之间都是键值对的形式
+        //     uname: '张三',
+        //     age: 18,
+        //     // 对象方法的定义
+        //     sayHi: function () {
+        //         console.log('Hi~~~');
+        //     }
+        // }
+        // // 对象属性的调用
+        // // 方法1
+        // console.log(man.uname);
+        // // 方法2
+        // console.log(man['age']);
+        // // 对象方法的调用
+        // man.sayHi();
+
+        // // 创建对象的方式2
+        // // 创建一个空的对象，再逐步往空的对象里添加属性和方法
+        // var woman = new Object();
+        // // 添加属性,属性与属性值之间用赋值号连接，不同属性和方法之间用分号分隔
+        // woman.uname = '张三',
+        //     woman.age = 18,
+        //     // 对象方法的定义
+        //     woman.sayHi = function () {
+        //         console.log('Hi~~~');
+        //     }
+        // // 对象属性的调用
+        // // 方法1
+        // console.log(woman.uname);
+        // // 方法2
+        // console.log(woman['age']);
+        // // 对象方法的调用
+        // woman.sayHi();
+
+
+        // // 创建对象的方式3
+        // // 利用构造函数,构造函数的首字母大写
+        // // 构造函数不需要return就能返回结果
+        // function Man(uname, age) {
+        //     this.uname = uname;
+        //     this.age = age;
+        //     this.sing = function (sang) {
+        //         console.log(sang);
+        //     }
+        // }
+        // // 调用构造函数创建对象，调用构造函数必须使用new关键字
+        // var man1 = new Man('刘德华', 50)
+        // // 创建好的对象可以使用其属性和方法
+        // console.log(man1.uname);
+        // console.log(man1.age);
+        // man1.sing('歌曲');
+
+        // // 利用for in 循环遍历对象中内容
+        // // 对象创建
+        // var obj = {
+        //     uname: '六花',
+        //     age: 17,
+        //     sex: 'woman'
+        // }
+        // // 遍历对象中的内容
+        // for (var k in obj) {
+        //     // k输出的是对象中的变量或方法名
+        //     console.log(k);
+        //     // obj[k]输出的是变量值或方法体
+        //     console.log(obj[k]);
+        // }
+
+        // // 得到两个整数之间（包含这两个整数）的随机整数
+        // function getRandomInt(min, max) {
+        //     return Math.floor(Math.random() * (max - min + 1)) + min;
+        // }
+        // console.log(getRandomInt(1, 3));
+
+        // // Date对象的使用
+        // // 第一中情况：实例化的时候没有参数，返回当前系统的当前时间
+        // var date1 = new Date();
+        // console.log(date1);
+        // // 第二种情况：实例化的时候有日期格式字符串参数，就返回日期格式字符串参数给出的时间
+        // var date2 = new Date('2019-5-1');
+        // console.log(date2);
+
+        // // 获取格式化日期
+        // function getNowDate() {
+        //     var date = new Date();
+        //     var year = date.getFullYear();
+        //     // date.getMonth()方法得到的月份是0~11月，因此应该将结果+1
+        //     var month = date.getMonth() + 1;
+        //     var dates = date.getDate();
+        //     var day = date.getDay();
+        //     // date.getDay()方法得到的第一天是星期日，因此我们利用数组将星期对应起来
+        //     var days = ['星期日', '星期六', '星期五', '星期四', '星期三', '星期二', '星期一'];
+        //     console.log('今天是：' + year + '年' + month + '月' + dates + '日  ' + days[day]);
+        // }
+        // getNowDate();
+
+        // // 获取格式化时间
+        // function getNowTime() {
+        //     var date = new Date();
+        //     var hour = date.getHours();
+        //     // 为了让时间显示的格式相同，将小于10的数字前面加上0占位，例如8显示为08
+        //     hour = hour < 10 ? '0' + hour : hour;
+        //     var minutes = date.getMinutes();
+        //     minutes = minutes < 10 ? '0' + minutes : minutes;
+        //     var seconds = date.getSeconds();
+        //     seconds = seconds < 10 ? '0' + seconds : seconds;
+        //     var day = date.getDay();
+        //     return hour + '时' + minutes + '分' + seconds + '秒  ';
+        // }
+        // console.log('现在是：' + getNowTime());
+
+        // // 距离1970-1-1的毫秒数
+        // var date = new Date();
+        // console.log(date.valueOf());
+        // console.log(date.getTime());
+        // // 简单写法：与上面的写法结果相同,最常用
+        // var date1 = +new Date();
+        // // HTML5新增,不考虑兼容性
+        // console.log(Date.now());
+
+        // // 倒计时效果
+        // function countDown(time) {
+        //     // 现在总的毫秒数
+        //     var nowTime = +new Date();
+        //     // 用户输入的时间总的毫秒数
+        //     var inputTime = +new Date(time);
+        //     var times = (inputTime - nowTime) / 1000;
+        //     // 倒计时天数
+        //     var day = parseInt(times / 60 / 60 / 24);
+        //     // 格式化操作
+        //     day = day < 10 ? '0' + day : day;
+        //     var hours = parseInt(times / 60 / 60 % 24);
+        //     hours = hours < 10 ? '0' + hours : hours;
+        //     var minutes = parseInt(times / 60 % 60);
+        //     minutes = minutes < 10 ? '0' + minutes : minutes;
+        //     var seconds = parseInt(times % 60);
+        //     seconds = seconds < 10 ? '0' + seconds : seconds;
+        //     return day + '天' + hours + '时' + minutes + '分' + seconds + '秒';
+        // }
+        // console.log('倒计时： ' + countDown('2021-8-12 09:25:00'));
+
+        // // 判断是否为数组
+        // // 方法1
+        // var arr = [];
+        // if (arr instanceof Array) {
+        //     console.log('是数组');
+        // }
+        // else {
+        //     console.log('不是数组');
+        // }
+        // // 方法2,HTML5新增，IE9以上版本支持
+        // var arr = [];
+        // if (Array.isArray(arr)) {
+        //     console.log('是数组');
+        // }
+        // else {
+        //     console.log('不是数组');
+        // }
+
+        // // 添加和删除数组元素
+        // var arr = [1, 2, 3];
+        // // 在结尾添加一个元素
+        // arr.push(4);
+        // // 在结尾添加多个元素
+        // // push()方法返回值是新数组的长度
+        // console.log(arr.push(5, '六花'));
+        // console.log(arr);
+        // // 在数组开头添加一个元素
+        // arr.unshift(0);
+        // // 在数组开头添加多个元素
+        // arr.unshift('勇太', -1);
+        // console.log(arr);
+        // // 同样unshift()的返回值也是新数组的长度
+        // // 删除数组最后一个元素
+        // // pop()返回值是删除的那个元素
+        // console.log(arr.pop());
+        // console.log(arr);
+        // // 删除第一个元素
+        // // shift()返回值是删除的那个元素
+        // console.log(arr.shift());
+        // console.log(arr);
+
+
+        // var arr = [13, 4, 77, 1, 7];
+        // arr.sort(function (a, b) {
+        //     // 升序冒泡
+        //     return a - b;
+        // })
+        // console.log(arr);
+
+        // var arr = [13, 4, 77, 1, 7];
+        // arr.sort(function (a, b) {
+        //     // 降序冒泡
+        //     return b - a;
+        // })
+        // console.log(arr);
+
+
+        // // 数组索引查询
+        // var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+        // // arr.indexOf()方法返回从左往右第一个查找到的索引号，如果没有找到，返回-1
+        // console.log(arr.indexOf('汐'));
+        // // arr.indexOf()方法返回从右往左第一个查找到的索引号，如果没有找到，返回-1
+        // console.log(arr.lastIndexOf('汐'));
+
+        // // 数组去重
+        // function unique(arr) {
+        //     var newarr = [];
+        //     for (var i = 0; i < arr.length; i++) {
+        //         if (newarr.indexOf(arr[i]) === -1) {
+        //             newarr.push(arr[i]);
+        //         }
+        //     }
+        //     return newarr;
+        // }
+        // // 测试
+        // var arr = ['a', 1, 3, 1, 4, 'a', 'b'];
+        // console.log(unique(arr));
+
+        // // 数组转换为字符串
+        // var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+        // // 1. toString()方法
+        // console.log(arr.toString());
+        // // 2. join(分隔符)方法，可以设置转换后的元素之间的连接符
+        // var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+        // // join()没有参数是默认逗号分隔
+        // console.log(arr.join());
+        // console.log(arr.join('-'));
+        // console.log(arr.join('&'));
+
+        // // 连接多个数组，不影响原数组
+        // var arr1 = ['六花'];
+        // var arr2 = ['勇太'];
+        // var arr = arr1.concat(arr2);
+        // console.log(arr);
+        // console.log(arr1);
+        // console.log(arr2);
+
+        // // slice()方法截取数组，参数slice(begin,end);截取的是[begin,end),左闭右开，取不到end索引的值
+        // // 同样返回截取的新数组，不改变原数组的值
+        // var arr = ['六花', '勇太', '森大人'];
+        // console.log(arr.slice(0, 2));
+        // console.log(arr);
+
+        // // splice()方法删除数组指定片段
+        // var arr = ['六花', '勇太', '森大人'];
+        // // splice(start,length)函数，第一个参数是删除起始的索引，第二个参数是删除片段的长度
+        // console.log(arr.splice(0, 2));
+        // // splice()方法返回删除的片段
+        // console.log(arr);
+        // // splice()方法会改变原数组
+
+        // // 基本包装类型
+        // var str = '犬夜叉';
+        // // 这条语句实际上是进行了如下包装过程
+        // // 生成临时变量temp，将简单数据类型包装成复杂数据类型
+        // var temp = new String('犬夜叉');
+        // // 将临时变量赋值给声明的字符变量
+        // var str = temp;
+        // // 销毁临时变量
+        // temp = null;
+
+        // // 查找字符在字符串中的索引号
+        // var str = '犬夜叉和戈薇,杀生丸和玲';
+        // var index = str.indexOf('薇');
+        // console.log(str[index]);
+        // // indexOf(字符，index)第二个参数设置开始查找的起始索引号（包含）
+        // console.log(str.indexOf('和', 4));
+        // // 反向查找
+        // console.log(str.lastIndexOf('薇'));
+        // console.log(str.lastIndexOf('薇', 3));
+        // // indexOf(字符，index)第二个参数设置开始反向查找的起始索引号（包含）
+        // console.log(str.lastIndexOf('薇', 5));
+
+        // // 统计字符在字符串中出现的次数
+        // function countCharTimes(str, char) {
+        //     // count用来计数
+        //     var count = 0;
+        //     // i作为起始索引号，找到指定字符后将索引更换为找到的位置
+        //     for (var i = 0; ; i++) {
+        //         i = str.indexOf(char, i);
+        //         if (i === -1) {
+        //             // 从起始索引处没有找到就跳出循环，返回结果
+        //             break;
+        //         }
+        //         count++;
+        //     }
+        //     return count;
+        // }
+        // // 使用示例
+        // var str = '六花喜欢勇太，勇太喜欢六花';
+        // console.log(countCharTimes(str, '花'));
+
+        // var str1 = '六花喜欢勇太，勇太喜欢六花';
+        // // 根据索引输出索引处的值
+        // console.log(str1.charAt(1));
+        // var str2 = 'the world';
+        // // charCodeAt()方法返回索引号的字符ASCII值，目的：判断用户按下了哪个键
+        // console.log(str2.charCodeAt(2));
+        // // HTML5,IE8+支持，和charAt()作用等效
+        // console.log(str1[1]);
+
+        // // 统计字符串中字符出现次数最多的字符
+        // var str = 'this is a test';
+        // // 创建一个空对象
+        // var count = {};
+        // for (var i = 0; i < str.length; i++) {
+        //     var chars = str.charAt(i);
+        //     if (count[chars]) {
+        //         // 查找到字符后将对应属性值加1
+        //         count[chars]++;
+        //     }
+        //     else {
+        //         count[chars] = 1;
+        //     }
+        // }
+        // console.log(count);
+        // var max = 0;
+        // var char = '';
+        // for (var k in count) {
+        //     if (count[k] > max) {
+        //         max = count[k];
+        //         char = k;
+        //     }
+        // }
+        // console.log(max);
+        // console.log('出现次数最多的是：' + char);
+
+        // // 密码框的做法
+        // // 1. 获取元素
+        // var eye = document.getElementById('eye');
+        // var pwd = document.getElementById('psw');
+        // // 2.注册事件，定义处理程序
+        // var flag = 0;
+        // // flag = 0 表示为明文显示
+        // eye.onclick = function () {
+        //     if (flag == 0) {
+        //         pwd.type = 'text';
+        //         eye.src = 'image/open.jpg';
+        //         flag = 1;
+        //     }
+        //     else {
+        //         // 密码显示的时候将显示框类型调整为密码框
+        //         pwd.type = 'password';
+        //         eye.src = 'image/close.jpg';
+        //         flag = 0;
+        //     }
+        // }
+
+        // // 排他思想算法
+        // // 获取按钮元素
+        // var bnts = document.getElementsByTagName('button');
+        // // btns得到的是伪数组
+        // for (var i = 0; i < bnts.length; i++) {
+        //     bnts[i].onclick = function () {
+        //         // 先将所有的背景颜色设为空
+        //         for (var i = 0; i < bnts.length; i++) {
+        //             bnts[i].style.backgroundColor = '';
+        //         }
+        //         // 将当前背景颜色设为指定颜色
+        //         this.style.backgroundColor = 'yellow';
+        //     }
+        // }
+
+        // // 全选框的设计
+        // // 全选功能实现：复选框跟随全选按钮的checked属性
+        // // 1. 获取元素,j_cbAll为全选按钮，j_tbs为复选框
+        // var j_cbAll = document.getElementById('j_cbAll');
+        // var j_tbs = document.getElementById('j_tb').getElementsByTagName('input');
+        // // 2. 注册事件
+        // j_cbAll.onclick = function () {
+        //     for (var i = 0; i < j_tbs.length; i++) {
+        //         j_tbs[i].checked = this.checked;
+        //     }
+        // }
+        // // 给所有的复选框绑定事件
+        // for (var i = 0; i < j_tbs.length; i++) {
+        //     j_tbs[i].onclick = function () {
+        //         // 设置标志变量控制全选按钮是否选中
+        //         var flag = true;
+        //         for (var i = 0; i < j_tbs.length; i++) {
+        //             if (!j_tbs[i].checked) {
+        //                 flag = false;
+        //                 break;
+        //             }
+        //         }
+        //         j_cbAll.checked = flag;
+        //     }
+        // }
+
+        // // 节点操作
+        // var div = document.querySelector('div');
+        // console.log(div.parentNode);
+<<<<<<< HEAD
+
+        // console.log(div.childNodes);
+
+        // var ol = document.queryselector('ol');
+        // // 1. firstchild第一个子节点不管是文本节点还是元素节点 
+        // console.log(ol.firstchild);
+        // console.log(ol.lastchild);
+        // // 2. firstElementchild返回第一个子元素节点
+        // console.log(ol.firstElementChild);
+        // console.log(ol.lastElementchild);
+        // // 3．实际开发的写法既没有兼容性问题又返回第一个子元素
+        // console.log(ol.children[0]);
+        // console.log(ol.children[ol.children.length - 1]);
+
+
+        // // 兄弟节点操作
+        // var div = document.querySelector('div');
+        // // 1. 方法1, 得到下一个或前一个兄弟节点，包含元素节点或文本节点等
+        // console.log(div.nextSibling);
+        // console.log(div.previousSibling);
+        // // 2. 方法2，得到下一个或前一个兄弟元素节点，只包含元素节点
+        // console.log(div.nextElementSibling);
+        // console.log(div.previousElementSibling);
+
+        // // 从父节点中删除子节点
+        // var fatherNode = document.querySelector('ul');
+        // var sunNode = document.querySelectorAll('li');
+        // // 从父节点出发删除子节点
+        // // 1. 可以通过父节点获取子节点
+        // fatherNode.removeChild(fatherNode.children[0]);
+        // // 2. 可以通过直接元素获取的方式获取子节点
+        // fatherNode.removeChild(sunNode[1]);
+
+
+
+        // // 创建元素的三种方式
+        // document.write();
+        // element.innerHTML
+        // document.createElement()
+
+
+
+
+
+=======
+>>>>>>> 8de769f7210d3603f05a6ad7ede998e06445b11e
+
+        // console.log(div.childNodes);
+
+        // var ol = document.queryselector('ol');
+        // // 1. firstchild第一个子节点不管是文本节点还是元素节点 
+        // console.log(ol.firstchild);
+        // console.log(ol.lastchild);
+        // // 2. firstElementchild返回第一个子元素节点
+        // console.log(ol.firstElementChild);
+        // console.log(ol.lastElementchild);
+        // // 3．实际开发的写法既没有兼容性问题又返回第一个子元素
+        // console.log(ol.children[0]);
+        // console.log(ol.children[ol.children.length - 1]);
+
+
+
+
+
+// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+    </script>
+    <!-- 外部js写法,test.js文件在同级目录下 -->
+    <!-- <script src="test.js"></script> -->
+    <!-- 引用外部js文件的script标签之间不能写代码 -->
+    <style>
+        /* ul {
+            width: 50px;
+            height: 50px;
+            background-color: gold;
+        }
+
+        li {
+            list-style: none;
+            width: 50px;
+            height: 15px;
+            margin-bottom: 5px;
+            background-color: greenyellow;
+        } */
+
+        .father {
+            width: 500px;
+            height: 500px;
+            background-color: gold;
+        }
+
+        .son {
+            width: 200px;
+            height: 200px;
+            background-color: greenyellow;
+        }
+
+        .tip {
+            display: none;
+            width: 300px;
+            height: 30px;
+            font-size: 20px;
+            margin-top: 10px;
+            border: 2px solid gold;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">father
+        <div class="son">son</div>
+    </div>
+
+    <ul>
+        <li>li</li>
+    </ul>
+
+    <a href="#">这是个不跳转的链接</a>
+
+    <p>这是一段文字</p>
+
+    <input type="text" placeholder="请输入内容">
+    <div class="tip"></div>
+
+<<<<<<< HEAD
+    <script>
+        // 窗口加载事件的两种使用方式
+        window.onload = function () { };
+        window.addEventListener('load', function () { });
+
+        // 将输入的内容放大到另一个提示框
+        var tip = document.querySelector('.tip');
+        var input = document.querySelector('input');
+        // 设置输入内容的时候tip框显示
+        input.addEventListener('keyup', function () {
+            if (this.value == '') {
+                tip.style.display = 'none';
+            } else {
+                tip.style.display = 'block';
+                tip.innerHTML = this.value;
+            }
+        })
+        // 设置失去焦点时tip框隐藏,获得焦点时显示
+        input.addEventListener('blur', function () {
+            tip.style.display = 'none';
+        })
+        input.addEventListener('focus', function () {
+            // 这里的判断是为了解决获得焦点输入框没有内容时tip框的显示问题
+            if (this.value == '') {
+                tip.style.display = 'none';
+            } else {
+                tip.style.display = 'block';
+            }
+        })
+
+        // 实现按下s键光标定在输入框中的操作
+        var search = document.querySelector('input');
+        document.addEventListener('keyup', function (e) {
+            // console.log(e.keyCode);
+            if (e.keyCode === 83) {
+                search.focus();
+            }
+        })
+        // event.target与this的区别
+        var ul = document.querySelector('ul');
+        ul.addEventListener('click', function (e) {
+            console.log(e.target);
+            console.log(this);
+        })
+        // 阻止默认行为或事件
+        var a = document.querySelector('a');
+        a.addEventListener('click', function (e) {
+            e.preventDefault();
+        })
+        // 阻止冒泡
+        a.addEventListener('click', function (e) {
+            alert('a');
+            e.stopPropagation();
+        })
+
+        var p = document.querySelector('p');
+        // 阻止选中后右键菜单的打开
+        p.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        })
+        // 阻止文本被选中
+        p.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        })
+
+        // 键盘事件
+        document.addEventListener('keyup', function () {
+            console.log('keyup');
+        })
+        document.addEventListener('keydown', function () {
+            console.log('keydown');
+        })
+        document.addEventListener('keypress', function () {
+            console.log('keypress');
+        })
+        // 方法2
+        document.onkeyup = function () {
+            console.log('keyup');
+        }
+// // DOM事件流
+//         var father = document.querySelector('.father');
+//         var son = document.querySelector('.son');
+
+//         father.addEventListener('click', function () {
+//             alert('father');
+//         }, true)
+//         son.addEventListener('click', function () {
+//             alert('son');
+//         }, true)
+
+        // // 删除事件
+        // var button = document.querySelector('button');
+        // // // 传统删除事件方式
+        // // button.onclick = function () {
+        // //     alert('传统删除方式');
+        // //     button.onclick = null;
+        // //     此种方式使得此注册函数只执行一遍
+        // // }
+        // // 用removeEventListener()函数删除方式
+        // button.addEventListener('click', fn);
+
+        // function fn() {
+        //     alert('removeEventListener方式删除事件');
+        //     button.removeEventListener('click', fn);
+        //     // 此操作让注册函数只执行一次
+        // }
+
+        // // 注册事件的两种方式
+        // var button = document.querySelector('button');
+        // button.addEventListener('click', function () {
+        //     alert('click1');
+        // })
+        // button.addEventListener('click', function () {
+        //     alert('click2');
+        // })
+        // addEventListener()函数的第一个参数是事件类型，要用引号引起来，第二个参数是处理函数，用function定义，第三个参数默认是false，有关DOM事件流
+
+
+        // var ul = document.querySelector('ul');
+        // // cloneNode()的参数为空或者为false时只拷贝标签，不拷贝标签中内容
+        // var li1 = ul.children[0].cloneNode();
+        // ul.appendChild(li1);
+        // // cloneNode()的参数为true时拷贝标签的同时，也会将标签内容拷贝
+        // var li2 = ul.children[0].cloneNode(true);
+        // ul.appendChild(li2);
+
+
+=======
+    <!-- 使用ID获取元素 -->
+    <!-- <button id="btn">button</button>
+    <!-- 自定义属性的使用 -->
+    <div data-index="1">I am div</div> -->
+    <script>
+>>>>>>> 8de769f7210d3603f05a6ad7ede998e06445b11e
+        // var btn = document.getElementById('btn');
+        // btn.onclick = function () {
+        //     alert('托尔');
+        // }
+        // var div = document.querySelector('div');
+        // console.log(div.dataset.index);
+<<<<<<< HEAD
+
+
+
+        // var ul = document.querySelector('ul');
+        // // 动态创建和添加元素节点
+        // var li = document.createElement('li');
+        // // 将li插入到ul的子元素的末尾
+        // ul.appendChild(li);
+        // var newli = document.createElement('li');
+        // // 将newli插入到ul第一个子元素的前面
+        // ul.insertBefore(newli, ul.children[0]);
+
+=======
+>>>>>>> 8de769f7210d3603f05a6ad7ede998e06445b11e
+    </script>
+
+</body>
+
+</html>

@@ -575,8 +575,18 @@ man1.sing('歌曲');
 * 利用 for in 循环，语法，例：
 
   ```js
-  // 利用for in 循环遍历对象中内容// 对象创建var obj = {    uname: '六花',    age: 17,    sex: 'woman'}// 遍历对象中的内容for (var k in obj) {    // k输出的是对象中的变量或方法名    console.log(k);    // obj[k]输出的是变量值或方法体    console.log(obj[k]);}
+  // 利用for in 循环遍历对象中内容// 对象创建
+  var obj = {    uname: '六花',    age: 17,    sex: 'woman'}
+  // 遍历对象中的内容
+  for (var k in obj) {
+      // k输出的是对象中的变量或方法名    
+      console.log(k);    
+      // obj[k]输出的是变量值或方法体
+      console.log(obj[k]);
+  }
   ```
+  
+  
 
 
 
@@ -621,8 +631,13 @@ MDN：[官方网址](https://developer.mozilla.org/zh-CN/)
     * 得到两个数之间（包含这两个整数）的随机整数
 
       ```js
-      // 得到两个整数之间（包含这两个整数）的随机整数function getRandomInt(min, max) {    return Math.floor(Math.random() * (max - min + 1)) + min;}// 调用方式举例console.log(getRandomInt(1, 3));
+      // 得到两个整数之间（包含这两个整数）的随机整数
+      function getRandomInt(min, max) {    return Math.floor(Math.random() * (max - min + 1)) + min;}// 调用方式举例console.log(getRandomInt(1, 3));
       ```
+      
+      
+    
+    
 
 
 
@@ -633,13 +648,37 @@ MDN：[官方网址](https://developer.mozilla.org/zh-CN/)
 * 获取格式化日期，例：
 
 ```js
-// 获取格式化日期function getNowDate() {    var date = new Date();    var year = date.getFullYear();    // date.getMonth()方法得到的月份是0~11月，因此应该将结果+1    var month = date.getMonth() + 1;    var dates = date.getDate();    var day = date.getDay();    // date.getDay()方法得到的第一天是星期日，因此我们利用数组将星期对应起来    var days = ['星期日', '星期六', '星期五', '星期四', '星期三', '星期二', '星期一'];    console.log('今天是：' + year + '年' + month + '月' + dates + '日  ' + days[day]);}getNowDate();
+// 获取格式化日期
+function getNowDate() {    
+    var date = new Date();
+    var year = date.getFullYear();    
+    // date.getMonth()方法得到的月份是0~11月，因此应该将结果+1    
+    var month = date.getMonth() + 1;
+    var dates = date.getDate();
+    var day = date.getDay();    // date.getDay()方法得到的第一天是星期日，因此我们利用数组将星期对应起来
+    var days = ['星期日', '星期六', '星期五', '星期四', '星期三', '星期二', '星期一'];
+    console.log('今天是：' + year + '年' + month + '月' + dates + '日  ' + days[day]);
+}
+getNowDate();
 ```
 
 * 获取格式化时间，例：
 
 ```js
-// 获取格式化时间function getNowTime() {    var date = new Date();    var hour = date.getHours();    // 为了让时间显示的格式相同，将小于10的数字前面加上0占位，例如8显示为08    hour = hour < 10 ? '0' + hour : hour;    var minutes = date.getMinutes();    minutes = minutes < 10 ? '0' + minutes : minutes;    var seconds = date.getSeconds();    seconds = seconds < 10 ? '0' + seconds : seconds;    var day = date.getDay();    return hour + '时' + minutes + '分' + seconds + '秒  ';}console.log('现在是：' + getNowTime());
+// 获取格式化时间
+function getNowTime() {
+    var date = new Date();
+    var hour = date.getHours();
+    // 为了让时间显示的格式相同，将小于10的数字前面加上0占位，例如8显示为08    
+    hour = hour < 10 ? '0' + hour : hour;
+    var minutes = date.getMinutes();
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var seconds = date.getSeconds();
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    var day = date.getDay();
+    return hour + '时' + minutes + '分' + seconds + '秒  ';
+}
+console.log('现在是：' + getNowTime());
 ```
 
 
@@ -649,13 +688,41 @@ MDN：[官方网址](https://developer.mozilla.org/zh-CN/)
 Date对象基于1970年1月1日（世界标准时间）经过的毫秒数
 
 ````js
-// 距离1970-1-1的毫秒数var date = new Date();// 写法1console.log(date.valueOf());// 写法2console.log(date.getTime());// 简单写法：与上面的写法相同var date1 = +new Date();// 新写法，HTML5新增,不考虑兼容性console.log(Date.now());
+// 距离1970-1-1的毫秒数
+var date = new Date();
+// 写法1
+console.log(date.valueOf());
+// 写法2
+console.log(date.getTime());
+// 简单写法：与上面的写法相同
+var date1 = +new Date();
+// 新写法，HTML5新增,不考虑兼容性
+console.log(Date.now());
 ````
 
 利用这个做出倒计时效果：
 
 ```js
-// 倒计时效果function countDown(time) {    // 现在总的毫秒数    var nowTime = +new Date();    // 用户输入的时间总的毫秒数    var inputTime = +new Date(time);    var times = (inputTime - nowTime) / 1000;    // 倒计时天数    var day = parseInt(times / 60 / 60 / 24);    // 格式化操作    day = day < 10 ? '0' + day : day;    var hours = parseInt(times / 60 / 60 % 24);    hours = hours < 10 ? '0' + hours : hours;    var minutes = parseInt(times / 60 % 60);    minutes = minutes < 10 ? '0' + minutes : minutes;    var seconds = parseInt(times % 60);    seconds = seconds < 10 ? '0' + seconds : seconds;    return day + '天' + hours + '时' + minutes + '分' + seconds + '秒';}console.log('倒计时： ' + countDown('2021-8-12 09:25:00'));
+// 倒计时效果
+function countDown(time) {
+    // 现在总的毫秒数
+    var nowTime = +new Date();
+    // 用户输入的时间总的毫秒数
+    var inputTime = +new Date(time);
+    var times = (inputTime - nowTime) / 1000;
+    // 倒计时天数
+    var day = parseInt(times / 60 / 60 / 24);
+    // 格式化操作
+    day = day < 10 ? '0' + day : day;
+    var hours = parseInt(times / 60 / 60 % 24);
+    hours = hours < 10 ? '0' + hours : hours;
+    var minutes = parseInt(times / 60 % 60); 
+    minutes = minutes < 10 ? '0' + minutes : minutes; 
+    var seconds = parseInt(times % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return day + '天' + hours + '时' + minutes + '分' + seconds + '秒';
+}
+console.log('倒计时： ' + countDown('2021-8-12 09:25:00'));
 ```
 
 
@@ -667,7 +734,21 @@ Date对象基于1970年1月1日（世界标准时间）经过的毫秒数
 语法，例：
 
 ```js
-// 判断是否为数组// 方法1var arr = [];if (arr instanceof Array) {    console.log('是数组');}else {    console.log('不是数组');}// 方法2,HTML5新增，IE9以上版本支持var arr = [];if (Array.isArray(arr)) {    console.log('是数组');}else {    console.log('不是数组');}
+// 判断是否为数组
+// 方法1
+var arr = [];
+if (arr instanceof Array) {
+    console.log('是数组');
+}else {
+    console.log('不是数组');
+}
+// 方法2,HTML5新增，IE9以上版本支持
+var arr = [];
+if (Array.isArray(arr)) {
+    console.log('是数组');
+}else {
+    console.log('不是数组');
+}
 ```
 
 
@@ -677,31 +758,68 @@ Date对象基于1970年1月1日（世界标准时间）经过的毫秒数
 * 方法，例：
 
 ```js
-// 添加和删除数组元素var arr = [1, 2, 3];// 在结尾添加一个元素arr.push(4);// 在结尾添加多个元素// push()方法返回值是新数组的长度console.log(arr.push(5, '六花'));console.log(arr);// 在数组开头添加一个元素arr.unshift(0);// 在数组开头添加多个元素arr.unshift('勇太', -1);console.log(arr);// 同样unshift()的返回值也是新数组的长度// 删除数组最后一个元素// pop()返回值是删除的那个元素console.log(arr.pop());console.log(arr);// 删除第一个元素// shift()返回值是删除的那个元素console.log(arr.shift());console.log(arr);
+// 添加和删除数组元素
+var arr = [1, 2, 3];
+// 在结尾添加一个元素
+arr.push(4);
+// 在结尾添加多个元素
+// push()方法返回值是新数组的长度
+console.log(arr.push(5, '六花'));
+console.log(arr);
+// 在数组开头添加一个元素
+arr.unshift(0);
+// 在数组开头添加多个元素
+arr.unshift('勇太', -1);
+console.log(arr);
+// 同样unshift()的返回值也是新数组的长度
+// 删除数组最后一个元素
+// pop()返回值是删除的那个元素
+console.log(arr.pop());
+console.log(arr);
+// 删除第一个元素
+// shift()返回值是删除的那个元素
+console.log(arr.shift());
+console.log(arr);
 ```
 
 #### 数组翻转
 
 ```js
-var arr = [1,2,3];console.log(arr.reverse());
+var arr = [1,2,3];
+console.log(arr.reverse());
 ```
 
 #### 数组排序（冒泡）
 
 ```js
-var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 升序冒泡    return a - b;})console.log(arr);
+var arr = [13,4,77,1,7];
+arr.sort(function(a,b){    
+    // 升序冒泡
+    return a - b;
+})
+console.log(arr);
 ```
 
 
 
 ```js
-var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b - a;})console.log(arr);
+var arr = [13,4,77,1,7];
+arr.sort(function(a,b){
+    // 降序冒泡
+    return b - a;
+})
+console.log(arr);
 ```
 
 #### 数组索引查询
 
 ```js
-// 数组索引查询var arr = ['古河渚', '琴美', '汐', '杏', '汐'];// arr.indexOf()方法返回从左往右第一个查找到的索引号，如果没有找到，返回-1console.log(arr.indexOf('汐'));// arr.indexOf()方法返回从右往左第一个查找到的索引号，如果没有找到，返回-1console.log(arr.lastIndexOf('汐'));
+// 数组索引查询
+var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+// arr.indexOf()方法返回从左往右第一个查找到的索引号，如果没有找到，返回-1
+console.log(arr.indexOf('汐'));
+// arr.indexOf()方法返回从右往左第一个查找到的索引号，如果没有找到，返回-1
+console.log(arr.lastIndexOf('汐'));
 ```
 
 
@@ -709,13 +827,34 @@ var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b -
 #### 数组去重
 
 ```js
-// 数组去重function unique(arr) {    var newarr = [];    for (var i = 0; i < arr.length; i++) {        if (newarr.indexOf(arr[i]) === -1) {            newarr.push(arr[i]);        }    }    return newarr;}// 测试var arr = ['a', 1, 3, 1, 4, 'a', 'b'];console.log(unique(arr));
+// 数组去重
+function unique(arr) {
+    var newarr = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (newarr.indexOf(arr[i]) === -1) {
+            newarr.push(arr[i]);
+        }
+    }
+    return newarr;
+}
+// 测试
+var arr = ['a', 1, 3, 1, 4, 'a', 'b'];
+console.log(unique(arr));
 ```
 
 #### 数组转换为字符串
 
 ```js
-// 数组转换为字符串var arr = ['古河渚', '琴美', '汐', '杏', '汐'];// 1. toString()方法console.log(arr.toString());// 2. join(分隔符)方法，可以设置转换后的元素之间的连接符var arr = ['古河渚', '琴美', '汐', '杏', '汐'];// join()没有参数是默认逗号分隔console.log(arr.join());console.log(arr.join('-'));console.log(arr.join('&'));
+// 数组转换为字符串
+var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+// 1. toString()方法
+console.log(arr.toString());
+// 2. join(分隔符)方法，可以设置转换后的元素之间的连接符
+var arr = ['古河渚', '琴美', '汐', '杏', '汐'];
+// join()没有参数是默认逗号分隔
+console.log(arr.join());
+console.log(arr.join('-'));
+console.log(arr.join('&'));
 ```
 
 #### 数组连接
@@ -723,7 +862,13 @@ var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b -
 * concat()方法实现数组连接，返回新数组，不改变原数组的值
 
   ```js
-  // 连接多个数组，不影响原数组var arr1 = ['六花'];var arr2 = ['勇太'];var arr = arr1.concat(arr2);console.log(arr);console.log(arr1);console.log(arr2);
+  // 连接多个数组，不影响原数组
+  var arr1 = ['六花'];
+  var arr2 = ['勇太'];
+  var arr = arr1.concat(arr2);
+  console.log(arr);
+  console.log(arr1);
+  console.log(arr2);
   ```
 
 #### 数组截取片段
@@ -731,7 +876,11 @@ var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b -
 * slice()方法实现数组截取，返回截取的新数组，不改变原数组的值
 
   ```js
-  // slice()方法截取数组，参数slice(begin,end);截取的是[begin,end),左闭右开，取不到end索引的值// 同样返回截取的新数组，不改变原数组的值var arr = ['六花', '勇太', '森大人'];console.log(arr.slice(0, 2));console.log(arr);
+  // slice()方法截取数组，参数slice(begin,end);截取的是[begin,end),左闭右开，取不到end索引的值
+  // 同样返回截取的新数组，不改变原数组的值
+  var arr = ['六花', '勇太', '森大人'];
+  console.log(arr.slice(0, 2));
+  console.log(arr);
   ```
 
 #### 数组删除片段
@@ -739,9 +888,15 @@ var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b -
 * splice()方法删除数组指定片段
 
   ```js
-  // splice()方法删除数组指定片段var arr = ['六花', '勇太', '森大人'];// splice(start,length)函数，第一个参数是删除起始的索引，第二个参数是删除片段的长度console.log(arr.splice(0, 2));// splice()方法返回删除的片段console.log(arr);// splice()方法会改变原数组
+  // splice()方法删除数组指定片段
+  var arr = ['六花', '勇太', '森大人'];
+  // splice(start,length)函数，第一个参数是删除起始的索引，第二个参数是删除片段的长度
+  console.log(arr.splice(0, 2));
+  // splice()方法返回删除的片段
+  console.log(arr);
+  // splice()方法会改变原数组
   ```
-
+  
   
 
 #### 字符串对象
@@ -753,7 +908,15 @@ var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b -
 基本包装类型就是把简单的数据类型包装成复杂的数据类型，这样基本数据类型就有了属性和方法，其过程如下：
 
 ```js
-// 基本包装类型var str = '犬夜叉';// 这条语句实际上是进行了如下包装过程// 生成临时变量temp，将简单数据类型包装成复杂数据类型var temp = new String('犬夜叉');// 将临时变量赋值给声明的字符变量var str = temp;// 销毁临时变量temp = null;
+// 基本包装类型
+var str = '犬夜叉';
+// 这条语句实际上是进行了如下包装过程
+// 生成临时变量temp，将简单数据类型包装成复杂数据类型
+var temp = new String('犬夜叉');
+// 将临时变量赋值给声明的字符变量
+var str = temp;
+// 销毁临时变量
+temp = null;
 ```
 
 正因为如此，**在使用字符串的过程中应减少字符串变量的重复赋值操作**，因为此操作会在内存空间中生成大量的空字符串对象，占用内存
@@ -763,19 +926,53 @@ var arr = [13,4,77,1,7];arr.sort(function(a,b){    // 降序冒泡    return b -
 indexOf()和lastIndexOf()方法，返回字符在字符串中的位置，可以设置开始查找的起始索引号
 
 ```js
-// 查找字符在字符串中的索引号var str = '犬夜叉和戈薇,杀生丸和玲';var index = str.indexOf('薇');console.log(str[index]);// indexOf(字符，index)第二个参数设置开始查找的起始索引号（包含）console.log(str.indexOf('和', 4));// 反向查找console.log(str.lastIndexOf('薇'));// 没有找到返回-1console.log(str.lastIndexOf('薇', 3));// indexOf(字符，index)第二个参数设置开始反向查找的起始索引号（包含）console.log(str.lastIndexOf('薇', 5));
+// 查找字符在字符串中的索引号
+var str = '犬夜叉和戈薇,杀生丸和玲';
+var index = str.indexOf('薇');
+console.log(str[index]);
+// indexOf(字符，index)第二个参数设置开始查找的起始索引号（包含）
+console.log(str.indexOf('和', 4));
+// 反向查找
+console.log(str.lastIndexOf('薇'));
+// 没有找到返回-1
+console.log(str.lastIndexOf('薇', 3));
+// indexOf(字符，index)第二个参数设置开始反向查找的起始索引号（包含）
+console.log(str.lastIndexOf('薇', 5));
 ```
 
 实际案例，统计指定字符串中指定字符的出现次数：
 
 ```js
-// 统计字符在字符串中出现的次数function countCharTimes(str, char) {    // count用来计数    var count = 0;    // i作为起始索引号，找到指定字符后将索引更换为找到的位置    for (var i = 0; ; i++) {        i = str.indexOf(char, i);        if (i === -1) {            // 从起始索引处没有找到就跳出循环，返回结果            break;        }        count++;    }    return count;}// 使用示例var str = '六花喜欢勇太，勇太喜欢六花';console.log(countCharTimes(str, '花'));
+// 统计字符在字符串中出现的次数
+function countCharTimes(str, char) {
+    // count用来计数
+    var count = 0;
+    // i作为起始索引号，找到指定字符后将索引更换为找到的位置
+    for (var i = 0; ; i++) {
+        i = str.indexOf(char, i);
+        if (i === -1) {
+            // 从起始索引处没有找到就跳出循环，返回结果
+            break;
+        }
+        count++;
+    }
+    return count;}
+// 使用示例
+var str = '六花喜欢勇太，勇太喜欢六花';
+console.log(countCharTimes(str, '花'));
 ```
 
 #### 索引确定索引处字符
 
 ```js
-var str1 = '六花喜欢勇太，勇太喜欢六花';// 根据索引输出索引处的值console.log(str1.charAt(1));var str2 = 'the world';// charCodeAt()方法返回索引号的字符ASCII值，目的：判断用户按下了哪个键console.log(str2.charCodeAt(2));// HTML5,IE8+支持，和charAt()作用等效console.log(str1[1]);
+var str1 = '六花喜欢勇太，勇太喜欢六花';
+// 根据索引输出索引处的值
+console.log(str1.charAt(1));
+var str2 = 'the world';
+// charCodeAt()方法返回索引号的字符ASCII值，目的：判断用户按下了哪个键
+console.log(str2.charCodeAt(2));
+// HTML5,IE8+支持，和charAt()作用等效
+console.log(str1[1]);
 ```
 
 
@@ -783,7 +980,30 @@ var str1 = '六花喜欢勇太，勇太喜欢六花';// 根据索引输出索引
 #### 统计字符串中字符出现次数
 
 ```js
-// 统计字符串中字符出现次数最多的字符var str = 'this is a test';// 创建一个空对象var count = {};for (var i = 0; i < str.length; i++) {    var chars = str.charAt(i);    if (count[chars]) {        // 查找到字符后将对应属性值加1        count[chars]++;    }    else {        count[chars] = 1;    }}console.log(count);var max = 0;var char = '';for (var k in count) {    if (count[k] > max) {        max = count[k];        char = k;    }}console.log(max);console.log('出现次数最多的是：' + char)
+// 统计字符串中字符出现次数最多的字符
+var str = 'this is a test';
+// 创建一个空对象var count = {};
+for (var i = 0; i < str.length; i++) {
+    var chars = str.charAt(i);
+    if (count[chars]) {
+        // 查找到字符后将对应属性值加1
+        count[chars]++;
+    }
+    else {
+        count[chars] = 1;
+    }
+}
+console.log(count);
+var max = 0;
+var char = '';
+for (var k in count) {
+    if (count[k] > max) {
+        max = count[k];
+        char = k;
+    }
+}
+console.log(max);
+console.log('出现次数最多的是：' + char)
 ```
 
 
@@ -813,362 +1033,3 @@ var str1 = '六花喜欢勇太，勇太喜欢六花';// 根据索引输出索引
 #### 堆和栈
 
 可以看作简单数据类型存储在栈中，复杂数据类型存储在堆中，但是JS中是没有堆栈的概念的
-
-<<<<<<< HEAD:JavaScript/JSNote.md
-=======
-
-
-#### Web APIs 和 JS基础关联性
-
-JS基础学习ECMAScript基础语法，为后面做铺垫，Web APIs是JS的应用，大量使用JS基础语法做交互效果
-
-#### API
-
-Application Programming Interface应用程序编程接口，简称API，是一些预先定义的函数，是给程序员提供的一种工具，一遍轻松完成功能
-
-#### Web API
-
-Web API 是浏览器提供的一套操作浏览器功能（BOM）和页面元素的API(DOM)
-
-Web API一般都有输入和输出（函数的传参和返回值），Web API 很多都是函数方法
-
-[MDN详细API](https://developer.mozilla.org/zh-CN/docs/Web/API)
-
-
-
-#### DOM
-
-文档对象模型（Document Object Model，简称DOM），是W3C组织土建的处理HTML或XML的标准编程接口
-
-W3C已经定义了一系列的DOM接口，通过这些DOM接口可以改变网络的内容、结构和样式
-
-* DOM树
-  * 文档：一个页面就是一个文档，DOM中使用document表示
-  * 元素：页面中所有标签都是元素，DOM中使用element表示
-  * 节点：网页中所有内容都是节点（标签、属性、文本、注释等），DOM中使用node表示
-  * DOM把以上内容都看作对象
-
-#### DOM获取元素
-
-* 由于JS是从上向下执行，因此script标签应该写在body标签的尾部
-
-* 根据ID获取，使用getElementById()方法，返回匹配ID的元素，参数是大小写敏感的ID，返回的是一个元素对象，例：
-
-  ```js
-  var mytime = document.getElementById('time');
-  ```
-
-  
-
-* 根据标签Tag获取某个元素(父元素)内部所有指定标签名的子元素，返回的是获取元素对象的集合，以伪数组的形式存储，因此可以通过 object[1] 的方式访问对象，注意父元素必须是单个对象(必须指明是哪一个元素对象).获取的时候不包括父元素自己。例：
-
-  ```js
-  var lis = document.getElementsByTagName('li');
-  ```
-
-  
-
-* 可以根据类名获取，例：
-
-  ```js
-  var boxes = document.getElementsByClassName('box')
-  ```
-
-  
-
-* 返回指定选择器的第一个对象，例：
-
-  ```js
-  // 注意选择器前需加对应符号var firstbox = document.querySelector('.box');var nav = document.querySelector('#nav');
-  ```
-
-  
-
-* 返回指定选择器的所有元素对象集合，例：
-
-  ```js
-  var allbox = document.querySelectorAll('.box');
-  ```
-
-  
-
-* 获取body元素，例：
-
-  ```js
-  var bodyEle = document.body;
-  ```
-
-  
-
-* 获取html元素，例：
-
-  ```js
-  var htmlEle = document.documentElement;
-  ```
-
-
-
-#### 事件三要素
-
-* 事件是有三部分组成：事件源、事件类型、事件处理程序，我们也称为事件三要素
-
-  * 事件源：事件被触发的对象
-
-  * 事件类型：如何触发，什么事件，比如鼠标点击(onclick)，还是鼠标经过，还是键盘按下
-
-  * 事件处理程序：通过一个函数赋值的方式完成
-
-  * 使用过程，例：
-
-    ```html
-    <body>        <!-- 使用ID获取元素 -->    <button id="btn">button</button>    <script>        // 获取事件源        var btn = document.getElementById('btn');        // 绑定事件，添加事件处理程序        btn.onclick = function () {            alert('托尔');        }    </script></body>
-    ```
-
-    
-
-#### 鼠标事件
-
-* onclick 鼠标点击左键触发
-* onmouseover 鼠标经过触发
-* onmouseout 鼠标离开触发
-* onfocus 获得鼠标焦点触发
-* onblur 失去鼠标焦点触发
-* onmousemove 鼠标移动触发
-* onmouseup 鼠标弹起触发
-* onmousedown 鼠标按下触发
-
-
-
-#### 操作元素之改变元素内容
-
-例：
-
-```js
-var div = document.querySelector('div');div.innerText = 'changeText';
-```
-
-
-
-```js
-var div = document.querySelector('div');div.innerHTML = 'changeText';
-```
-
-这两种方式的区别：
-
-* innerText不识别html标签，非标准，去除空格和换行
-* innerHTML 识别html标签，是W3C标准，保留空格和换行的
-
-这两个属性都是可以读写的，因此可以当作一个值使用，例：
-
-```js
-var text = div.innerHTML;
-```
-
-#### 操作元素之修改元素属性
-
-例：
-
-```js
-var img = document.querySelector('img');img.src = 'image/1.jpg';img.title = 'Test';
-```
-
-#### 操作元素之表单属性修改
-
-例：
-
-```js
-var btn = document.querySelector('button');var input = document.querySelector('input');btn.onclick = function(){    // 修改输入框的显示内容    input.value = '康娜';    // 禁用按钮，这里使用了this用法，因为调用者是btn，因此this就代指的btn    this.disable = true;    }
-```
-
-示例：
-
-```js
-// 密码框的做法// 1. 获取元素var eye = document.getElementById('eye');var pwd = document.getElementById('psw');// 2.注册事件，定义处理程序var flag = 0;// flag = 0 表示为明文显示eye.onclick = function () {    if (flag == 0) {        pwd.type = 'text';        eye.src = 'image/open.jpg';        flag = 1;    }    else {        // 密码显示的时候将显示框类型调整为密码框        pwd.type = 'password';        eye.src = 'image/close.jpg';        flag = 0;    }}
-```
-
-#### 操作元素之修改样式属性
-
-例：
-
-```js
-// 方法1：利用.style方式var div = document.querySelector('div');div.style.width = '250px';// style样式属性应该使用驼峰命名法，例如：fontSize、backgroundColor等// 利用JS修改style样式操作，产生的是行内样式css权重比较高
-```
-
-```js
-// 方法2：利用操作类名方式// -------------在css中定义类-------------.change {    fontsize = 14px;    color = skyblue;}// ------------在JS中修改类名-------------var div = document.querySelector('div');div.className = 'change';// 适用于样式修改较多的情形// 因为class是保留字，因此通过className来操作元素类名属性// className会直接覆盖掉原来的类名// 假如原来的div还有一个类名为first的类，此时想保留first类，希望他不被覆盖掉，则可以用下面的写法div.className = 'first change';
-```
-
-#### 排他思想算法
-
-```js
-// 排他思想算法// 获取按钮元素var bnts = document.getElementsByTagName('button');// btns得到的是伪数组for (var i = 0; i < bnts.length; i++) {    bnts[i].onclick = function () {        // 先将所有的背景颜色设为空        for (var i = 0; i < bnts.length; i++) {            bnts[i].style.backgroundColor = '';        }        // 将当前背景颜色设为指定颜色        this.style.backgroundColor = 'yellow';    }}
-```
-
-
-
-#### 全选框的设计
-
-```js
-// 全选框的设计// 全选功能实现：复选框跟随全选按钮的checked属性// 1. 获取元素,j_cbAll为全选按钮，j_tbs为复选框var j_cbAll = document.getElementById('j_cbAll');var j_tbs = document.getElementById('j_tb').getElementsByTagName('input');// 2. 注册事件j_cbAll.onclick = function () {    for (var i = 0; i < j_tbs.length; i++) {        j_tbs[i].checked = this.checked;    }}// 给所有的复选框绑定事件for (var i = 0; i < j_tbs.length; i++) {    j_tbs[i].onclick = function () {        // 设置标志变量控制全选按钮是否选中        var flag = true;        for (var i = 0; i < j_tbs.length; i++) {            if (!j_tbs[i].checked) {                flag = false;                break;            }        }        j_cbAll.checked = flag;    }}
-```
-
-
-
-#### 自定义属性的操作
-
-* 得到属性值的方法：
-
-  * element.属性 ，获取内置属性值（元素自带的属性值）
-
-  * element.getAttribute('属性')，主要获取自定义属性的属性值（程序员自定义的属性）
-
-* 修改属性值的方法：
-
-  * element.属性 = '值'
-  * element.setAttribute('属性'，'值');
-
-#### H5新增的自定义属性的方法
-
-* 规定自定义属性的名字必须是以`data-`开头的
-
-* H5规定将所有以data-开头的自定义属性都放在dataset这样一个集合中，因此在访问的时候可以把自定义属性当成对象dataset的属性进行使用，例：
-
-  
-
-  ```html
-  <body>    <div data-index="1">我是康娜</div>    <script>        var div = document.querySelector('div');        console.log(div.dataset.index);    </script></body>
-  ```
-
-  
-
-* 如果自定义属性的名字是以data-开头，而且包含多个`-`连接的单词，则采用驼峰命名法进行使用，例：
-
-  ```html
-  <body>
-      <div data-list-name="kangna">我是康娜</div>
-      <script>
-          var div = document.querySelector('div');
-          console.log(div.dataset.listName);
-      </script>
-  </body>
-  ```
-
-  
-
-#### 节点操作
-
-* 原因：之前学到的用DOM提供的方法获取元素的方法逻辑性不强，繁琐，因此这里学习另一种操作元素的方法——节点操作，根据元素在元素树中的父子，兄弟节点关系获取元素，逻辑性强，但是兼容性较差
-
-* 一般地，节点至少拥有nodeType(节点类型 ) 、nodeName (节点名称）和nodeValue (节点值)这三个基本属性。
-
-  * 元素节点nodeType为1
-  * 属性节点nodeType为2
-  * 文本节点nodeType为3(文本节点包含文字、空格、换行等)
-  * 我们在实际开发中，节点操作主要操作的是元素节点
-
-* 父节点，例：
-
-  ```js
-  // 父节点操作,查找的是离元素最近的父亲节点，否则返回null
-  var div = document.querySelector('div');
-  console.log(div.parentNode);
-  ```
-
-  
-
-* 子节点，例：
-
-  ```js
-  var div = document.querySelector('div');
-  // 方法1
-  console.log(div.childNodes);
-  // 不提倡使用此方法，因为此方法返回指定节点的所有子节点的集合，包含元素节点、文本节点等
-  // 如果只是想返回元素节点，就需要专门处理，设置一个函数，在其中对childNodes节点集合进行遍历
-  // 用nodeType属性查看节点是否为元素节点，将元素节点返回
-  
-  // 方法2
-  console.log(div.children);
-  // 获取指定节点的所有子元素节点，也是实际开发中常用的
-  ```
-
-* 关于获取第一个子节点和最后一个子节点
-
-  ```js
-  var ol = document.queryselector('ol');
-  // 1. firstchild第一个子节点不管是文本节点还是元素节点 
-  console.log(ol.firstchild);
-  console.log(ol.lastchild);
-  // 2. firstElementchild返回第一个子元素节点
-  console.log(ol.firstElementChild);
-  console.log(ol.lastElementchild);
-  // 3．实际开发的写法既没有兼容性问题又返回第一个子元素
-  console.log(ol.children[0]);
-  console.log(ol.children[ol.children.length - 1]);
-  ```
-
-  
-
-* 兄弟节点，例：
-
-  ```js
-  // 兄弟节点操作
-  var div = document.querySelector('div');
-  // 1. 方法1, 得到下一个或前一个兄弟节点，包含元素节点或文本节点等
-  console.log(div.nextSibling);
-  console.log(div.previousSibling);
-  // 2. 方法2，得到下一个或前一个兄弟元素节点，只包含元素节点
-  console.log(div.nextElementSibling);
-  console.log(div.previousElementSibling);
-  ```
-
-####  创建和添加元素节点
-
-动态添加元素的方式分为两步：1. 创建元素 2. 将元素添加至指定位置，例：
-
-```js
-// 获取父元素
-var ul = document.querySelector('ul');
-// 动态创建和添加元素节点
-var li = document.createElement('li');
-// 将li插入到ul的子元素的末尾
-ul.appendChild(li);
-var newli = document.createElement('li');
-// 将newli插入到ul第一个子元素的前面
-ul.insertBefore(newli, ul.children[0]);
-```
-
-
-
-#### 删除节点
-
-从父节点中删除指定子节点，例：
-
-```js
-// 从父节点中删除子节点
-var fatherNode = document.querySelector('ul');
-var sunNode = document.querySelectorAll('li');
-// 从父节点出发删除子节点
-// 1. 可以通过父节点获取子节点
-fatherNode.removeChild(fatherNode.children[0]);
-// 2. 可以通过直接元素获取的方式获取子节点
-fatherNode.removeChild(sunNode[1]);
-```
-
-#### 拷贝节点
-
-分为带着标签内容一起拷贝和只拷贝标签两种形式，例
-
-```js
-var ul = document.querySelector('ul');
-// cloneNode()的参数为空或者为false时只拷贝标签，不拷贝标签中内容
-var li1 = ul.children[0].cloneNode();
-ul.appendChild(li1);
-// cloneNode()的参数为true时拷贝标签的同时，也会将标签内容拷贝
-var li2 = ul.children[0].cloneNode(true);
-ul.appendChild(li2);
-```
-
-#### 动态生成表格案例
-
-
->>>>>>> 8de769f7210d3603f05a6ad7ede998e06445b11e:JavaScript/JSLearningNotes.md

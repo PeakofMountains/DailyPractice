@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时的制作</title>
+    <style>
+        .timer {
+            width: 400px;
+            height: 70px;
+            margin: 200px auto;
+        }
+
+        /* 数字块的颜色大小 */
+        span {
+            display: inline-block;
+            /* width: 50px;
+            height: 50px; */
+            padding: 10px 10px;
+            line-height: 50px;
+            background-color: black;
+            color: aliceblue;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="timer">
+        倒计时：
+        <span class="day"></span>天
+        <span class="hour"></span>时
+        <span class="minute"></span>分
+        <span class="second"></span>秒
+    </div>
+
+    <script>
+        var day = document.querySelector('.day');
+        var hour = document.querySelector('.hour');
+        var minute = document.querySelector('.minute');
+        var second = document.querySelector('.second');
+
+        // 倒计时效果
+        var inputTime = +new Date('2021-9-5 00:00:00');
+        function countDown(time) {
+            // 现在总的毫秒数
+            var nowTime = +new Date();
+            var times = (inputTime - nowTime) / 1000;
+            // 倒计时天数
+            var days = parseInt(times / 60 / 60 / 24);
+            // 格式化操作
+            day.innerHTML = days < 10 ? '0' + days : days;
+            var hours = parseInt(times / 60 / 60 % 24);
+            hour.innerHTML = hours < 10 ? '0' + hours : hours;
+            var minutes = parseInt(times / 60 % 60);
+            minute.innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            var seconds = parseInt(times % 60);
+            second.innerHTML = seconds < 10 ? '0' + seconds : seconds;
+            // return day + '天' + hours + '时' + minutes + '分' + seconds + '秒';
+        }
+        // 先执行一遍倒计时函数，避免刷新之后时间还停留在默认设置
+        countDown();
+        // 每个1s刷新一次倒计时
+        setInterval(countDown, 1000);
+    </script>
+</body>
+
+</html>

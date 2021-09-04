@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发送验证码的倒计时按钮</title>
+    <style>
+        button {
+            background-color: silver;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="countDownButton"></button>
+    <script>
+        var btn = document.querySelector('.countDownButton');
+        btn.innerHTML = '发送验证码';
+        var initTime = 3;
+        var countTime = initTime;
+        btn.addEventListener('click', function () {
+            btn.disabled = true;
+            var timer = setInterval(function () {
+                // 倒计时结束的状态设置
+                if (countTime == 0) {
+                    clearInterval(timer);
+                    btn.disabled = false;
+                    btn.innerHTML = '发送验证码';
+                    // 将倒计时也还原成初始值
+                    countTime = initTime;
+                } else {
+
+                    // 设置显示为倒计时
+                    btn.innerHTML = countTime + '秒';
+                    countTime--;
+                }
+            }, 1000);
+        })
+    </script>
+</body>
+
+</html>

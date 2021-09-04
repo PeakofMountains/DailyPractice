@@ -157,7 +157,14 @@ var timer = setTimeout(function(){},2000);
     </html>
     ```
 
-    
+* clearInterval，清除setInterval定时器函数，例：
+
+  ```js
+  var timer = setInterval(function(){},1000);
+  clearInterval(t);
+  ```
+
+  
 
 
 

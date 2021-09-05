@@ -46,7 +46,9 @@
 
 #### 定时器
 
-* setTimeout回调函数，功能是在指定的延时后进行执行，语法，例：
+##### setTimeout定时器
+
+回调函数，功能是在指定的延时后进行执行，语法，例：
 
 ```js
 window.setTimeout(function(){},2000);
@@ -57,29 +59,33 @@ var timer = setTimeout(function(){},2000);
 // * 第二个参数是函数执行的延时，单位是毫秒，也可以省略，省略表示0
 ```
 
-  * clearTimeout清除定时器方法，取消指定定时器的触发，语法，例：
+##### clearTimeout清除定时器
 
-    ```js
-    var timer = setTimeout(funtion(){},2000);
-    window.clearTimeout(timer);
-    // window可省略，直接用clearTimeout(timer)的形式
-    // clearTimeout的参数timer是指定定时器的名字
-    ```
+取消指定定时器的触发，语法，例：
 
-    
+```js
+var timer = setTimeout(funtion(){},2000);
+window.clearTimeout(timer);
+// window可省略，直接用clearTimeout(timer)的形式
+// clearTimeout的参数timer是指定定时器的名字
+```
 
-  * setInterval循环执行定时函数，每隔一次延时时间就调用一次回调函数，例：
 
-    ```js
-    window.setInterval(function(){},2000);
-    // 可以给定时器起名字，例：
-    var timer = setInterval(function(){},2000);
-    // * 第一个参数是调用函数，也可以在这里写函数名，把函数的定义写在setTimeout函数之外
-    // * window可以省略，可以直接setInterval(function(){},2000)这种形式调用
-    // * 第二个参数是函数执行的延时，单位是毫秒，也可以省略，省略表示0
-    ```
 
-    
+##### setInterval循环定时
+
+循环执行定时函数，每隔一次延时时间就调用一次回调函数，例：
+
+```js
+window.setInterval(function(){},2000);
+// 可以给定时器起名字，例：
+var timer = setInterval(function(){},2000);
+// * 第一个参数是调用函数，也可以在这里写函数名，把函数的定义写在setTimeout函数之外
+// * window可以省略，可以直接setInterval(function(){},2000)这种形式调用
+// * 第二个参数是函数执行的延时，单位是毫秒，也可以省略，省略表示0
+```
+
+
 
   * 倒计时案例：
 
@@ -157,22 +163,150 @@ var timer = setTimeout(function(){},2000);
     </html>
     ```
 
-* clearInterval，清除setInterval定时器函数，例：
+    
 
-  ```js
-  var timer = setInterval(function(){},1000);
-  clearInterval(t);
+##### clearInterval清除定时器
+
+清除setInterval定时器函数，例：
+
+```js
+var timer = setInterval(function(){},1000);
+clearInterval(t);
+```
+
+
+
+##### this指向问题
+
+* 全局作用域或一般函数中，this都指向window对象
+* 方法调用中，谁调用了this，就指向谁
+* 构造函数中，this指向构造函数的示例化对象
+
+#### JS执行机制
+
+JS原先是单线程，因此会造成因一个部分执行时间过长，导致后面的代码长时间不能执行，为解决此问题，利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JS脚本创建多个线程，于是出现了同步和异步
+
+* 同步：程序的执行顺序和任务的排列顺序一致
+* 异步：同时做多件事
+
+JS将所有任务分为同步任务和异步任务
+
+同步任务：都在主线程上执行， 形成一个执行栈
+
+异步任务：通过回调函数实现，一般而言包含一下三类：
+
+* 普通事件，如click，resize等
+* 资源加载，如load，error等
+* 定时器，包含setInterval，setTimeout等
+
+执行的具体过程：
+
+1. 先执行执行栈中的同步任务
+2. 将执行栈中的异步任务（回调函数），放入任务队列中
+3. 当执行栈中的所有同步任务完成后，系统按照次序读取任务队列中的异步任务放在执行栈中开始执行
+
+在这个过程中主线程不断地接受任务和执行任务，这个过程称为**事件循环**
+
+#### location对象
+
+window对象提供了一个location属性，用于获取或设置窗体地URL，可用于解析URL，因为这个属性返回的是一个对象，因此这个属性也称location对象
+
+* URL：统一资源定位符（Uniform Resource Locator，URL）是互联网上标准资源地地址，互联网上每个资源都有唯一URL，其中包含信息指出文件地存储位置和浏览器应如何处理它
+
+* URL一般语法格式
+
+  ```html
+  protocol://host[:port]/path/[?query]#fragment
+  ```
+
+  其中参数地含义：
+
+  * protocol：所采用的通信协议，常用的由http，ftp，maito等
+  * host：主机（域名），例：www.baidu.com
+  * port：端口号，可省略，省略表示默认的端口号，http中默认端口号是80
+  * path：路径，一般表示主机上的一个目录或 文件地址
+  * ?query：参数，以键值对的形式通过&符号分隔
+  * fragment：片段，#后面内容常见于链接、锚点
+
+* 例：
+
+  ```markdown
+  http://www.itcast.cn/index.html?name=andy&age=18#link
   ```
 
   
 
+* Location对象的属性：
 
+  * location.href，获取URL和修改URL，利用此属性结合定时器可实现定时跳转页面的功能
+  * location.host，获取主机（域名）
+  * location.port，返回端口号，如果采用默认端口号，返回空字符串
+  * location.pathname，返回路径
+  * location.search，返回参数
+  * location.hash，返回片段
 
-#### JS执行机制
+* location对象的方法：
 
-#### location对象
+  * location.assign()，跟href一样能实现跳转页面（也成为重定向页面），同时它还能记录浏览历史，因此可以实现后退功能，用法，例：
+
+    ```js
+    location.assign('http://www.baidu.com');
+    ```
+
+  * location.replace()，功能和location.assign()一样，区别在于这个不记录历史，不能实现后退功能
+
+  * location.reload()，重新加载页面，相当于刷新按钮或者按下F5的效果，如果其中参数为true，则表示强制刷新（相当于Ctrl+F5）
 
 #### navigator对象
 
+navigatior对象包含有关浏览器的信息，含有很多属性，常用的是userAgent属性，该属性可以返回由客户机发送浏览器的user-agent头部的值
+
+下面前端代码可以判断用户使用哪个终端打开页面，实现跳转
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS代码测试</title>
+</head>
+
+<body>
+
+
+    <script>
+        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            // 手机端
+            window.location.href = "";
+        } else {
+            // 电脑端
+            window.location.href = "";
+        }
+    </script>
+</body>
+
+</html>
+```
+
+
+
 #### history对象
+
+* history.forward()方法，页面前进
+
+* history.back()方法，页面后退，变成刚才浏览的页面
+
+* history.go()方法，参数是前进的步数，例：
+
+  ```js
+  history.go(1);
+  // 这个代码相当于history.forward()方法
+  ```
+
+  
+
+2
 

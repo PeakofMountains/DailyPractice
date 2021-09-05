@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可拖动的登录界面</title>
+    <style>
+        .signInButton {
+            display: block;
+            width: 200px;
+            height: 30px;
+            margin: 100px auto;
+            line-height: 30px;
+            background-color: gray;
+            color: white;
+            border: 1px solid transparent;
+        }
+
+        .mask {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .signIn {
+            display: none;
+            /* 采用固定定位 */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /* 上面四行代码实现了登录界面位于页面的正中间 */
+            width: 500px;
+            height: 300px;
+            background-color: white;
+            margin: 0px auto;
+            color: black;
+            font-size: 16px;
+            border: 1px solid silver;
+            box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            width: 500px;
+            height: 70px;
+            font-size: 17px;
+            line-height: 70px;
+            text-align: center;
+        }
+
+        .title:hover {
+            cursor: move;
+        }
+
+        .shutdown {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            font-size: 18px;
+            font-weight: 400;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .shutdown:hover {
+            background-color: orangered;
+        }
+
+        .username {
+            width: 500px;
+            height: 50px;
+            margin-bottom: 25px;
+            /* background-color: greenyellow; */
+        }
+
+        .signIn input {
+            width: 350px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            font-size: 15px;
+        }
+
+        .signIn label {
+            float: left;
+            width: 80px;
+            height: 35px;
+            font-size: 16px;
+            padding-right: 10px;
+            line-height: 35px;
+            text-align: right;
+            /* background-color: goldenrod; */
+        }
+
+        .submit {
+            display: block;
+            width: 200px;
+            height: 40px;
+            margin: 20px auto;
+            line-height: 40px;
+            background-color: cornflowerblue;
+            color: white;
+            font-size: 18px;
+            font-weight: 400;
+            border: 1px solid transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 弹出登录按钮 -->
+    <button class="signInButton">登录</button>
+    <!-- 登录弹窗 -->
+    <div class="signIn">
+        <div class="title">登录会员</div>
+        <div class="shutdown">x</div>
+        <div class="username">
+            <label>用户名：</label>
+            <input type="text" placeholder="请输入用户名">
+        </div>
+        <div class="password">
+            <label>密码：</label>
+            <input type="password" placeholder="请输入密码">
+        </div>
+        <button class="submit">登录会员</button>
+    </div>
+    <!-- 遮罩层 -->
+    <div class="mask"></div>
+
+    <script>
+        var signInButton = document.querySelector('.signInButton');
+        var mask = document.querySelector('.mask');
+        var signIn = document.querySelector('.signIn');
+        var shutdown = document.querySelector('.shutdown');
+        var title = document.querySelector('.title')
+        signInButton.addEventListener('click', function () {
+            // 点击登录按钮，显示登录弹窗和遮罩层
+            signIn.style.display = 'block';
+            mask.style.display = 'block'
+        })
+        // 登录弹窗的关闭按钮
+        shutdown.addEventListener('click', function () {
+            // 点击关闭按钮，将登录弹窗和遮罩层隐藏
+            signIn.style.display = 'none';
+            mask.style.display = 'none';
+        })
+        // 定义登录界面标题处点击事件
+        title.addEventListener('mousedown', function (e) {
+            // 得到的(x,y)为指针在登录界面内相对于登录界面的坐标
+            var x = e.pageX - signIn.offsetLeft;
+            var y = e.pageY - signIn.offsetTop;
+            // 移动的时候，因为指针相对登录界面的坐标是不变的
+            // 因此用指针相对网页页面的坐标减去相对于登录界面的坐标就能得到登录界面当前位置
+            // 定义登录标题处拖动事件
+            document.addEventListener('mousemove', move);
+            function move(e) {
+                signIn.style.left = e.pageX - x + 'px';
+                signIn.style.top = e.pageY - y + 'px';
+
+            }
+            // 定义鼠标拖动后抬起事件
+            document.addEventListener('mouseup', function () {
+                document.removeEventListener('mousemove', move);
+            });
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片的仿放大镜效果</title>
+    <!-- css部分 -->
+    <style>
+        .goods {
+            position: relative;
+            margin: 50px 500px;
+            background-color: beige;
+        }
+
+        .photo {
+            width: 220px;
+            height: 500px;
+            border: 1px solid black;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mask {
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(0, 0, 0, 0.2);
+            cursor: move;
+            transform: translate(-50%, -50%);
+        }
+
+        .magnifier {
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 240px;
+            width: 220px;
+            height: 500px;
+            /* background-color: gold; */
+            /* 图片超出盒子的部分隐藏 */
+            overflow: hidden;
+        }
+
+        .magnifier img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 350px;
+            height: 800px;
+
+
+        }
+    </style>
+    <!-- 引入js文件 -->
+    <script src="magnifier.js"></script>
+</head>
+
+<body>
+    <div class="goods">
+        <div class="photo">
+            <img src="images/girl.jpg" alt="">
+            <div class="mask"></div>
+        </div>
+
+        <div class="magnifier">
+            <img src="images/girl.jpg" alt="" class="magnifierImage">
+        </div>
+    </div>
+
+</body>
+
+</html>

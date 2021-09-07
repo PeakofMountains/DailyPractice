@@ -8,14 +8,68 @@
 }
 /* 焦点部分 */
 .focuspoint {
+    position: relative;
     float: left;
     width: 720px;
     height: 456px;
     /* background-color: antiquewhite; */
 }
+/* 箭头部分 */
+.arrow_left,
+.arrow_right{
+    display: none;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    font-size: 30px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    /* color: gold; */
+    background-color: rgba(43,43,43,0.5);
+}
+.arrow_left {
+    left: 0px;
+}
+.arrow_right{
+    right: 0px;
+}
+/* 单张焦点图的设置 */
 .focuspoint ul li img {
     width: 720px;
     height: 456px;
+    z-index: -1;
+}
+/* 多张焦点图的设置 */
+.focuspoint ul {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 400%;
+}
+.focuspoint ul li {
+    float: left;
+}
+/* 小圆圈的设置 */
+.circle {
+    position: absolute;
+    bottom: 10px;
+    left: 300px;
+}
+.circle li{
+    float: left;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    margin-left: 8px;
+    cursor: pointer;
+}
+/* 被选中的小圆圈的设置 */
+.current {
+    background-color: aliceblue;
 }
 /* 热点部分 */
 .newpoint {

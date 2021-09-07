@@ -44,13 +44,30 @@
     margin: auto 15px;
 }
 /* 下箭头字体图标样式设置 */
-.arrow_down::after {
+.arrow_down::after{
     font-family: "iconfont";
     content: "\e665";
     color: #6e6e6e;
     font-size: 12px;
     margin-left: 5px;
 }
+/* 左箭头字体图标样式设置 */
+.arrow_left::before {
+    font-family: "iconfont";
+    content: "\e604";
+    color: rgb( 255,255,255);
+    font-size: 18px;
+    /* margin-left: 5px; */
+}
+/* 右箭头字体图标样式设置 */
+.arrow_right::after {
+    font-family: "iconfont";
+    content: "\e667";
+    color: rgb( 255,255,255);
+    font-size: 18px;
+    /* margin-right: 5px; */
+}
+
 /* header部分设置 */
 .header {
     position: relative;

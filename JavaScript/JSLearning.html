@@ -5,49 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>缓冲动画在两个物体间移动</title>
+    <title></title>
     <style>
-        .first {
-            display: block;
-            position: absolute;
-            left: 0px;
-            top: 100px;
-            width: 100px;
-            height: 100px;
-            background-color: gold;
-        }
+
     </style>
+
 </head>
 
 <body>
-    <span class="first"></span>
-    <button class="go">前进</button>
-    <button class="back">返回</button>
-    <script>
-        function animateCurve(obj, position) {
-            // 首先进行清除定时器的操作，防止对象本身带着定时器，多个定时器引起bug
-            clearInterval(obj.timer);
-            obj.timer = setInterval(function () {
-                var step = (position - obj.offsetLeft) / 10;
-                step = step > 0 ? Math.ceil(step) : Math.floor(step);
-                // 缓冲动画的步长不是固定不变的，是根据目的点与当前位置进行计算，是动态改变的
-                obj.style.left = obj.offsetLeft + step + 'px';
-                // 移动到指定位置停止
-                if (obj.offsetLeft == position) {
-                    clearInterval(obj.timer);
-                }
-            }, 15)
-        }
-        var first = document.querySelector('.first');
-        var go = document.querySelector('.go');
-        var back = document.querySelector('.back');
 
-        go.addEventListener('click', function () {
-            animateCurve(first, 500);
-        });
-        back.addEventListener('click', function () {
-            animateCurve(first, 0);
-        });
+    <script>
 
     </script>
 </body>

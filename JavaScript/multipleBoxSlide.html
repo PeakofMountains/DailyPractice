@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盒子滑动效果</title>
+    <style>
+        .slidebar {
+            position: absolute;
+            right: 0px;
+            top: 300px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: rgb(203, 203, 203);
+            background-color: rgb(43, 43, 43);
+            z-index: 0;
+        }
+
+        .arrow {
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .detail {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: rgb(203, 203, 203);
+            background-color: rgb(43, 43, 43);
+            z-index: -1;
+        }
+    </style>
+    <script src="moveAnimate.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="slidebar">
+            <span class="arrow"> ←</span>
+            <div class="detail">弹窗1</div>
+        </div>
+        <div class="slidebar">
+            <span class="arrow"> ←</span>
+            <div class="detail">弹窗2</div>
+        </div>
+        <div class="slidebar">
+            <span class="arrow"> ←</span>
+            <div class="detail">弹窗3</div>
+        </div>
+        <div class="slidebar">
+            <span class="arrow"> ←</span>
+            <div class="detail">弹窗4</div>
+        </div>
+        <div class="slidebar">
+            <span class="arrow"> ←</span>
+            <div class="detail">弹窗5</div>
+        </div>
+
+    </div>
+
+    <script>
+        var sidebar = document.querySelector('.sidebar');
+        var slidebar = null;
+        var arrow = null;
+        var detail = null;
+        for (var i = 0; i < 5; i++) {
+            slidebar = sidebar.children[i];
+            arrow = slidebar.children[0];
+            detail = slidebar.children[1];
+            slidebar.style.top = slidebar.offsetTop + i * 60 + 'px';
+            animate(slidebar, arrow, detail);
+        }
+        function animate(slidebar, arrow, detail) {
+            slidebar.addEventListener('mouseenter', function () {
+                moveAnimate(detail, -160, function () {
+                    arrow.innerHTML = '→';
+                });
+                // arrow.innerHTML = '→';
+            })
+            slidebar.addEventListener('mouseleave', function () {
+                moveAnimate(detail, 0, function () {
+                    // 回调函数中执行，能实现在定时器结束时执行的效果
+                    arrow.innerHTML = '←';
+                });
+                // arrow.innerHTML = '←';
+            })
+
+
+        }
+
+    </script>
+</body>
+
+</html>

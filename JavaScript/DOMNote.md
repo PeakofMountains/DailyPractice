@@ -119,14 +119,17 @@ Web API一般都有输入和输出（函数的传参和返回值），Web API �
 
 #### 鼠标事件
 
-* onclick 鼠标点击左键触发
-* onmouseover 鼠标经过触发
-* onmouseout 鼠标离开触发
-* onfocus 获得鼠标焦点触发
-* onblur 失去鼠标焦点触发
-* onmousemove 鼠标移动触发
-* onmouseup 鼠标弹起触发
-* onmousedown 鼠标按下触发
+* click 鼠标点击左键触发
+* mouseover 鼠标经过触发
+* mouseenter鼠标经过触发，当鼠标移动到元素上时就会触发mouseenter事件，类似mouseover
+  * ***它们两者之间的差别是：mouseover鼠标经过自身盒子会触发一次，经过子盒子还会触发一次。mouseenter只会经过自身盒子触发之所以这样，就是因为mouseenter不会冒泡***
+* mouseout 鼠标离开触发
+* mouseleave鼠标离开触发，类似mouseover和mouseenter的差别，mouseleave也是不会冒泡
+* focus 获得鼠标焦点触发
+* blur 失去鼠标焦点触发
+* mousemove 鼠标移动触发
+* mouseup 鼠标弹起触发
+* mousedown 鼠标按下触发
 
 
 

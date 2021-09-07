@@ -100,11 +100,295 @@ element.onscroll = function(){};
 ### 滚动条效果制作案例
 
 ```js
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侧边栏返回顶部</title>
+    <style>
+        .w {
+            width: 1200px;
+            margin: 0px auto;
+            text-align: center;
+        }
+
+        .scrollbar {
+            position: absolute;
+            right: 20px;
+            top: 300px;
+            width: 50px;
+            height: 100px;
+            background-color: aquamarine;
+        }
+
+        .backtop {
+            display: none;
+            width: 100%;
+            height: 50%;
+            background-color: greenyellow;
+        }
+
+        .header {
+            height: 200px;
+            background-color: burlywood;
+        }
+
+        .banner {
+            height: 200px;
+            background-color: chartreuse;
+        }
+
+        .main {
+            height: 1800px;
+            background-color: darkorange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scrollbar">
+        <a href="#">
+            <div class="backtop">返回顶部</div>
+        </a>
+
+    </div>
+    <div class="header w">头部</div>
+    <div class="banner w">banner区域</div>
+    <div class="main w">主体部分</div>
+
+    <script>
+        var scrollbar = document.querySelector('.scrollbar');
+        var banner = document.querySelector('.banner');
+        var main = document.querySelector('.main');
+        var backtop = document.querySelector('.backtop');
+        var bannerTop = banner.offsetTop;
+        var mainTop = main.offsetTop;
+        var scrollbarTop = scrollbar.offsetTop - bannerTop;
+        document.addEventListener('scroll', function () {
+            // 滚动条设置
+            if (window.pageYOffset > bannerTop) {
+                scrollbar.style.position = 'fixed';
+                scrollbar.style.top = scrollbarTop + 'px';
+            } else {
+                scrollbar.style.position = 'absolute';
+                scrollbar.style.top = 300 + 'px';
+
+            }
+            // 页面滚动到main时显示返回顶部的模块
+            if (window.pageYOffset > mainTop) {
+                backtop.style.display = 'block';
+            } else {
+                backtop.style.display = 'none';
+            }
+        })
+    </script>
+</body>
+
+</html>
+```
+
+## 三大系列的联系
+
+### 三个属性的差异
+
+* element.offsetWidth
+  返回自身包括padding 、边框、内容区的宽度，返回数值不带单位
+* element.clientWidth
+  返回自身包括padding 、内容区的宽度，不含边框，返回数值不带单位
+* element.scrollWidth
+  返回自身实际的宽度，不含边框，返回数值不带单位
+
+### 他们主要用法:
+
+* offset系列经常用于获得元素位置offsetLeft、offsetTop 
+* client经常用于获取元素大小clientWidth、clientHeight
+* scroll经常用于获取滚动距离 scrollTop、scrollLeft
+* **注意页面滚动的距离通过window.pageXoffset获得**
+
+## 动画函数封装
+
+### 简单的动画函数封装
+
+例：
+
+```js
+var first = document.querySelector('.first');
+var second = document.querySelector('.second');
+// 简单的动画函数封装，传参
+function animate(obj, position) {
+    var timer = setInterval(function () {
+        obj.style.left = obj.offsetLeft + 3 + 'px';
+        // 移动到三百像素的位置停止
+        if (obj.offsetLeft >= position) {
+            clearInterval(timer);
+        }
+    }, 20)
+    }
+// 动画函数的调用
+animate(first, 200);
+animate(second, 300);
+```
+
+对上面代码的改进优化：
+
+```js
+var first = document.querySelector('.first');
+var second = document.querySelector('.second');
+function animate(obj, position) {
+    // 首先进行清除定时器的操作，防止对象本身带着定时器，多个定时器引起bug
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function () {
+        obj.style.left = obj.offsetLeft + 3 + 'px';
+        // 移动到三百像素的位置停止
+        if (obj.offsetLeft >= position) {
+            clearInterval(obj.timer);
+        }
+    }, 20)
+}
+animate(first, 200);
+animate(second, 300);
+```
+
+### 缓冲动画和线性动画的对比
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓冲动画与线性动画的差异</title>
+    <style>
+        .first {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+        }
+
+        .second {
+            position: absolute;
+            left: 0px;
+            top: 120px;
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="first"></div>
+    <div class="second"></div>
+    <script>
+        var first = document.querySelector('.first');
+        var second = document.querySelector('.second');
+        function animateCurve(obj, position) {
+            // 首先进行清除定时器的操作，防止对象本身带着定时器，多个定时器引起bug
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                // 缓冲动画的步长不是固定不变的，是根据目的点与当前位置进行计算，是动态改变的
+                obj.style.left = obj.offsetLeft + Math.ceil((position - obj.offsetLeft) / 10) + 'px';
+                // 移动到指定位置停止
+                if (obj.offsetLeft >= position) {
+                    clearInterval(obj.timer);
+                }
+            }, 30)
+        }
+        function animateLinear(obj, position) {
+            // 首先进行清除定时器的操作，防止对象本身带着定时器，多个定时器引起bug
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                obj.style.left = obj.offsetLeft + 5 + 'px';
+                // 移动到指定像素的位置停止
+                if (obj.offsetLeft >= position) {
+                    obj.style.left = position+'px';
+                    clearInterval(obj.timer);
+                }
+            }, 30)
+        }
+        animateLinear(first, 500);
+        animateCurve(second, 500);
+
+    </script>
+</body>
+
+</html>
+```
+
+### 缓冲动画实现两个位置移动案例
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓冲动画在两个物体间移动</title>
+    <style>
+        .first {
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 100px;
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+        }
+    </style>
+</head>
+
+<body>
+    <span class="first"></span>
+    <button class="go">前进</button>
+    <button class="back">返回</button>
+    <script>
+        // 缓冲移动动画定义
+        function animateCurve(obj, position) {
+            // 首先进行清除定时器的操作，防止对象本身带着定时器，多个定时器引起bug
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                var step = (position - obj.offsetLeft) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                // 缓冲动画的步长不是固定不变的，是根据目的点与当前位置进行计算，是动态改变的
+                obj.style.left = obj.offsetLeft + step + 'px';
+                // 移动到指定位置停止
+                if (obj.offsetLeft == position) {
+                    clearInterval(obj.timer);
+                }
+            }, 15)
+        }
+        var first = document.querySelector('.first');
+        var go = document.querySelector('.go');
+        var back = document.querySelector('.back');
+
+        go.addEventListener('click', function () {
+            animateCurve(first, 500);
+        });
+        back.addEventListener('click', function () {
+            animateCurve(first, 0);
+        });
+
+    </script>
+</body>
+
+</html>
 ```
 
 
 
-## 动画函数封装
+### 回调函数的使用
+
+回调函数名当作定时器的参数传进定时器，回调函数的调用放在定时器结束的位置，以函数名()的方式进行调用
 
 ## 常见网页特效案例
 

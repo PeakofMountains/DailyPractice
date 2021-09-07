@@ -57,7 +57,52 @@ client翻译过来就是客户端，我们使用client系列的相关属性来�
 
 立即执行函数最大的作用就是独立创建了一个作用域，里面所有的变量都是局部变量不会有命名冲突的情况
 
+### load事件与pageshow事件的区别
+
+* 下面三种情况都会刷新页面都会触发load事件。
+  1. a标签的超链接
+  2. F5或者刷新按钮(强制刷新)
+  3. 前进后退按钮
+* 但是火狐中，有个特点，有个“往返缓存”，这个缓存中不仅保存着页面数据，还保存了DOM和JavaScript的状态;实际上是将整个页面都保存在了内存里。所以如果使用load事件，此时后退按钮不能刷新页面。
+* 此时可以使用pageshow事件来触发。，这个事件在页面显示时触发，无论页面是否来自缓存。
+* 在重新加载页面中，pageshow会在load事件触发后触发；根据事件对象中的persisted来判断是否是缓存中的页面触发的pageshow事件，注意这个事件给window添加。
+* pageshow相对于load适用于更多的浏览器
+
 ## 元素滚动scroll系列
+
+scroll翻译过来就是滚动的，我们使用scroll系列的相关属性可以动态的得到该元素的大小、滚动距离等，主要是和页面的滚动条有关。
+
+### scroll属性
+
+* element.scrollTop
+  返回被卷去的上侧距离，返回数值不带单位
+* element.scrollLeft
+  返回被卷去的左侧距离，返回数值不带单位
+* element.scrollWidth
+  返回自身实际的宽度，不含边框，返回数值不带单位
+* element.scrollHeight
+  返回自身实际的高度，不含边框，返回数值不带单位
+* 拿带有滚动条的文本框来理解，文本框中的文字超出了容器的大小，把超出部分用滚动条的形式显示，scrollTop就是滚动条向下拉到最低端时，文字内容向上隐藏的部分的高度，scrollLeft是滚动条向右拉到最右端时，文字内容向左隐藏的部分的高度，scrollWidth是整个文本内容的宽度，scrollHeight是整个文本内容的高度
+* 页面被卷去的头部：可以通过window.pageYoffset获得
+* 页面被卷去的左侧：可以通过window.pageXOffset获得
+
+### scroll滚动事件
+
+当滚动条发生变化时触发，一下例子IE9+支持,语法，例：
+
+```js
+// 调用方法1
+element.addEventListener('scroll',function(){});
+// 方法2
+element.onscroll = function(){};
+```
+
+### 滚动条效果制作案例
+
+```js
+```
+
+
 
 ## 动画函数封装
 

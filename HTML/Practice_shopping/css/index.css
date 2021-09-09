@@ -12,6 +12,7 @@
     float: left;
     width: 720px;
     height: 456px;
+    overflow: hidden;
     /* background-color: antiquewhite; */
 }
 /* 箭头部分 */
@@ -47,7 +48,7 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 400%;
+    width: 600%;
 }
 .focuspoint ul li {
     float: left;
@@ -60,16 +61,17 @@
 }
 .circle li{
     float: left;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 3px solid rgba(255,255,255,0.2);
+    /* background-color: aliceblue; */
     margin-left: 8px;
     cursor: pointer;
 }
 /* 被选中的小圆圈的设置 */
 .current {
-    background-color: aliceblue;
+    background-color: white;
 }
 /* 热点部分 */
 .newpoint {

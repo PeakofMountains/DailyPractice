@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云案例</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .nav {
+            position: relative;
+            left: 500px;
+            top: 200px;
+            width: 800px;
+            height: 40px;
+            background-color: rgb(43, 43, 43);
+            /* background-color: gold; */
+        }
+
+
+
+        .nav ul {
+            position: absolute;
+        }
+
+        .nav ul li {
+            float: left;
+            width: 80px;
+            padding: 0px 4px;
+            line-height: 40px;
+            text-align: center;
+
+        }
+
+        .nav ul li a {
+            display: inline-block;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+            height: 40px;
+        }
+
+        .current {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .flushCloud {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 80px;
+            height: 40px;
+            background-color: rgb(65, 65, 65);
+        }
+    </style>
+    <!-- 引入移动动画 -->
+    <script src="moveAnimate.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            var ul = document.querySelector('.part');
+            var flushCloud = document.querySelector('.flushCloud');
+            var current = 0;
+            for (var i = 0; i < ul.children.length; i++) {
+                ul.children[i].setAttribute('index', i);
+                // 给每个小li添加鼠标经过事件
+                ul.children[i].addEventListener('mouseover', function () {
+                    moveAnimate(flushCloud, this.offsetLeft);
+                })
+                // 给每个小li添加鼠标离开事件
+                ul.children[i].addEventListener('mouseout', function () {
+                    moveAnimate(flushCloud, current);
+                })
+                // 给每个小li添加鼠标点击事件
+                ul.children[i].addEventListener('click', function () {
+                    current = this.offsetLeft;
+                    for (var i = 0; i < ul.children.length; i++) {
+                        ul.children[i].className = '';
+                    }
+                    this.className = 'current';
+                })
+
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <div class="nav">
+        <span class="flushCloud"></span>
+        <ul class="part">
+            <li><a href="#" class="current">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+            <li><a href="#">HELLO</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

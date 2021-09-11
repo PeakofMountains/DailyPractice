@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts使用案例</title>
+    <script src="js/echarts.js"></script>
+    <!-- 引入解决自适应问题的flexible.js文件 -->
+    <script src="js/flexible.js"></script>
+    <style>
+        /* 实现rem适配,记得去flexible.js文件里修改等分的份数，并在cssrem插件的设置中设置1rem等于多少px */
+        @media screen and (max-width:1024px) {
+            html {
+                font-size: 42.66px !important;
+            }
+        }
+
+        @media screen and (min-width:1920px) {
+            html {
+                font-size: 80px !important;
+            }
+        }
+
+        div {
+            /* css中的单位不采用px，而是用rem表达是为了让盒子大小适配浏览器屏幕大小 */
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

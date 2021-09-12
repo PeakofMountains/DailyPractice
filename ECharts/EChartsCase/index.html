@@ -6,31 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECharts使用案例</title>
-    <!-- 引入字体图标icomoon.css样式文件,因为index.css中要使用此文件,因此此文件应该在index.css之前引入 -->
     <link rel="stylesheet" href="fonts/icomoon.css">
-    <!-- 引入index.css文件 -->
     <link rel="stylesheet" href="css/index.css">
-    <!-- 引入css初始化文件base.css -->
     <link rel="stylesheet" href="css/base.css">
-    <!-- 引入echarts.js文件 -->
     <script src="js/echarts.js"></script>
-    <!-- 引入解决自适应问题的flexible.js文件 -->
     <script src="js/flexible.js"></script>
+    <script src="js/jquery.js"></script>
 
-    <style>
-        /* 实现rem适配,记得去flexible.js文件里修改等分的份数，并在cssrem插件的设置中设置1rem等于多少px */
-        @media screen and (max-width:1024px) {
-            html {
-                font-size: 42.66px !important;
-            }
-        }
 
-        @media screen and (min-width:1920px) {
-            html {
-                font-size: 80px !important;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -223,10 +206,37 @@
                     </div>
                 </div>
             </div>
+            <!-- 点位分布统计模块 -->
+            <div class="point panel">
+                <div class="inner">
+                    <h3>点位分布统计</h3>
+                    <div class="chart">
+                        <div class="pie"></div>
+                        <div class="data">
+                            <div class="item">
+                                <h4>320,11</h4>
+                                <span>
+                                    <i class="icon-dot" style="color: #ed3f35"></i>
+                                    点位总数
+                                </span>
+                            </div>
+                            <div class="item">
+                                <h4>418</h4>
+                                <span>
+                                    <i class="icon-dot" style="color: #eacf19"></i>
+                                    本月新增
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="column"></div>
         <div class="column"></div>
     </div>
+
+    <script src="js/index.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,71 @@
+.background {
+    /* background:url('images/1.png') no-repeat; */
+    /* background-color: black; */
+    width: 1920px;
+    height: 1080px;
+    font-size: 14px;
+    overflow: hidden;
+}
+.background img {
+    width: 100%;
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+/* 每个时间块的样式 */
+span {
+    display: block;
+    float: left;
+    color: #fff;
+    text-shadow: 0 0 10px skyblue,0 0 20px #fff,0 0 30px #fff,0 0 40px #fff;
+}
+/* 需要变化颜色的时间块 */
+.on {
+    font-size: 16px;
+    color: greenyellow;
+    /* background-color: rgba(65, 65, 65, 0.5); */
+}
+/* 大盒子的样式,方形盒子 */
+.wrapper {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    /* 固定到屏幕中央 */
+    left: 50%;
+    top: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    /* background-color: gold; */
+}
+/* 圆形盒子 */
+.wrapper .timebox {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    border-radius: 100%;
+    transition: all 0.5s;
+    /* background-color: greenyellow; */
+}
+/* 圆形盒子内的小span标签 */
+.timebox span {
+    transition: all 0.5s;
+    float: left;
+    /* background-color: gold; */
+}
+
+.wrapper .timebox span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 18px;
+    margin-top: -9px;
+    margin-left: -20px;
+    text-align: right;
+    /* background-color: gold; */
+
+}

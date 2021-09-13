@@ -110,7 +110,9 @@
 
 
     var option = {
+
         baseOption: {
+
             timeline: {
                 // y: 0,
                 axisType: 'category',
@@ -169,6 +171,12 @@
                 'data': [
                     '铜', '锌', '氟化物', '硒', '砷', '铬'
                 ],
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255,0.8)',
+                        width: 1,
+                    }
+                },
                 splitLine: {
                     show: true
                 }
@@ -176,6 +184,12 @@
             yAxis: [{
                 type: 'value',
                 name: '监测结果(mg/L)',
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255,0.8)',
+                        width: 1,
+                    }
+                },
             }],
             polar: [{
                 indicator: [{

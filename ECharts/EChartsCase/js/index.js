@@ -23,6 +23,7 @@
 (function () {
     var myChart = echarts.init(document.querySelector('.pie'))
     var option = {
+
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)'

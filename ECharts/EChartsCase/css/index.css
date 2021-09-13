@@ -33,7 +33,7 @@ body{
     /* 将logo背景图完全显示 */
     background-size: contain;
 }
-/* 将大盒子viewport利用flexible布局分隔成3份,分别是3,4,3 */
+/* 将大盒子viewport利用flexible布局分隔成2份,分别是3,6 */
 .viewport .column {
     flex: 3;
 }
@@ -84,7 +84,7 @@ body{
 
 /* 监控monitor区域 */
 .monitor {
-    height: 6rem;
+    height: 7.5rem;
 }
 .monitor .inner {
   padding: 0.3rem 0;
@@ -179,7 +179,7 @@ body{
 
 /* 点位分布统计模块制作 */
 .point {
-  height: 4.25rem;
+  height: 5rem;
 }
 .point .chart {
   display: flex;
@@ -212,15 +212,26 @@ body{
   font-size: 0.2rem;
 }
 
+/* 用flex将map分区 */
+.map .left {
+    flex: 4;
+    height: 100%;
+    /* background-color: gold; */
+}
+.map .right {
+    flex: 3;
+    height: 100%;
+    /* background-color: greenyellow; */
 
+}
 /* 地图模块制作 */
 .map {
   height: 7rem;
   margin-bottom: 0.25rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
 }
-.map h3 {
+.map .left h3 {
   line-height: 1;
   padding: 0.2rem 0;
   margin: .25rem 0rem 0rem .125rem;
@@ -228,14 +239,17 @@ body{
   color: #fff;
   font-weight: 400;
 }
-.map .icon-cube {
+.map .left .icon-cube {
   color: #68d8fe;
 }
-.map .chart {
+.map .left .chart {
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.05);
+  height: 90%;
+  width: 100%;
+  /* background-color: greenyellow; */
+  background-color: rgba(255,255,255, 0.05);
 }
-.map .geo {
+.map .left .chart .geo {
   width: 100%;
   height: 100%;
 }
@@ -248,5 +262,16 @@ body{
 .radar .radarMap {
     width: 100%;
     height: 100%;
+}
+
+/* 折线图模块 */
+/* .map .right{
+    height: 7rem;
+} */
+
+.map .right .line {
+    width: 100%;
+    height: 100%;
+    /* background-color: gold; */
 }
 

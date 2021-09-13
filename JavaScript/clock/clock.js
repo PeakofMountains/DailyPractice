@@ -128,7 +128,7 @@ window.addEventListener('load', function () {
         let backgroundTimer = setInterval(function () {
             let mydate = new Date();
 
-            img.src = 'images/' + mydate.getSeconds() % 7 + '.png';
+            img.src = 'images/' + mydate.getSeconds() % 5 + '.png';
             // console.log(second);
         }, 8000)
     };

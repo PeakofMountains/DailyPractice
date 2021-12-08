@@ -1,0 +1,3 @@
+﻿  Assembling Flag.asm...
+Flag.asm(10): error A2004: symbol type conflict
+D:\VS 2019Pro\MSBuild\Microsoft\VC\v160\BuildCustomizations\masm.targets(70,5): error MSB3721: 命令“ml.exe /c /nologo /Zi /Fo"Debug\Flag.obj" /I "D:\Git\DailyPractice\assembly\Assembly\MASM615\INCLUDE" /W3 /errorReport:prompt  /TaFlag.asm”已退出，返回代码为 1。

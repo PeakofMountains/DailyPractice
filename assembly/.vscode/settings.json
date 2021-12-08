@@ -1,4 +1,10 @@
 {
     "masmtasm.ASM.emulator": "dosbox",
-    "masmtasm.ASM.MASMorTASM": "TASM"
+    "masmtasm.ASM.MASMorTASM": "MASM",
+    "files.associations": {
+        "ExamData.C": "cpp",
+        "P1002.C": "cpp",
+        "windows.h": "c",
+        "stdio.h": "c"
+    }
 }

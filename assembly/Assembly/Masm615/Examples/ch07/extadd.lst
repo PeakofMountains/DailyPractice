@@ -1,0 +1,190 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    03/27/08 09:22:58
+Extended Addition Example           (ExtAdd.asm)	     Page 1 - 1
+
+
+				TITLE Extended Addition Example           (ExtAdd.asm)
+
+				; This program calculates the sum of two 64-bit integers.
+				; Chapter 7 example.
+				; Last update: 07/18/01
+
+				INCLUDE Irvine16.inc
+			      C .NOLIST
+			      C .LIST
+			      C 
+
+ 0000				.data
+ 0000				op1 QWORD 0A2B2A40674981234h
+       A2B2A40674981234
+ 0008				op2 QWORD 08010870000234502h
+       8010870000234502
+ 0010  0003 [			sum DWORD 3 dup(?) ; = 0000000122C32B0674BB5736
+        00000000
+       ]
+
+ 0000				.code
+ 0000				main PROC
+ 0000  B8 ---- R			mov ax,@data
+ 0003  8E D8				mov ds,ax
+
+ 0005  66| BE 00000000 R		mov  esi,OFFSET op1		; first operand
+ 000B  66| BF 00000008 R		mov  edi,OFFSET op2		; second operand
+ 0011  66| BB 00000010 R		mov  ebx,OFFSET sum		; sum operand
+ 0017  66| B9 00000002			mov  ecx,2           		; number of doublewords
+ 001D  E8 0019				call Extended_Add
+ 0020  66| BE 00000010 R		mov  esi,OFFSET sum		; dump memory
+ 0026  66| BB 00000004			mov  ebx,4
+ 002C  66| B9 00000003			mov  ecx,3
+ 0032  E8 0000 E			call DumpMem
+
+					exit
+ 0039				main ENDP
+
+				;--------------------------------------------------------
+ 0039				Extended_Add PROC
+				;
+				; Calculates the sum of two extended integers that are
+				;   stored as an array of doublewords.
+				; Receives: ESI and EDI point to the two integers,
+				; EBX points to a variable that will hold the sum, and
+				; ECX indicates the number of doublewords to be added.
+				;--------------------------------------------------------
+ 0039  66| 60				pushad
+ 003B  F8				clc                		; clear the Carry flag
+
+ 003C  67& 66| 8B 06		L1:	mov eax,[esi]      		; get the first integer
+ 0040  67& 66| 13 07			adc eax,[edi]      		; add the second integer
+ 0044  66| 9C				pushfd              		; save the Carry flag
+ 0046  67& 66| 89 03			mov [ebx],eax      		; store partial sum
+ 004A  66| 83 C6 04			add esi,4         		; advance all 3 pointers
+ 004E  66| 83 C7 04			add edi,4
+ 0052  66| 83 C3 04			add ebx,4
+ 0056  66| 9D				popfd               		; restore the Carry flag
+ 0058  E2 E2				loop L1           		; repeat the loop
+
+ 005A  67& 83 13 00			adc word ptr [ebx],0		; add any leftover carry
+ 005E  66| 61				popad
+ 0060  C3				ret
+ 0061				Extended_Add ENDP
+				END main
+Microsoft (R) Macro Assembler Version 6.15.8803		    03/27/08 09:22:58
+Extended Addition Example           (ExtAdd.asm)	     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+startup  . . . . . . . . . . . .	Proc
+
+
+Structures and Unions:
+
+                N a m e                  Size
+                                         Offset      Type
+
+ExtGetDskFreSpcStruc . . . . . .	 002C
+  StructSize . . . . . . . . . .	 0000	     Word
+  Level  . . . . . . . . . . . .	 0002	     Word
+  SectorsPerCluster  . . . . . .	 0004	     DWord
+  BytesPerSector . . . . . . . .	 0008	     DWord
+  AvailableClusters  . . . . . .	 000C	     DWord
+  TotalClusters  . . . . . . . .	 0010	     DWord
+  AvailablePhysSectors . . . . .	 0014	     DWord
+  TotalPhysSectors . . . . . . .	 0018	     DWord
+  AvailableAllocationUnits . . .	 001C	     DWord
+  TotalAllocationUnits . . . . .	 0020	     DWord
+  Rsvd . . . . . . . . . . . . .	 0024	     DWord
+TimeRecord . . . . . . . . . . .	 0004
+  hours  . . . . . . . . . . . .	 0000	     Byte
+  minutes  . . . . . . . . . . .	 0001	     Byte
+  seconds  . . . . . . . . . . .	 0002	     Byte
+  hhss . . . . . . . . . . . . .	 0003	     Byte
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 001C	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 1000	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0061	  Word	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+ClrScr . . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Crlf . . . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Delay  . . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+DumpMem  . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+DumpRegs . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Extended_Add . . . . . . . . . .	P Near	 0039	  _TEXT	Length= 0028 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 003C	  _TEXT	
+Get_Commandtail  . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Get_Time . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Gotoxy . . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+IsDigit  . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Random32 . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+RandomRange  . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Randomize  . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+ReadChar . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+ReadHex  . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+ReadInt  . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+ReadString . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Str_compare  . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Str_copy . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Str_length . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Str_trim . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+Str_ucase  . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WaitMsg  . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WriteBin . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WriteChar  . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WriteDec . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WriteHex . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WriteInt . . . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+WriteString  . . . . . . . . . .	P Near	 0000	  Length= 0000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 0000	  _TEXT	Length= 0039 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0003h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@cmdline . . . . . . . . . . . .	Text   	 OFFSET __98765765cmdline
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+black  . . . . . . . . . . . . .	Number	 0000h	 
+blue . . . . . . . . . . . . . .	Number	 0001h	 
+brown  . . . . . . . . . . . . .	Number	 0006h	 
+cyan . . . . . . . . . . . . . .	Number	 0003h	 
+exit . . . . . . . . . . . . . .	Text   	 .EXIT
+gray . . . . . . . . . . . . . .	Number	 0008h	 
+green  . . . . . . . . . . . . .	Number	 0002h	 
+lightBlue  . . . . . . . . . . .	Number	 0009h	 
+lightCyan  . . . . . . . . . . .	Number	 000Bh	 
+lightGray  . . . . . . . . . . .	Number	 0007h	 
+lightGreen . . . . . . . . . . .	Number	 000Ah	 
+lightMagenta . . . . . . . . . .	Number	 000Dh	 
+lightRed . . . . . . . . . . . .	Number	 000Ch	 
+magenta  . . . . . . . . . . . .	Number	 0005h	 
+op1  . . . . . . . . . . . . . .	QWord	 0000	  _DATA	
+op2  . . . . . . . . . . . . . .	QWord	 0008	  _DATA	
+red  . . . . . . . . . . . . . .	Number	 0004h	 
+sum  . . . . . . . . . . . . . .	DWord	 0010	  _DATA	
+white  . . . . . . . . . . . . .	Number	 000Fh	 
+yellow . . . . . . . . . . . . .	Number	 000Eh	 
+
+	   0 Warnings
+	   0 Errors

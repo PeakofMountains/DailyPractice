@@ -1,0 +1,2 @@
+D:\Git\DailyPractice\assembly\Assembly\Debug\Assembly.exe
+D:\Git\DailyPractice\assembly\Assembly\Debug\Assembly.pdb
